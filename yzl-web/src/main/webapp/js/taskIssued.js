@@ -1,6 +1,6 @@
 $(function(){
 	$("#addTaskDialog").dialog({
-		width:8000,
+		width:800,
 		height:550,
 		title:'添加任务',
 		iconCls:'icon-edit',
