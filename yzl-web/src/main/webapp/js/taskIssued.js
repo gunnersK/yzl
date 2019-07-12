@@ -6,7 +6,7 @@ $(function(){
 		iconCls:'icon-edit',
 		closed:true,
 		modal:true,
-		buttons : [
+		buttons : [  
 					{
 					   text : '确定',
 					   iconCls : 'icon-ok',
