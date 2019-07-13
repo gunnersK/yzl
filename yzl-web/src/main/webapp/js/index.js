@@ -3,7 +3,7 @@
 						.write("<script src='assets/js/jquery-2.0.3.min.js'>"
 								+ "<"+"script>");
 		
-
+//father
 
 		if ("ontouchend" in document)
 			document
