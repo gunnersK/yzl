@@ -1,3 +1,4 @@
+$(function(){
 		window.jQuery
 				|| document
 						.write("<script src='assets/js/jquery-2.0.3.min.js'>"
@@ -211,7 +212,7 @@
 											function() {
 												$
 														.post(
-																"${pageContext.request.contextPath}/user/logout",
+																"/user/logout",
 																function() {
 																	location.href = "login.jsp";
 																})
@@ -285,3 +286,4 @@
 					});
 			return result;
 			}
+});
