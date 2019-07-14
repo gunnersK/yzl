@@ -4,8 +4,8 @@ $(function(){
 						.write("<script src='assets/js/jquery-2.0.3.min.js'>"
 								+ "<"+"script>");
 		
-//father you am father dev1 dev11 
-
+//father you am father dev2 dev22 
+		
 		if ("ontouchend" in document)
 			document
 					.write("<script src='assets/js/jquery.mobile.custom.min.js'>"
