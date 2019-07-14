@@ -5,10 +5,6 @@ $(function(){
 								+ "<"+"script>");
 		
 //father i am his father
-<<<<<<< HEAD
-//father i am her father
-=======
->>>>>>> master
 
 		if ("ontouchend" in document)
 			document
