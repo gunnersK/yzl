@@ -5,7 +5,7 @@ $(function(){
 								+ "<"+"script>");
 		
 //father i his her mother
-//father you am father bb
+//father you am father mother
 
 		if ("ontouchend" in document)
 			document
