@@ -4,7 +4,7 @@ $(function(){
 						.write("<script src='assets/js/jquery-2.0.3.min.js'>"
 								+ "<"+"script>");
 		
-//father i am his father
+//father you am father bb
 
 		if ("ontouchend" in document)
 			document
