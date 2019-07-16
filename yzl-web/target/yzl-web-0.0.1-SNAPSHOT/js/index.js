@@ -1,10 +1,14 @@
+$(function(){
 		window.jQuery
 				|| document
 						.write("<script src='assets/js/jquery-2.0.3.min.js'>"
 								+ "<"+"script>");
 		
+<<<<<<< HEAD
+=======
+//father you am father 	  
 
-
+>>>>>>> cd412b6ddc02d3a934b8e8974b1a63cf7497638b
 		if ("ontouchend" in document)
 			document
 					.write("<script src='assets/js/jquery.mobile.custom.min.js'>"
@@ -211,7 +215,7 @@
 											function() {
 												$
 														.post(
-																"${pageContext.request.contextPath}/user/logout",
+																"/user/logout",
 																function() {
 																	location.href = "login.jsp";
 																})
@@ -285,3 +289,4 @@
 					});
 			return result;
 			}
+});

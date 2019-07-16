@@ -6,8 +6,8 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>yzl-service</artifactId>
-  
-  <dependencies>
+      
+  <dependencies> 
   	<dependency>
   		<groupId>com.hr</groupId>
   		<artifactId>yzl-dao</artifactId>

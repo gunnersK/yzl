@@ -7,7 +7,7 @@
   </parent>
   <artifactId>yzl-utils</artifactId>
   <description>子工程，存放工具类</description>
-  
+   
   <dependencies>
   	<dependency>
   		<groupId>com.hr</groupId>
