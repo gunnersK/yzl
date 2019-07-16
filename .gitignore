@@ -3,6 +3,7 @@
 
 # Log file
 *.log
+logs/springmvcMybist/
 
 # BlueJ files
 *.ctxt
