@@ -72,24 +72,18 @@ $(function(){
 		//时间设置
 		function currentTime() {
 			var d = new Date(), str = '';
-//			str += d.getFullYear() + '年';
-//			str += d.getMonth() + 1 + '月';
-//			str += d.getDate() + '日';
-//			str += d.getHours() + '时';
-//			str += d.getMinutes() + '分';
-//			str += d.getSeconds() + '秒';
-//			return str;
 			var year = d.getFullYear();
 			var month = d.getMonth() + 1;
 			var day = d.getDate();
-			var hour = d.getHours();
+			var hours = d.getHours();
 			var minutes = checkNum(d.getMinutes());
-			var second = checkNum(d.getSeconds());
-			str = 
+			var seconds = checkNum(d.getSeconds());
+			str = year+'年'+month+'月'+day+'日'+hours+'时'+minutes+'分'+seconds+'秒';
+			return str;
 		}
 		function checkNum(num){
-			if(i < 10){
-				num += "0"+num;
+			if(num < 10){
+				num = "0"+num;
 			}
 			return num;
 		}
