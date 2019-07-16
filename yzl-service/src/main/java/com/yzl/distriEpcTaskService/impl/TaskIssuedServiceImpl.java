@@ -900,7 +900,7 @@ public class TaskIssuedServiceImpl implements TaskIssuedService {
 	}
 	
 	@Override
-	public String toLeadDataDr(MultipartFile[] excelName)  {
+	public String toLeadDataDr(MultipartFile[] excelName, String year)  {
 		
 		//查询所有的任务
 		List<YzlTask> list = taskMapper.select();
@@ -1013,12 +1013,11 @@ public class TaskIssuedServiceImpl implements TaskIssuedService {
 					}
 				}
 			}
-				
+			return "1";
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return "2";
 		} 
-		return "";
 	}
 	
 //检验单元格的数字格式	

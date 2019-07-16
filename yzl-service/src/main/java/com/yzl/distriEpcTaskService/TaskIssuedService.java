@@ -46,7 +46,7 @@ public interface TaskIssuedService {
 	//更新数据库文件
 	YzlResult updateUploadFileData(String year, String countyCode, String uploadFiles, String cityName);
 
-	String toLeadDataDr(MultipartFile[] excelName);
+	String toLeadDataDr(MultipartFile[] excelName, String year);
 	
 	YzlResult addData(List<String> taskNumbers, String year, String countyCode,String uploadFiles);
 

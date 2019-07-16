@@ -642,10 +642,10 @@ function dataDrs(){
 	var formData = new FormData();
 	//给formData对象添加<input>标签,注意与input标签的ID一致
 	formData.append('excelName', $('#file')[0].files[0]);
+	formData.append('year', $("#year").val());
 	//$("#mask").css({display: 'block',height: $(window).height()});
 	//$("#msg").html("加载中，请稍候。。。").css({display: 'block',left: ($(document.body).outerWidth(true) - 190) / 2,top: ($(window).height() - 45) / 2});
-
-	    
+	
 	//console.info(22222);
 	//$.ajaxSettings.async=false;
 	$.ajax({
@@ -1082,6 +1082,8 @@ var ZLLB;
     		nowrap:false,
     		rownumbers:true,
     		pagination:true,
+    		pageList:[15,30,45,60],
+    		pageSize:15,
     		//checkOnSelect:false,
     		fitColumns:false,
     		border : false,
