@@ -973,17 +973,63 @@ public class TaskIssuedServiceImpl implements TaskIssuedService {
 //						System.out.println("epc================"+epc);
 //						System.out.println("epc.getMark()================"+epc.getMark());
 						map.put("epcMark", epc.getMark());
+						map.put("epcName", epc.getEname());
 						map.put("taskMark", task.getMark());
+						map.put("taskName", task.getTname());
 						epcTaskMap.put(new Integer(i),map);
 					}
 				}
 				System.out.println(epcName+"===="+i+"====="+taskName);
 			}
+			
+			for(Row row : sheet){
+				YzlDistrict county = districtMapper.selectByCounty(row.getCell(1).toString());
+				if(county == null){
+					continue;
+				}
+				for(int i = 2; i <= lastCellNum; i++){
+					if(epcTaskMap.get(i) != null){
+						System.out.println("map.toString()=========="+epcTaskMap.get(i).get("epcMark")+"="+epcTaskMap.get(i).get("epcName")
+								+"="+epcTaskMap.get(i).get("taskMark")+"="+epcTaskMap.get(i).get("taskName"));
+						float taskProgress = checkCellNum(row.getCell(i).toString());
+						if(taskProgress != 0 ){
+							System.out.println("taskProgress============"+taskProgress);
+//							continue;
+							YzlUser loginUser = LoginUserUtils.getLoginUser();//获取当前登录用户
+							YzlEpcTaskProgress epcTaskProgress = new YzlEpcTaskProgress();
+							epcTaskProgress.setTaskprogress(taskProgress);
+							epcTaskProgress.setGclb(epcTaskMap.get(i).get("epcMark"));
+							epcTaskProgress.setZllb(epcTaskMap.get(i).get("taskMark"));
+							epcTaskProgress.setCitycode(county.getCitycode());
+							epcTaskProgress.setCountycode(county.getAnumber());
+							epcTaskProgress.setZynd("2019");
+							epcTaskProgress.setJhnd("2019");
+							epcTaskProgress.setCreatetime(new Date());
+							epcTaskProgress.setUpdatetime(new Date());
+							epcTaskProgress.setCreator(loginUser.getName());
+							epcTaskProgress.setStat("0");
+							epcTaskProgressMapper.insert(epcTaskProgress);
+						}
+					}
+				}
+			}
+				
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 		return "";
+	}
+	
+//检验单元格的数字格式	
+	private float checkCellNum(String num){
+		float result = 0;
+		try {
+			result = Float.parseFloat(num);
+		} catch (NumberFormatException e) {
+			return (float)0;
+		}
+		return result;
 	}
 			
 			
