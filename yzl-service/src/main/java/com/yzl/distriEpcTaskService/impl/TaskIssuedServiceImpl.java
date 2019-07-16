@@ -941,210 +941,264 @@ public class TaskIssuedServiceImpl implements TaskIssuedService {
 				System.out.println(sheets);
 			}
 			
-			XSSFSheet sheet = (XSSFSheet) workbook.getSheet("核查计划任务表");
+//			XSSFSheet sheet = (XSSFSheet) workbook.getSheet("核查计划任务表");
+			XSSFSheet sheet = (XSSFSheet) workbook.getSheet("计划抽取");
 //			HSSFSheet sheet = workbook.getSheet("Sheet2");
-			for (Row row : sheet) {
-				
-				//获取行号
-				int rowNum = row.getRowNum();
-				
-				if (rowNum<3) {//小于三行的都跳过
+			
+			String epcName = "";
+			String taskName = "";
+			YzlEpc epc = null;
+			YzlTask task = null;
+			
+			Row epcRow = sheet.getRow(3);
+			short lastCellNum = epcRow.getLastCellNum();
+			
+			Row taskRow = sheet.getRow(6);
+			
+			Map<Integer, Map<String, String>> epcTaskMap = new HashMap<>();
+
+			for(int i = 2; i < lastCellNum; i++){
+				if(epcRow.getCell(i).toString() != ""){
+					epcName = (epcRow.getCell(i).toString());
+					System.out.println(epcName);
+					if((epc = epcMapper.selectByEname(epcName)) != null){
+						System.out.println(epc.getMark());
+						continue;
+					}
 					continue;
 				}
-				
-				for (Cell cell : row) {
-					int columnIndex = cell.getColumnIndex();//获取列索引
-					
-					if (rowNum == 4) {//第四行的时候就跳过
-						break;
-					}
-					if (rowNum == 3) {
-						if (columnIndex > 8) {//columnIndex第九列开始
-							
-							cell.setCellType(CellType.STRING);//将数字转为字符串输出
-							String stringCellValue = cell.getStringCellValue();//取的工程名
-							System.out.println(stringCellValue+"   ");
-							
-							if (!stringCellValue.equals("")) {
-								YzlEpc epc = epcMapper.selectByEname(stringCellValue);//根据工程名查询工程
-								String Emark = epc.getMark();//工程编号 id   这里报空指针说明没有查询到该工程
-								
-								int start = columnIndex+1;//工程的后一个位置
-								int end = 0; //工程所占位置的结束索引
-								for(int i=start;;i++) {
-									
-									Cell cell2 = row.getCell(i);
-									
-									if (cell2 == null) {//说明是最后一个工程了
-										end = i-1;
-										break;
-									}else {
-										String stringCellValue2 = cell2.getStringCellValue();
-										if (!stringCellValue2.equals("")) {
-											end = i-1;
-											break;
-										}
-									}
-									
-								}
-								
-								//取这个下面的任务
-								for(int i=rowNum+2;i<=6;i++) {//rowNum第五行开始
-									//HSSFRow row2 = 
-									XSSFRow row2 = sheet.getRow(i);//获取这一行的植
-									
-									int celStart = 0;
-									int celEnd = 0;
-									
-									int Taskcel = columnIndex;//任务的索引编号
-									int subCel = 0;
-									
-									for(int j=start-1;j<=end;j++) {//根据这个工程所占的列号开始和结束
-										
-										celStart = i;
-										
-//										HSSFCell cell2 = row2.getCell(j);
-										XSSFCell cell2 = row2.getCell(j);
-										cell2.setCellType(CellType.STRING);
-										String stringCellValue2 = cell2.getStringCellValue();//获得这个值
-										
-										for (YzlTask yzlTask : list) {//遍历所有任务
-											
-											boolean contains = false;
-											String tname = yzlTask.getTname();
-											
-											if (i==6) {
-												
-												boolean sub = stringCellValue2.contains("计");
-												
-												if (sub) {
-													subCel = j;//计的索引
-												}
-											}
-											contains = stringCellValue2.contains(tname);//是否包含这个任务
-											
-											
-											if (contains) {//说明包含这个任务
-												String Tmark = yzlTask.getMark();//任务编号
-												
-												String firstTime = null;//获得前面第一个的时间
-												String secondTime = null;//获得第二个时间
-												
-												String substring = null;
-												
-												if (i==6) {//如果是第六行
-													
-													//获取第五行的标题
-//													HSSFRow hssfRow = sheet.getRow(5);
-													XSSFRow hssfRow = sheet.getRow(5);
-//													HSSFCell cell3 = hssfRow.getCell(subCel);
-													XSSFCell cell3 = hssfRow.getCell(subCel);
-													substring = cell3.getStringCellValue();
-													
-												}else {//就是第五行
-													int indexOf = stringCellValue2.indexOf(tname);//获得这个任务在这个串的索引位置
-													
-													substring = stringCellValue2.substring(0, indexOf);//任务前面的字符
-												}
-												int first = 0;//计划时间
-												int second = 0;//实施时间
-												
-												//遍历这个串
-												for(int k=0;k<substring.length();k++) {
-													
-													char charAt = substring.charAt(k);//获得每一个字符
-													String valueOf = String.valueOf(charAt);//转成字符串
-													
-													if (valueOf.equals("年")) {
-														if (first==0) {
-															first = k;
-														}else {
-															second = k;
-														}
-													}
-												}
-												firstTime = substring.substring(0, first);//获得前面第一个的时间
-												if (second != 0) {
-													secondTime = substring.substring(second-4, second);//获得第二个时间
-												}
-												
-												
-											//创建对象
-											YzlEpcTaskProgress yzlEpcTaskProgress = new YzlEpcTaskProgress();
-											
-											yzlEpcTaskProgress.setGclb(Emark);
-											yzlEpcTaskProgress.setZllb(Tmark);
-											yzlEpcTaskProgress.setJhnd(firstTime);
-											
-											if (secondTime == null) {
-												yzlEpcTaskProgress.setZynd(firstTime);
-											}else {
-												yzlEpcTaskProgress.setZynd(secondTime);
-											}
-											//columnIndex
-											
-											for(Row row3 : sheet) {
-												
-												int rowNum2 = row3.getRowNum();//行索引
-												
-												if (rowNum2 > 7) {
-													
-													Cell cell3 = row3.getCell(0);
-													cell3.setCellType(CellType.STRING);//将数字转为字符串输出
-													
-													String zero = cell3.getStringCellValue();
-													
-													if (!zero.equals("一") && !zero.equals("二") && !zero.equals("三") && !zero.equals("四") && !zero.equals("五")
-												&& !zero.equals("六") && !zero.equals("七") && !zero.equals("八") && !zero.equals("九") && !zero.equals("十")
-												&& !zero.equals("十一") && !zero.equals("十二") && !zero.equals("十三") && !zero.equals("十四")) {
-														
-														//获取这个任务对应的值
-														Cell tdata = row3.getCell(Taskcel);
-														tdata.setCellType(CellType.STRING);//将数字转为字符串输出
-														String tvalue = tdata.getStringCellValue();
-														
-														if (tvalue != "" && !tvalue.equals("0")) {//如果这个任务的值不为空才才查询这个县
-															Cell cell4 = row3.getCell(1);
-															String county = cell4.getStringCellValue();//获得县名称
-															//去除空格
-															String cy = county.replace(" ", "");
-															System.out.println(cy+"====="+stringCellValue+"==="+tname+"==="+zero);
-															//根据县名称查询
-															YzlDistrict district = districtMapper.selectByCounty(cy);
-															
-															yzlEpcTaskProgress.setCitycode(district.getCitycode());//这里报空指针说明没查询到这个县
-															
-															yzlEpcTaskProgress.setCountycode(district.getAnumber());
-															yzlEpcTaskProgress.setTaskprogress(Float.valueOf(tvalue));
-															yzlEpcTaskProgress.setCreatetime(new Date());
-															yzlEpcTaskProgress.setStat("0");
-															//吧数据插入数据库
-															int insertSelective = epcTaskProgressMapper.insertSelective(yzlEpcTaskProgress);
-															System.out.println(insertSelective);
-														}
-														
-													}
-												}
-											}
-										}
-									}
-										Taskcel++;
-								}
-							}
-						}
-					}else {
-						cell.setCellType(CellType.STRING);//将数字转为字符串输出
+				if((taskName = taskRow.getCell(i).toString()) != ""){
+					System.out.println(taskName);
+					if((task = taskMapper.selectByTname(taskName)) != null){
+						System.out.println(task.getMark());
+						Map map = new HashMap<>();
+//						System.out.println("epc================"+epc);
+//						System.out.println("epc.getMark()================"+epc.getMark());
+						map.put("epcMark", epc.getMark());
+						map.put("taskMark", task.getMark());
+						epcTaskMap.put(new Integer(i),map);
 					}
 				}
+				System.out.println(epcName+"===="+i+"====="+taskName);
 			}
-		}
-			return "1";
 		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return "2";
-		}
-		
+		} 
+		return "";
 	}
+			
+			
+			
+			
+			
+			
+//			for (Row row : sheet) {
+//				
+//				System.out.println("====================="+sheet.getRow(3).getCell(2));
+//				System.out.println("====================="+sheet.getRow(3).getCell(3));
+//				if(row != null){break;}
+//				
+//				//获取行号
+//				int rowNum = row.getRowNum();
+//				
+//				if (rowNum<3) {//小于三行的都跳过
+//					continue;
+//				}
+//				
+//				for (Cell cell : row) {
+//					int columnIndex = cell.getColumnIndex();//获取列索引
+//					
+//					if (rowNum == 4) {//第四行的时候就跳过
+//						break;
+//					}
+//					if (rowNum == 3) {
+//						if (columnIndex > 8) {//columnIndex第九列开始
+//							
+//							cell.setCellType(CellType.STRING);//将数字转为字符串输出
+//							String stringCellValue = cell.getStringCellValue();//取的工程名
+//							System.out.println(stringCellValue+"   ");
+//							
+//							if (!stringCellValue.equals("")) {
+//								YzlEpc epc = epcMapper.selectByEname(stringCellValue);//根据工程名查询工程
+//								String Emark = epc.getMark();//工程编号 id   这里报空指针说明没有查询到该工程
+//								
+//								int start = columnIndex+1;//工程的后一个位置
+//								int end = 0; //工程所占位置的结束索引
+//								for(int i=start;;i++) {
+//									
+//									Cell cell2 = row.getCell(i);
+//									
+//									if (cell2 == null) {//说明是最后一个工程了
+//										end = i-1;
+//										break;
+//									}else {
+//										String stringCellValue2 = cell2.getStringCellValue();
+//										if (!stringCellValue2.equals("")) {
+//											end = i-1;
+//											break;
+//										}
+//									}
+//									
+//								}
+//								
+//								//取这个下面的任务
+//								for(int i=rowNum+2;i<=6;i++) {//rowNum第五行开始
+//									//HSSFRow row2 = 
+//									XSSFRow row2 = sheet.getRow(i);//获取这一行的植
+//									
+//									int celStart = 0;
+//									int celEnd = 0;
+//									
+//									int Taskcel = columnIndex;//任务的索引编号
+//									int subCel = 0;
+//									
+//									for(int j=start-1;j<=end;j++) {//根据这个工程所占的列号开始和结束
+//										
+//										celStart = i;
+//										
+////										HSSFCell cell2 = row2.getCell(j);
+//										XSSFCell cell2 = row2.getCell(j);
+//										cell2.setCellType(CellType.STRING);
+//										String stringCellValue2 = cell2.getStringCellValue();//获得这个值
+//										
+//										for (YzlTask yzlTask : list) {//遍历所有任务
+//											
+//											boolean contains = false;
+//											String tname = yzlTask.getTname();
+//											
+//											if (i==6) {
+//												
+//												boolean sub = stringCellValue2.contains("计");
+//												
+//												if (sub) {
+//													subCel = j;//计的索引
+//												}
+//											}
+//											contains = stringCellValue2.contains(tname);//是否包含这个任务
+//											
+//											
+//											if (contains) {//说明包含这个任务
+//												String Tmark = yzlTask.getMark();//任务编号
+//												
+//												String firstTime = null;//获得前面第一个的时间
+//												String secondTime = null;//获得第二个时间
+//												
+//												String substring = null;
+//												
+//												if (i==6) {//如果是第六行
+//													
+//													//获取第五行的标题
+////													HSSFRow hssfRow = sheet.getRow(5);
+//													XSSFRow hssfRow = sheet.getRow(5);
+////													HSSFCell cell3 = hssfRow.getCell(subCel);
+//													XSSFCell cell3 = hssfRow.getCell(subCel);
+//													substring = cell3.getStringCellValue();
+//													
+//												}else {//就是第五行
+//													int indexOf = stringCellValue2.indexOf(tname);//获得这个任务在这个串的索引位置
+//													
+//													substring = stringCellValue2.substring(0, indexOf);//任务前面的字符
+//												}
+//												int first = 0;//计划时间
+//												int second = 0;//实施时间
+//												
+//												//遍历这个串
+//												for(int k=0;k<substring.length();k++) {
+//													
+//													char charAt = substring.charAt(k);//获得每一个字符
+//													String valueOf = String.valueOf(charAt);//转成字符串
+//													
+//													if (valueOf.equals("年")) {
+//														if (first==0) {
+//															first = k;
+//														}else {
+//															second = k;
+//														}
+//													}
+//												}
+//												firstTime = substring.substring(0, first);//获得前面第一个的时间
+//												if (second != 0) {
+//													secondTime = substring.substring(second-4, second);//获得第二个时间
+//												}
+//												
+//												
+//											//创建对象
+//											YzlEpcTaskProgress yzlEpcTaskProgress = new YzlEpcTaskProgress();
+//											
+//											yzlEpcTaskProgress.setGclb(Emark);
+//											yzlEpcTaskProgress.setZllb(Tmark);
+//											yzlEpcTaskProgress.setJhnd(firstTime);
+//											
+//											if (secondTime == null) {
+//												yzlEpcTaskProgress.setZynd(firstTime);
+//											}else {
+//												yzlEpcTaskProgress.setZynd(secondTime);
+//											}
+//											//columnIndex
+//											
+//											for(Row row3 : sheet) {
+//												
+//												int rowNum2 = row3.getRowNum();//行索引
+//												
+//												if (rowNum2 > 7) {
+//													
+//													Cell cell3 = row3.getCell(0);
+//													cell3.setCellType(CellType.STRING);//将数字转为字符串输出
+//													
+//													String zero = cell3.getStringCellValue();
+//													
+//													if (!zero.equals("一") && !zero.equals("二") && !zero.equals("三") && !zero.equals("四") && !zero.equals("五")
+//												&& !zero.equals("六") && !zero.equals("七") && !zero.equals("八") && !zero.equals("九") && !zero.equals("十")
+//												&& !zero.equals("十一") && !zero.equals("十二") && !zero.equals("十三") && !zero.equals("十四")) {
+//														
+//														//获取这个任务对应的值
+//														Cell tdata = row3.getCell(Taskcel);
+//														tdata.setCellType(CellType.STRING);//将数字转为字符串输出
+//														String tvalue = tdata.getStringCellValue();
+//														
+//														if (tvalue != "" && !tvalue.equals("0")) {//如果这个任务的值不为空才才查询这个县
+//															Cell cell4 = row3.getCell(1);
+//															String county = cell4.getStringCellValue();//获得县名称
+//															//去除空格
+//															String cy = county.replace(" ", "");
+//															System.out.println(cy+"====="+stringCellValue+"==="+tname+"==="+zero);
+//															//根据县名称查询
+//															YzlDistrict district = districtMapper.selectByCounty(cy);
+//															
+//															yzlEpcTaskProgress.setCitycode(district.getCitycode());//这里报空指针说明没查询到这个县
+//															
+//															yzlEpcTaskProgress.setCountycode(district.getAnumber());
+//															yzlEpcTaskProgress.setTaskprogress(Float.valueOf(tvalue));
+//															yzlEpcTaskProgress.setCreatetime(new Date());
+//															yzlEpcTaskProgress.setStat("0");
+//															//吧数据插入数据库
+//															int insertSelective = epcTaskProgressMapper.insertSelective(yzlEpcTaskProgress);
+//															System.out.println(insertSelective);
+//														}
+//														
+//													}
+//												}
+//											}
+//										}
+//									}
+//										Taskcel++;
+//								}
+//							}
+//						}
+//					}else {
+//						cell.setCellType(CellType.STRING);//将数字转为字符串输出
+//					}
+//				}
+//			}
+//		}
+//			return "1";
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			return "2";
+//		}
+		
+//	}
 	
 	/**
 	 * 将数据处理插入数据库
