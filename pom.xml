@@ -6,7 +6,7 @@
   <packaging>pom</packaging>
   <description>父工程</description>
   
-    <properties>
+    <properties> 
         <!-- spring版本号 -->
         <spring.version>4.2.4.RELEASE</spring.version>
          <!-- mybatis版本号 -->
