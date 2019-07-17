@@ -1002,8 +1002,8 @@ public class TaskIssuedServiceImpl implements TaskIssuedService {
 							epcTaskProgress.setZllb(epcTaskMap.get(i).get("taskMark"));
 							epcTaskProgress.setCitycode(county.getCitycode());
 							epcTaskProgress.setCountycode(county.getAnumber());
-							epcTaskProgress.setZynd("2019");
-							epcTaskProgress.setJhnd("2019");
+							epcTaskProgress.setZynd(year);
+							epcTaskProgress.setJhnd(year);
 							epcTaskProgress.setCreatetime(new Date());
 							epcTaskProgress.setUpdatetime(new Date());
 							epcTaskProgress.setCreator(loginUser.getName());
