@@ -842,7 +842,7 @@ public class TaskServiceImpl implements TaskService{
 			List<YzlTask> taskList = taskMapper.queryDISTINCTTnameAndMarkFormEpctaskprogressTableByZYNDAndCountyCode(year, disCode, authoritys,GCLB, ZLLB);
 			List<YzlTask> resultTaskList = new ArrayList<>();//返回结果的子节点epcList
 			for (YzlTask task : taskList) {
-				task.setField(ZLLB+"T"+task.getMark());
+				task.setField(GCLB+"T"+task.getMark());
 				resultTaskList.add(task);
 			}
 			System.out.println("===================");
@@ -878,8 +878,8 @@ public class TaskServiceImpl implements TaskService{
 		
 		//通过下发任务数据中查询工程
 		if(!authoritys.contains(AuthorityEnum.TASK_ISSUED_ADD.getPerms())){
-			List<YzlTask> taskList = taskMapper.queryDISTINCTTnameAndMarkFormEpctaskprogressTableByZYNDAndCountyCode(year, areaCode, authoritys, ZLLB, GCLB);
-			return taskList;
+			List<YzlTask> taskList = taskMapper.queryDISTINCTTnameAndMarkFormEpctaskprogressTableByZYNDAndCountyCode(year, areaCode, authoritys, GCLB, ZLLB);
+			return taskList;	
 		}else{
 			//查询任务
 			YzlTaskExample taskExample = new YzlTaskExample();

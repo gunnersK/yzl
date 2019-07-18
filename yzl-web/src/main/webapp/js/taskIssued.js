@@ -975,15 +975,15 @@ var ZLLB;
 						for(var i=0;i<data.length;i++){
 							var tname = data[i].tname;//获取任务名称
 							//拼接二级表头数据  
-//							var createTree = $("#zllb").combobox('getValue');
-//							//if(createTree!=30&&createTree!=31&&createTree!=28&&createTree!=29)
-//							if(createTree<28)
+							var createTree = $("#zllb").combobox('getValue');
+							//if(createTree!=30&&createTree!=31&&createTree!=28&&createTree!=29)
+							if(createTree<28)
 								//拼接二级表头数据
 								columnsTowTab.push({title:''+tname+'',width:100*3,align:'center',colspan:3});//field:''+field+'',
 							//拼接三级表头数据
-							columnsThreeTab.push({field:'jh'+ZLLB+"Y"+data[i].mark,title:'计划',width:100,align:'center',editor:{ type:'text', options:{}}},
-									{field:'wc'+ZLLB+"Y"+data[i].mark,title:'完成',width:100,align:'center'},
-									{field:'zjh'+ZLLB+"Y"+data[i].mark,title:'占计划%',width:100,align:'center'});
+							columnsThreeTab.push({field:'jh'+GCLB+"Y"+data[i].mark,title:'计划',width:100,align:'center',editor:{ type:'text', options:{}}},
+									{field:'wc'+GCLB+"Y"+data[i].mark,title:'完成',width:100,align:'center'},
+									{field:'zjh'+GCLB+"Y"+data[i].mark,title:'占计划%',width:100,align:'center'});
 						}
 //					}
 				}
