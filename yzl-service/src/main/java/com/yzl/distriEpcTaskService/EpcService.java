@@ -19,7 +19,7 @@ public interface EpcService {
 	YzlResult addEpc(YzlEpc epc);
 	//批量删除
 	YzlResult deleterEpc(String [] ids);
-	List<YzlEpc> queryByYearAndAreaCodeAndZLLBAndGCLB(String year,String areaCode,String ZLLB,String GCLB);
+//	List<YzlEpc> queryByYearAndAreaCodeAndZLLBAndGCLB(String year,String areaCode,String ZLLB,String GCLB);
 	List<YzlTaskNumberEpcResult> queryAllAndNumber(String year,String areaCode);
 	List<YzlEpc> show();
 	//通过小班完成的数据中查询工程
