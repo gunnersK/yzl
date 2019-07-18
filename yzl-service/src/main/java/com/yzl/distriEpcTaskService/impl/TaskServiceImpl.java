@@ -839,11 +839,15 @@ public class TaskServiceImpl implements TaskService{
 		for (YzlEpc epc : epcList) {
 			String GCLB = epc.getMark();//获取造林类别
 			//根据权限 地区行政编号，年份，造林类别。 查询任务下发中的 epc
-			List<YzlTask> taskList = taskMapper.queryDISTINCTTnameAndMarkFormEpctaskprogressTableByZYNDAndCountyCode(year, disCode, authoritys, ZLLB,GCLB);
+			List<YzlTask> taskList = taskMapper.queryDISTINCTTnameAndMarkFormEpctaskprogressTableByZYNDAndCountyCode(year, disCode, authoritys,GCLB, ZLLB);
 			List<YzlTask> resultTaskList = new ArrayList<>();//返回结果的子节点epcList
 			for (YzlTask task : taskList) {
 				task.setField(ZLLB+"T"+task.getMark());
 				resultTaskList.add(task);
+			}
+			System.out.println("===================");
+			for(YzlTask t : resultTaskList){
+				System.out.println("==================="+toString().toString());
 			}
 			epc.setList(resultTaskList);//把工程list封装到task中
 			resultEpcList.add(epc);//把任务封装到返回的数组中
