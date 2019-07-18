@@ -130,6 +130,9 @@
             <if test="tname != null" >
                 tname,
             </if>
+            <if test="mark != null" >
+                mark,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="tcode != null" >
@@ -137,6 +140,9 @@
             </if>
             <if test="tname != null" >
                 #{tname,jdbcType=VARCHAR},
+            </if>
+             <if test="mark != null" >
+                #{mark,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -187,6 +193,12 @@
         set tname = #{tname,jdbcType=VARCHAR}
         where tcode = #{tcode,jdbcType=INTEGER}
     </update>
+    
+   <!--查询mark最大值  -->   
+    <select id="queryMaxMark" resultType="String">			 
+		 SELECT mark FROM yzl_task 
+		 WHERE tcode = (SELECT MAX(tcode) FROM yzl_task)
+    </select>
     
     <!-- 根据工程id查询所有任务 -->
     <select id="queryByXbGCLB" resultMap="TaskEpcResultMap">

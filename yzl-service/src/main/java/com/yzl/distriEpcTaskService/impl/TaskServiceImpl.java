@@ -43,14 +43,18 @@ import com.yzl.mapper.YzlEpcMapper;
 import com.yzl.mapper.YzlEpcTaskProgressMapper;
 import com.yzl.mapper.YzlMenuMapper;
 import com.yzl.mapper.YzlMessageMapper;
+import com.yzl.mapper.YzlTaskEpcMapper;
 import com.yzl.mapper.YzlTaskMapper;
 import com.yzl.mapper.YzlTaskProgressSheetMapper;
 import com.yzl.mapper.YzlXbMapper;
 import com.yzl.pojo.YzlDistrict;
 import com.yzl.pojo.YzlEpc;
 import com.yzl.pojo.YzlEpcTaskProgress;
+import com.yzl.pojo.YzlEpcTaskProgressExample;
 import com.yzl.pojo.YzlMessage;
 import com.yzl.pojo.YzlTask;
+import com.yzl.pojo.YzlTaskEpc;
+import com.yzl.pojo.YzlTaskEpcExample;
 import com.yzl.pojo.YzlTaskExample;
 import com.yzl.pojo.YzlTaskProgressSheet;
 import com.yzl.pojo.YzlTaskExample.Criteria;
@@ -87,7 +91,8 @@ public class TaskServiceImpl implements TaskService{
 	private YzlXbMapper xbMapper;
 	@Autowired
 	private YzlEpcMapper epcMapper;
-
+	@Autowired
+	private YzlTaskEpcMapper taskEpcMapper;
 	@Autowired
 	private YzlMessageMapper messageMapper;
 
@@ -145,6 +150,25 @@ public class TaskServiceImpl implements TaskService{
 	@Override
 	public YzlResult addTask(YzlTask task) {
 		
+	/*	
+		String mark = epcMapper.queryMaxMark();
+		System.out.println("mark==========================================="+mark);
+		
+		Integer m = Integer.valueOf(mark);
+	    Integer i = m+1;
+	    String mark2 = String.valueOf(i);
+	    epc.setMark(mark2);
+	    System.out.println("mark2=========================================="+mark2);
+		int insert = epcMapper.insert(epc);
+		if(insert>0) {
+			return YzlResult.ok(200);
+		}
+		return YzlResult.ok(400);*/
+		String mark = taskMapper.queryMaxMark();
+		Integer m = Integer.valueOf(mark);
+		Integer i = m+1;
+		String mark2 = String.valueOf(i);
+		task.setMark(mark2);
 		int insert = taskMapper.insertSelective(task);
 		if (insert > 0) {
 			return YzlResult.ok(200);
@@ -153,24 +177,44 @@ public class TaskServiceImpl implements TaskService{
 	}
 
 	//批量删除
-/*	@Override
+	@Override
 	public YzlResult deleterTask(String[] ids) {
 		
-		List<YzlEpcTaskProgress> list2=new ArrayList<>();
+		List<YzlTaskEpc> list=null;
 		
-		for (int i = 0; i < ids.length; i++) {
-			//查询这个id在第三张表有没有关联
-			YzlEpcTaskProgressExample example=new YzlEpcTaskProgressExample();
-			com.yzl.pojo.YzlEpcTaskProgressExample.Criteria criteria=example.createCriteria();
-			criteria.andTpcodeEqualTo(Integer.valueOf(ids[i]));
-			
-			List<YzlEpcTaskProgress> list = epcTaskProgressMapper.selectByExample(example);
-			for (int j = 0; j < list.size(); j++) {
-				list2.add(list.get(i));
+		for (String string : ids) {
+			YzlTaskEpcExample example=new YzlTaskEpcExample();
+			example.createCriteria().andTcodeEqualTo(Integer.valueOf(string));
+			list = taskEpcMapper.selectByExample(example);
+		}
+		if (list!=null && list.size()>0) {
+			return YzlResult.ok(300);
+		}
+		
+		int sum=0;
+		if (ids!=null && ids.length>0) {
+			for (String string : ids) {
+				
+				YzlTaskEpcExample example=new YzlTaskEpcExample();
+				example.createCriteria().andEcodeEqualTo(Integer.valueOf(string));
+				taskEpcMapper.deleteByExample(example);	
+				taskMapper.deleteByPrimaryKey(Integer.valueOf(string));
+				sum+=1;
 			}
 		}
-		//如果有关联不能删除
-		if(list2 != null && list2.size() > 0) {
+		if (sum==ids.length) {
+			return YzlResult.ok(200);
+		}else {
+			return YzlResult.ok(400);
+		}
+		/*fList<YzlTaskEpc> list=null;
+		
+		for (String string : ids) {
+			YzlTaskEpcExample example=new YzlTaskEpcExample();
+			example.createCriteria().andEcodeEqualTo(Integer.valueOf(string));
+			list = taskEpcMapper.selectByExample(example);
+		}
+		if (list!=null && list.size()>0) {
 			return YzlResult.ok(300);
 		}
 		
@@ -185,8 +229,8 @@ public class TaskServiceImpl implements TaskService{
 		if (sum==ids.length) {
 			return YzlResult.ok(200);
 		}
-		return YzlResult.ok(400);
-	}*/
+		return YzlResult.ok(400);*/
+	}
 
 	
 	//根据工程id查询所有任务  当前适配与任务进度
@@ -527,11 +571,23 @@ public class TaskServiceImpl implements TaskService{
 		return null;
 	}
 
-	@Override
+/*	@Override
 	public YzlResult deleterTask(String[] ids) {
 		// TODO Auto-generated method stub
+		
+		List<YzlTaskEpc> list=null;
+		
+		for (String string : ids) {
+			YzlTaskEpcExample example=new YzlTaskEpcExample();
+			example.createCriteria().andEcodeEqualTo(Integer.valueOf(string));
+		
+			list = taskEpcMapper.selectByExample(example);
+		}
+		for(String id :ids){
+			
+		}
 		return null;
-	}
+	}*/
 
 	//提交
 	@Override

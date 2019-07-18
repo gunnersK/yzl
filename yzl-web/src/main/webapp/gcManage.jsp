@@ -16,8 +16,8 @@
 <div class="page-content">
 <div class="gys_style">
  <div class="Manager_style">
-    <div class="title_name">æ·»å å·¥ç¨</div>
-    <button type="button" class="btn btn-primary" id="Add_Ship_btn">æ·»å å·¥ç¨</button>
+    <div class="title_name">工程管理</div>
+    <button type="button" class="btn btn-primary" id="Add_Ship_btn">新增工程</button>
     <div id="Add_Ship_style" style="display:none">
     <div class="Add_Manager_style">
     <div class="add_user_style clearfix">

@@ -30,6 +30,7 @@ public interface YzlTaskMapper {
 
     int updateByPrimaryKey(YzlTask record);
     
+    String queryMaxMark();
   //根据工程id查询所有任务
     List<YzlTask> queryByXbGCLB(@Param("ecode") int ecode,@Param("year")String year,@Param("authoritys")List<String> authoritys,@Param("disCode")String disCode,@Param("stats")List<Integer> stats);
 //  分局条件查询+分页

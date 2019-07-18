@@ -34,6 +34,8 @@ public interface YzlEpcMapper {
     List<YzlEpc> selectByCondition(String value);
 
 	YzlEpc selectByEname(String ename);
+	
+	String queryMaxMark();
 
 	//¸ù¾Ý±àºÅ²éÑ¯
 	YzlEpc selectByMark(String gclb);

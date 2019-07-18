@@ -106,8 +106,8 @@
     </delete>
 
     <insert id="insert" parameterType="com.yzl.pojo.YzlEpc" >
-        insert into yzl_epc (ecode, ename)
-        values (#{ecode,jdbcType=INTEGER}, #{ename,jdbcType=VARCHAR})
+        insert into yzl_epc (ecode, ename,mark)
+        values (#{ecode,jdbcType=INTEGER}, #{ename,jdbcType=VARCHAR},#{mark,jdbcType=VARCHAR})
     </insert>
 
     <insert id="insertSelective" parameterType="com.yzl.pojo.YzlEpc" >
@@ -260,7 +260,12 @@
          </if>
     </sql>
     
-
+    <!--查询mark最大值  -->   
+    <select id="queryMaxMark" resultType="String">
+    	
+		 SELECT mark FROM yzl_epc 
+		 WHERE ecode = (SELECT MAX(ecode) FROM yzl_epc)
+    </select>
     
     <!-- 查询造林类别 并去重复 -->
      <select id="queryDISTINCTEnameAndMarkFormEpctaskprogressTableByZYNDAndCountyCode" resultType="com.yzl.pojo.YzlEpc">

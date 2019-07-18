@@ -73,6 +73,7 @@ public class EpcServiceImpl implements EpcService{
 	//·ÖÒ³²éÑ¯
 	@Override
 	public EasyUIResult pageQuery(String value,Integer page,Integer rows) {
+		System.out.println("value================================="+value);
 		if (page==null) {
 			page=1;
 		}
@@ -116,7 +117,15 @@ public class EpcServiceImpl implements EpcService{
 	public YzlResult addEpc(YzlEpc epc) {
 		
 //		int insert = epcMapper.insert(epc);
-		int insert = epcMapper.insertSelective(epc);
+		String mark = epcMapper.queryMaxMark();
+		System.out.println("mark==========================================="+mark);
+		
+		Integer m = Integer.valueOf(mark);
+	    Integer i = m+1;
+	    String mark2 = String.valueOf(i);
+	    epc.setMark(mark2);
+	    System.out.println("mark2=========================================="+mark2);
+		int insert = epcMapper.insert(epc);
 		if(insert>0) {
 			return YzlResult.ok(200);
 		}
@@ -145,9 +154,6 @@ public class EpcServiceImpl implements EpcService{
 				YzlTaskEpcExample example=new YzlTaskEpcExample();
 				example.createCriteria().andEcodeEqualTo(Integer.valueOf(string));
 				taskEpcMapper.deleteByExample(example);
-				
-				
-				
 				epcMapper.deleteByPrimaryKey(Integer.valueOf(string));
 				sum+=1;
 			}
