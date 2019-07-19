@@ -54,7 +54,7 @@ public interface YzlTaskMapper {
 
 	List<YzlTask> select();
 	//根据造林类别集合查询Epctaskprogress表中所包含的任务
-	List<YzlTask> queryDISTINCTTnameAndMarkFormEpctaskprogressTableByZYNDAndCountyCode(@Param("year")String year,@Param("areaCode")String areaCode,@Param("authoritys")List<String> authoritys,@Param("GCLB")String GCLB);
+	List<YzlTask> queryDISTINCTTnameAndMarkFormEpctaskprogressTableByZYNDAndCountyCode(@Param("year")String year,@Param("areaCode")String areaCode,@Param("authoritys")List<String> authoritys,@Param("GCLB")String GCLB,@Param("ZLLB")String ZLLB);
 	
 	//根据造林类别集合查询xb表中所包含的任务
 	List<YzlTask> queryDISTINCTEnameAndMarkFormXbTableByZYNDAndCountyCode(@Param("year")String year,@Param("areaCode")String areaCode,@Param("authoritys")List<String> authoritys,@Param("stats")List<String> stats,@Param("zllb")String zllb);

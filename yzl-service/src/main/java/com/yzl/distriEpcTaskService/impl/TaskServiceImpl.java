@@ -48,6 +48,7 @@ import com.yzl.mapper.YzlTaskProgressSheetMapper;
 import com.yzl.mapper.YzlXbMapper;
 import com.yzl.pojo.YzlDistrict;
 import com.yzl.pojo.YzlEpc;
+import com.yzl.pojo.YzlEpcExample;
 import com.yzl.pojo.YzlEpcTaskProgress;
 import com.yzl.pojo.YzlMessage;
 import com.yzl.pojo.YzlTask;
@@ -338,7 +339,7 @@ public class TaskServiceImpl implements TaskService{
 		List<YzlTask> list = new ArrayList<>();
 		if(!authoritys.contains(AuthorityEnum.TASK_ISSUED_ADD.getPerms())){//判断是否包含任务下发
 			//不包含则根据任务下发已有数据进行查询
-			list = taskMapper.queryDISTINCTTnameAndMarkFormEpctaskprogressTableByZYNDAndCountyCode(year, areaCode, authoritys, null);
+			list = taskMapper.queryDISTINCTTnameAndMarkFormEpctaskprogressTableByZYNDAndCountyCode(year, areaCode, authoritys, null,null);
 		}else{
 			YzlTaskExample example = new YzlTaskExample();
 			list = taskMapper.selectByExample(example);
@@ -830,23 +831,59 @@ public class TaskServiceImpl implements TaskService{
 	
 	//获取任务下发数据表格的表头
 	@Override
-	public List<YzlTask> getTableHeader(String year, String disCode, String GCLB) {
-		List<YzlTask> resultTaskList = new ArrayList<>();//返回结果的taskList
+	public List<YzlEpc> getTableHeader(String year, String disCode, String ZLLB) {
+		List<YzlEpc> resultEpcList = new ArrayList<>();//返回结果的epcList
 		List<String> authoritys = getAuthoritys();//获取当前登录用户的权限
 		//根据权限 地区行政编号，年份查询 任务下发中的 task
-		List<YzlTask> taskList = taskMapper.queryDISTINCTTnameAndMarkFormEpctaskprogressTableByZYNDAndCountyCode(year, disCode, authoritys,GCLB);
-		for (YzlTask task : taskList) {
-			String ZLLB = task.getMark();//获取造林类别
+		List<YzlEpc> epcList = epcMapper.queryDISTINCTEnameAndMarkFormEpctaskprogressTableByZYNDAndCountyCode(year, disCode, authoritys,ZLLB);
+		for (YzlEpc epc : epcList) {
+			String GCLB = epc.getMark();//获取造林类别
 			//根据权限 地区行政编号，年份，造林类别。 查询任务下发中的 epc
-			List<YzlEpc> epcList = epcMapper.queryDISTINCTEnameAndMarkFormEpctaskprogressTableByZYNDAndCountyCode(year, disCode, authoritys, ZLLB,GCLB);
-			List<YzlEpc> resultEpcList = new ArrayList<>();//返回结果的子节点epcList
-			for (YzlEpc epc : epcList) {
-				epc.setField(ZLLB+"T"+epc.getMark());
-				resultEpcList.add(epc);
+			List<YzlTask> taskList = taskMapper.queryDISTINCTTnameAndMarkFormEpctaskprogressTableByZYNDAndCountyCode(year, disCode, authoritys,GCLB, ZLLB);
+			List<YzlTask> resultTaskList = new ArrayList<>();//返回结果的子节点epcList
+			for (YzlTask task : taskList) {
+				task.setField(GCLB+"T"+task.getMark());
+				resultTaskList.add(task);
 			}
-			task.setList(resultEpcList);//把工程list封装到task中
-			resultTaskList.add(task);//把任务封装到返回的数组中
+			epc.setList(resultTaskList);//把工程list封装到task中
+			resultEpcList.add(epc);//把任务封装到返回的数组中
 		}
-		return resultTaskList;
+		return resultEpcList;
+//		List<YzlTask> resultTaskList = new ArrayList<>();//返回结果的taskList
+//		List<String> authoritys = getAuthoritys();//获取当前登录用户的权限
+//		//根据权限 地区行政编号，年份查询 任务下发中的 task
+//		List<YzlTask> taskList = taskMapper.queryDISTINCTTnameAndMarkFormEpctaskprogressTableByZYNDAndCountyCode(year, disCode, authoritys,GCLB);
+//		for (YzlTask task : taskList) {
+//			String ZLLB = task.getMark();//获取造林类别
+//			//根据权限 地区行政编号，年份，造林类别。 查询任务下发中的 epc
+//			List<YzlEpc> epcList = epcMapper.queryDISTINCTEnameAndMarkFormEpctaskprogressTableByZYNDAndCountyCode(year, disCode, authoritys, ZLLB,GCLB);
+//			List<YzlEpc> resultEpcList = new ArrayList<>();//返回结果的子节点epcList
+//			for (YzlEpc epc : epcList) {
+//				epc.setField(ZLLB+"T"+epc.getMark());
+//				resultEpcList.add(epc);
+//			}
+//			task.setList(resultEpcList);//把工程list封装到task中
+//			resultTaskList.add(task);//把任务封装到返回的数组中
+//		}
+//		return resultTaskList;
+	}
+
+	@Override
+	public List<YzlTask> queryByYearAndAreaCodeAndZLLBAndGCLB(String year, String areaCode, String ZLLB, String GCLB) {
+		List<String> authoritys = LoginUtils.getLoginUserAuthority(menuMapper);
+		
+		//通过下发任务数据中查询工程
+		if(!authoritys.contains(AuthorityEnum.TASK_ISSUED_ADD.getPerms())){
+			List<YzlTask> taskList = taskMapper.queryDISTINCTTnameAndMarkFormEpctaskprogressTableByZYNDAndCountyCode(year, areaCode, authoritys, GCLB, ZLLB);
+			return taskList;	
+		}else{
+			//查询任务
+			YzlTaskExample taskExample = new YzlTaskExample();
+			Criteria taskCreateCriteria = taskExample.createCriteria();
+			if(StringUtils.isNotBlank(ZLLB)){//如果GCLB不为空 则按GCLB进行
+				taskCreateCriteria.andMarkEqualTo(ZLLB);
+			}
+			return taskMapper.selectByExample(taskExample);
+		}
 	}
 }

@@ -124,8 +124,8 @@ public class TaskIssuedController {
 //	@RedisCache(type="delIsuueFile")
 	@RequestMapping("/TaskIssued/toLead/dataDr")
 	@ResponseBody
-	public String toLeadDataDr(@RequestParam("excelName")MultipartFile[] excelName) {
-		return taskIssuedService.toLeadDataDr(excelName);
+	public String toLeadDataDr(@RequestParam("excelName")MultipartFile[] excelName, String year) {
+		return taskIssuedService.toLeadDataDr(excelName, year);
 	}
 	
 	

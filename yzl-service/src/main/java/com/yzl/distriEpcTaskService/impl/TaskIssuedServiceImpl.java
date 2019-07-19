@@ -900,7 +900,7 @@ public class TaskIssuedServiceImpl implements TaskIssuedService {
 	}
 	
 	@Override
-	public String toLeadDataDr(MultipartFile[] excelName)  {
+	public String toLeadDataDr(MultipartFile[] excelName, String year)  {
 		
 		//查询所有的任务
 		List<YzlTask> list = taskMapper.select();
@@ -973,17 +973,62 @@ public class TaskIssuedServiceImpl implements TaskIssuedService {
 //						System.out.println("epc================"+epc);
 //						System.out.println("epc.getMark()================"+epc.getMark());
 						map.put("epcMark", epc.getMark());
+						map.put("epcName", epc.getEname());
 						map.put("taskMark", task.getMark());
+						map.put("taskName", task.getTname());
 						epcTaskMap.put(new Integer(i),map);
 					}
 				}
 				System.out.println(epcName+"===="+i+"====="+taskName);
 			}
+			
+			for(Row row : sheet){
+				YzlDistrict county = districtMapper.selectByCounty(row.getCell(1).toString());
+				if(county == null){
+					continue;
+				}
+				for(int i = 2; i <= lastCellNum; i++){
+					if(epcTaskMap.get(i) != null){
+						System.out.println("map.toString()=========="+epcTaskMap.get(i).get("epcMark")+"="+epcTaskMap.get(i).get("epcName")
+								+"="+epcTaskMap.get(i).get("taskMark")+"="+epcTaskMap.get(i).get("taskName"));
+						float taskProgress = checkCellNum(row.getCell(i).toString());
+						if(taskProgress != 0 ){
+							System.out.println("taskProgress============"+taskProgress);
+//							continue;
+							YzlUser loginUser = LoginUserUtils.getLoginUser();//获取当前登录用户
+							YzlEpcTaskProgress epcTaskProgress = new YzlEpcTaskProgress();
+							epcTaskProgress.setTaskprogress(taskProgress);
+							epcTaskProgress.setGclb(epcTaskMap.get(i).get("epcMark"));
+							epcTaskProgress.setZllb(epcTaskMap.get(i).get("taskMark"));
+							epcTaskProgress.setCitycode(county.getCitycode());
+							epcTaskProgress.setCountycode(county.getAnumber());
+							epcTaskProgress.setZynd(year);
+							epcTaskProgress.setJhnd(year);
+							epcTaskProgress.setCreatetime(new Date());
+							epcTaskProgress.setUpdatetime(new Date());
+							epcTaskProgress.setCreator(loginUser.getName());
+							epcTaskProgress.setStat("0");
+							epcTaskProgressMapper.insert(epcTaskProgress);
+						}
+					}
+				}
+			}
+			return "1";
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return "2";
 		} 
-		return "";
+	}
+	
+//检验单元格的数字格式	
+	private float checkCellNum(String num){
+		float result = 0;
+		try {
+			result = Float.parseFloat(num);
+		} catch (NumberFormatException e) {
+			return (float)0;
+		}
+		return result;
 	}
 			
 			
@@ -1300,17 +1345,17 @@ public class TaskIssuedServiceImpl implements TaskIssuedService {
 								Double hgmj = Double.valueOf(JepcAndTaskStaticti.getHGMJ());
 								double zjh =hgmj/IepcTaskProgress.getTaskprogress().doubleValue();
 								// 用任务完成数据除以任务发下数量得到  任务完成比例的结果   用结果向上取整保留小数后2位
-								map.put("zjh"+IepcTaskProgress.getZllb()+"Y"+IepcTaskProgress.getGclb(), String.format("%.2f", zjh*100)+"%");
-								map.put("wc"+IepcTaskProgress.getZllb()+"Y"+IepcTaskProgress.getGclb(), String.valueOf(hgmj));
+								map.put("zjh"+IepcTaskProgress.getGclb()+"Y"+IepcTaskProgress.getZllb(), String.format("%.2f", zjh*100)+"%");
+								map.put("wc"+IepcTaskProgress.getGclb()+"Y"+IepcTaskProgress.getZllb(), String.valueOf(hgmj));
 							}
 						}
 						if (log == 0) {
-							map.put("zjh"+IepcTaskProgress.getZllb()+"Y"+IepcTaskProgress.getGclb(), 0+"");
-							map.put("wc"+IepcTaskProgress.getZllb()+"Y"+IepcTaskProgress.getGclb(), 0+"");
+							map.put("zjh"+IepcTaskProgress.getGclb()+"Y"+IepcTaskProgress.getZllb(), 0+"");
+							map.put("wc"+IepcTaskProgress.getGclb()+"Y"+IepcTaskProgress.getZllb(), 0+"");
 						}
 						map.put("cityCode", IepcTaskProgress.getCitycode());//封装市级行政编号			
 						//封装市级任务下发的数据 并保留小数点后4位
-						map.put("jh"+IepcTaskProgress.getZllb()+"Y"+IepcTaskProgress.getGclb(), String.format("%.4f", IepcTaskProgress.getTaskprogress()));
+						map.put("jh"+IepcTaskProgress.getGclb()+"Y"+IepcTaskProgress.getZllb(), String.format("%.4f", IepcTaskProgress.getTaskprogress()));
 					}
 					
 					List flag = new ArrayList<>();//存储已经添加过的数据id
@@ -1355,7 +1400,7 @@ public class TaskIssuedServiceImpl implements TaskIssuedService {
 					map.put("countyCode", IepcTaskProgress.getCountycode());////封装县级行政编号
 					map.put("cityCode", IepcTaskProgress.getCitycode());//封装市级行政编号			
 					//封装市级任务下发的数据 并保留小数点后4位
-					map.put("jh"+IepcTaskProgress.getZllb()+"Y"+IepcTaskProgress.getGclb(), String.format("%.4f", IepcTaskProgress.getTaskprogress()));
+					map.put("jh"+IepcTaskProgress.getGclb()+"Y"+IepcTaskProgress.getZllb(), String.format("%.4f", IepcTaskProgress.getTaskprogress()));
 					//把所有统计好封装到List集合中
 					countDataList.add(map);
 //					taskIssuedDTOs.add(map);
@@ -1445,13 +1490,13 @@ public class TaskIssuedServiceImpl implements TaskIssuedService {
 						// 用任务完成数据除以任务发下数量得到 占任务完成比例的结果   
 						double zjhNumber = hgmj/taskprogress;
 						//封装 任务完成量占任务计划量的比例  保留一位小数
-						countDataMap.put("zjh"+IepcTaskProgress.getZllb()+"Y"+IepcTaskProgress.getGclb(),  String.format("%.1f", zjhNumber*100)+"%");
-						countDataMap.put("wc"+IepcTaskProgress.getZllb()+"Y"+IepcTaskProgress.getGclb(), String.valueOf(hgmj));
+						countDataMap.put("zjh"+IepcTaskProgress.getGclb()+"Y"+IepcTaskProgress.getZllb(),  String.format("%.1f", zjhNumber*100)+"%");
+						countDataMap.put("wc"+IepcTaskProgress.getGclb()+"Y"+IepcTaskProgress.getZllb(), String.valueOf(hgmj));
 					}
 				}
 				if (log == 0) {
-					countDataMap.put("zjh"+IepcTaskProgress.getZllb()+"Y"+IepcTaskProgress.getGclb(),  0);
-					countDataMap.put("wc"+IepcTaskProgress.getZllb()+"Y"+IepcTaskProgress.getGclb(), 0);
+					countDataMap.put("zjh"+IepcTaskProgress.getGclb()+"Y"+IepcTaskProgress.getZllb(),  0);
+					countDataMap.put("wc"+IepcTaskProgress.getGclb()+"Y"+IepcTaskProgress.getZllb(), 0);
 				}
 				countDataMap.put("cityCode", IepcTaskProgress.getCitycode());//封装市级行政编号
 //				String filesUrl = IepcTaskProgress.getFilesUrl();//把文件路径进行拆分
@@ -1471,7 +1516,7 @@ public class TaskIssuedServiceImpl implements TaskIssuedService {
 				//countDataMap.put("filesUrl", "<a href='www.baidu.com' >点击查看("+FilesUrlSet.size()+")</a>");//累加 文件个数
 				countDataMap.put("countyCode", IepcTaskProgress.getCountycode());////封装县级行政编号
 				//封装县级任务下发的数据并 保留小数点后4位
-				countDataMap.put("jh"+IepcTaskProgress.getZllb()+"Y"+IepcTaskProgress.getGclb(), String.format("%.4f", taskprogress));
+				countDataMap.put("jh"+IepcTaskProgress.getGclb()+"Y"+IepcTaskProgress.getZllb(), String.format("%.4f", taskprogress));
 				countDataList.add(countDataMap);
 			}
 			

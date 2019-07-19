@@ -44,7 +44,7 @@ public interface YzlEpcMapper {
 	//根据小班为审核通过的任务的数据中  根据year 、数据权限
 	List<YzlEpc> queryEpcByXbTaskWoring(@Param("year")String year,@Param("disCode")String disCode,@Param("stats")List<Integer> stats,@Param("authoritys")List<String> authoritys);
 	//根据造林类别集合查询epctaskprogress下发表中所包含的工程
-	List<YzlEpc> queryDISTINCTEnameAndMarkFormEpctaskprogressTableByZYNDAndCountyCode(@Param("year")String year,@Param("areaCode")String areaCode,@Param("authoritys")List<String> authoritys,@Param("ZLLB")String ZLLB,@Param("GCLB")String GCLB);
+	List<YzlEpc> queryDISTINCTEnameAndMarkFormEpctaskprogressTableByZYNDAndCountyCode(@Param("year")String year,@Param("areaCode")String areaCode,@Param("authoritys")List<String> authoritys,@Param("ZLLB")String ZLLB);
 	
 	//根据造林类别集合查询xb表中所包含的工程
 	List<YzlEpc> queryDISTINCTEnameAndMarkFormXbTableByZYNDAndCountyCode(@Param("year")String year,@Param("areaCode")String areaCode,@Param("authoritys")List<String> authoritys,@Param("ZLLB")String ZLLB,@Param("stats")List<String> stats);

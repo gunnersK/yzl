@@ -393,13 +393,13 @@ body {
     	<label style="padding-left:23px;margin-top: 26px;font-size: 12px" class="">年份:</label>
        	<input id="year" value=<%=new SimpleDateFormat("yyyy").format(new Date())%>; data-options="min:2000,max:2050,editable:false" class="easyui-numberspinner"  style="width:90px;;height:21px;margin-top: 0px">
        	
-    	<label style="font-size: 12px;margin-left: 5px;" class="" id="labelName">造林类别:</label> 
-		<input id="zllb" class="easyui-combobox" name="dept" style="width: 100px" /> &nbsp;&nbsp;	
-    	
     	<label style="font-size: 12px;" class="" id="labelName">工程类别:</label>
     	<!-- <label style="" class="label_name">工程类别:</label> -->
 		<input id="gclb" class="easyui-combobox" style="width: 100px" name="project"/>&nbsp;&nbsp;
        	
+    	<label style="font-size: 12px;margin-left: 5px;" class="" id="labelName">造林类别:</label> 
+		<input id="zllb" class="easyui-combobox" name="dept" style="width: 100px" /> &nbsp;&nbsp;	
+    	
        	<!-- <input id=searchKey value="" class="easyui-searchbox" style="width:110px;height:19px;margin-top: 20px"> -->
        	<shiro:hasPermission name="sys:rwxf:tj">
        		<!-- <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true" onclick="add()">添加</a> -->
