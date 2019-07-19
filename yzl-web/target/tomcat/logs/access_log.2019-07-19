@@ -196,3 +196,6 @@
 0:0:0:0:0:0:0:1 - - [19/Jul/2019:09:00:23 +0800] "POST /district/queryDistinctCity HTTP/1.1" 200 367 http-bio-8088-exec-5 2
 0:0:0:0:0:0:0:1 - - [19/Jul/2019:09:00:23 +0800] "POST /task/getTableHeader HTTP/1.1" 200 171 http-bio-8088-exec-5 12
 0:0:0:0:0:0:0:1 - - [19/Jul/2019:09:00:23 +0800] "POST /taskIssued/queryTaskData?year=2019&areaCode=45&ZLLB=11&GCLB= HTTP/1.1" 200 2243 http-bio-8088-exec-5 33
+0:0:0:0:0:0:0:1 - - [19/Jul/2019:09:32:32 +0800] "POST /district/queryDistinctCity HTTP/1.1" 200 367 http-bio-8088-exec-3 7
+0:0:0:0:0:0:0:1 - - [19/Jul/2019:09:32:32 +0800] "POST /task/getTableHeader HTTP/1.1" 200 171 http-bio-8088-exec-3 14
+0:0:0:0:0:0:0:1 - - [19/Jul/2019:09:32:32 +0800] "POST /taskIssued/queryTaskData?year=2019&areaCode=45&ZLLB=11&GCLB= HTTP/1.1" 200 2243 http-bio-8088-exec-3 20
