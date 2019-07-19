@@ -127,7 +127,7 @@ display: none;
     <div id="tbs" style="height:28px;dispaly:none;  ">
     	
     	<label class="" id="labelName" style="font-size: 12px;">造林类别:</label>
-		<input style="width: 100px" id="task" class="easyui-combobox" name="dept" data-options="valueField:'mark',textField:'tname',url:'${pageContext.request.contextPath }/taskWorking/show_tasks'" />&nbsp;&nbsp;
+		<input style="width: 100px" id="epc" class="easyui-combobox" name="dept" data-options="valueField:'mark',textField:'ename',url:'${pageContext.request.contextPath }/taskWorking/show_epcs'" />&nbsp;&nbsp;
 			
        	<shiro:hasPermission name="sys:rwgzz:sh">
        	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-save',plain:true" onclick="auditFunction()">审核</a>

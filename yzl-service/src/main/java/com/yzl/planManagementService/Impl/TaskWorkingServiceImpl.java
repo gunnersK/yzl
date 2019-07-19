@@ -2,11 +2,9 @@ package com.yzl.planManagementService.Impl;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,9 +14,9 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.UUID;
-import java.util.Map.Entry;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -32,10 +30,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.alibaba.fastjson.JSONObject;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.yzl.mapper.YzlDistrictMapper;
+import com.yzl.mapper.YzlEpcMapper;
 import com.yzl.mapper.YzlEpcTaskProgressMapper;
 import com.yzl.mapper.YzlLogMapper;
 import com.yzl.mapper.YzlMonitoringstatisticsMapper;
@@ -47,14 +43,11 @@ import com.yzl.pojo.YzlDistrictExample;
 import com.yzl.pojo.YzlEpc;
 import com.yzl.pojo.YzlEpcTaskProgress;
 import com.yzl.pojo.YzlLog;
-import com.yzl.pojo.YzlLogExample;
-import com.yzl.pojo.YzlLogExample.Criteria;
 import com.yzl.pojo.YzlMenu;
 import com.yzl.pojo.YzlProceed;
 import com.yzl.pojo.YzlTask;
 import com.yzl.pojo.YzlUser;
 import com.yzl.pojo.YzlXb;
-import com.yzl.utils.CheckStringIsNumberUtils;
 import com.yzl.utils.EasyUIResult;
 import com.yzl.utils.YzlEpcAndTaskStaticti;
 import com.yzl.utils.YzlResult;
@@ -72,6 +65,9 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 	@Autowired
 	private YzlDistrictMapper districtMapper;	
 	
+	@Autowired
+	private YzlEpcMapper epcMapper;
+
 	@Autowired
 	private YzlTaskMapper taskMapper;
 	
@@ -122,11 +118,11 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 	
 	//数据展示
 	@Override
-	public EasyUIResult epcTaskData(String year, String disCode, String zllb,Integer page, Integer rows,String stat,String proceed) {
+	public EasyUIResult epcTaskData(String year, String disCode, String gclb,Integer page, Integer rows,String stat,String proceed) {
 		
-		if(zllb.equals("10")) {
-			zllb = null;
-		}
+//		if(gclb.equals("10")) {
+//			gclb = null;
+//		}
 		//要查询的状态
 		List<String> stats = new ArrayList<>();
 		if (stat == null || stat.equals("undefined") || stat.equals("[object Object]") ) {
@@ -145,11 +141,11 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 		
 		if (disCode.equals("null") || disCode.equals("GX450")) {//查询的是自治区
 //			citys = XbMapper.selectByCityAndTimeAndStat(year, stats,menu);
-			list = selectByCityAndCount(year,stats,menu,disCode,zllb);
+			list = selectByCityAndCount(year,stats,menu,disCode,gclb);
 			
 		}else {//查询的是这个市或县
 //			citys = XbMapper.selectByCityAndTimeAndStatCountyAndCity(year, stats,disCode,menu);
-			list = selectByCountyCount(year,stats,menu,disCode,zllb,proceed);
+			list = selectByCountyCount(year,stats,menu,disCode,gclb,proceed);
 		}
 		
 		//起始 等于 当前页-1乘以每页记录数
@@ -175,9 +171,9 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 	}
 	
 	//对县的统计和查询
-	private List<Map<String, String>> selectByCountyCount(String year, List<String> stats, List<String> menu,String disCode,String zllb,String proceed) {
+	private List<Map<String, String>> selectByCountyCount(String year, List<String> stats, List<String> menu,String disCode,String gclb,String proceed) {
 		//统计县的任务下发
-		List<YzlEpcTaskProgress> epcTaskProgresses = XbMapper.selectByCountyCountyTaskIssued(year,menu,disCode,zllb,stats,proceed);
+		List<YzlEpcTaskProgress> epcTaskProgresses = XbMapper.selectByCountyCountyTaskIssued(year,menu,disCode,gclb,stats,proceed);
 		LinkedHashSet<String> hashSet = new LinkedHashSet<>();//装县的集合不含重复
 		
 		for (YzlEpcTaskProgress yzlEpcTaskProgress : epcTaskProgresses) {
@@ -186,7 +182,7 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 		List<Map<String,String>> lists = new ArrayList<>();//返回的数据
 		
 		//查询任务完成的数据并统计市级数据
-		List<YzlXb> xbs = XbMapper.selectByCityComplation(year, stats, menu, disCode,zllb,proceed);
+		List<YzlXb> xbs = XbMapper.selectByCityComplation(year, stats, menu, disCode,gclb,proceed);
 		
 		for (YzlEpcTaskProgress yzlEpcTaskProgress : epcTaskProgresses) {
 			
@@ -209,16 +205,16 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 					
 					hashMap.put("countycode", yzlEpcTaskProgress.getCountycode());
 					hashMap.put("stat", yzlXb.getStat());
-					hashMap.put("jh"+yzlEpcTaskProgress.getZllb()+"Y"+yzlEpcTaskProgress.getGclb(), String.format("%.2f", float1));//计划
+					hashMap.put("jh"+yzlEpcTaskProgress.getGclb()+"Y"+yzlEpcTaskProgress.getZllb(), String.format("%.2f", float1));//计划
 					hashMap.put("city", list.get(0).getCity());//市
 					hashMap.put("county", list.get(0).getCounty());//县
 					String hgmj = yzlXb.getHgmj();//完成的数量
 					Float wc = Float.valueOf(hgmj)/float1;//String chardisPos = String.format("%.2f", Double.valueOf(XTJSBMJ));
-					hashMap.put("wc"+yzlEpcTaskProgress.getZllb()+"Y"+yzlEpcTaskProgress.getGclb(), String.format("%.2f", Float.valueOf(hgmj)));
-					hashMap.put("zjh"+yzlEpcTaskProgress.getZllb()+"Y"+yzlEpcTaskProgress.getGclb(), String.format("%.2f", wc*100));//占计划 等于 完成的除以计划
+					hashMap.put("wc"+yzlEpcTaskProgress.getGclb()+"Y"+yzlEpcTaskProgress.getZllb(), String.format("%.2f", Float.valueOf(hgmj)));
+					hashMap.put("zjh"+yzlEpcTaskProgress.getGclb()+"Y"+yzlEpcTaskProgress.getZllb(), String.format("%.2f", wc*100));//占计划 等于 完成的除以计划
 					hashMap.put("particulars", "<a class='ptl'  href='#' value='"+"' >详情</a>");
-					hashMap.put(yzlEpcTaskProgress.getZllb()+"T"+yzlEpcTaskProgress.getGclb(), yzlXb.getXtjsbmj());
-					hashMap.put("zllb", yzlEpcTaskProgress.getZllb());
+					hashMap.put(yzlEpcTaskProgress.getGclb()+"T"+yzlEpcTaskProgress.getZllb(), yzlXb.getXtjsbmj());
+					hashMap.put("gclb", yzlEpcTaskProgress.getGclb());
 					hashMap.put("proceeding", "<a id='pro'  href='#' value='"+"' ><div id='pros' onmouseout='outs()' onmouseover='overs()' style='height:25px;width:70px;margin-left:12px;margin-top:5px'><div>事项 </div> </div>  </a>");
 					break;
 				}
@@ -227,14 +223,14 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 			if (flag == 0) {
 				hashMap.put("countycode", yzlEpcTaskProgress.getCountycode());
 				hashMap.put("stat", yzlEpcTaskProgress.getStat());
-				hashMap.put("jh"+yzlEpcTaskProgress.getZllb()+"Y"+yzlEpcTaskProgress.getGclb(), String.format("%.2f", float1));//计划
+				hashMap.put("jh"+yzlEpcTaskProgress.getGclb()+"Y"+yzlEpcTaskProgress.getZllb(), String.format("%.2f", float1));//计划
 				hashMap.put("city", list.get(0).getCity());//市
 				hashMap.put("county", list.get(0).getCounty());//县
-				hashMap.put("wc"+yzlEpcTaskProgress.getZllb()+"Y"+yzlEpcTaskProgress.getGclb(), "0");//完成
-				hashMap.put("zjh"+yzlEpcTaskProgress.getZllb()+"Y"+yzlEpcTaskProgress.getGclb(), "0");//占计划 等于 完成的除以计划
+				hashMap.put("wc"+yzlEpcTaskProgress.getGclb()+"Y"+yzlEpcTaskProgress.getZllb(), "0");//完成
+				hashMap.put("zjh"+yzlEpcTaskProgress.getGclb()+"Y"+yzlEpcTaskProgress.getZllb(), "0");//占计划 等于 完成的除以计划
 				hashMap.put("particulars", "<a class='ptl'  href='#' value='"+"' >详情</a>");
-				hashMap.put(yzlEpcTaskProgress.getZllb()+"T"+yzlEpcTaskProgress.getGclb(), "0");
-				hashMap.put("zllb", yzlEpcTaskProgress.getZllb());
+				hashMap.put(yzlEpcTaskProgress.getGclb()+"T"+yzlEpcTaskProgress.getZllb(), "0");
+				hashMap.put("gclb", yzlEpcTaskProgress.getGclb());
 				hashMap.put("proceeding", "<a id='pro'  href='#' value='"+"' ><div id='pros' onmouseout='outs()' onmouseover='overs()' style='height:25px;width:70px;margin-left:12px;margin-top:5px'><div>事项</div> </div>  </a>");
 			}
 			flag = 0;
@@ -263,7 +259,7 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 							switch (entry.getValue()) {
 							case "0":
 								int x=0;
-								String backString = map.get("zllb");//造林类别的编号
+								String backString = map.get("gclb");//造林类别的编号
 								for (String string : backList) {
 									if (backString.equals(string)) {
 										x++;
@@ -276,7 +272,7 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 								break;
 							case "1":
 								int y = 0;
-								String submitString = map.get("zllb");//造林类别的编号
+								String submitString = map.get("gclb");//造林类别的编号
 								for (String string : submitList) {
 									if (submitString.equals(string)) {
 										y++;
@@ -289,7 +285,7 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 								break;
 							case "3":
 								int z = 0;
-								String auditString = map.get("zllb");//造林类别的编号
+								String auditString = map.get("gclb");//造林类别的编号
 								for (String string : auditList) {
 									if (auditString.equals(string)) {
 										z++;
@@ -322,9 +318,9 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 	}
 
 	//对市的统计和查询
-	private List<Map<String,String>> selectByCityAndCount(String year,List<String> stats,List<String> menu,String disCode,String zllb){
+	private List<Map<String,String>> selectByCityAndCount(String year,List<String> stats,List<String> menu,String disCode,String gclb){
 		//统计市的任务下发
-		List<YzlEpcTaskProgress> epcTaskProgresses = XbMapper.selectByCityCountyTaskIssued(year,menu,zllb,stats);
+		List<YzlEpcTaskProgress> epcTaskProgresses = XbMapper.selectByCityCountyTaskIssued(year,menu,gclb,stats);
 		LinkedHashSet<String> hashSetCity = new LinkedHashSet<>();
 		
 		//获得所有的市并去重
@@ -335,7 +331,7 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 		List<Map<String,String>> lists = new ArrayList<>();
 		
 		//查询任务完成的数据并统计市级数据
-		List<YzlXb> xbs = XbMapper.selectByCityComplation(year,stats,menu,disCode,zllb,null);
+		List<YzlXb> xbs = XbMapper.selectByCityComplation(year,stats,menu,disCode,gclb,null);
 		
 		int flag = 0 ;
 		for (YzlEpcTaskProgress epcTaskProgress : epcTaskProgresses) {//遍历所有的市
@@ -356,14 +352,14 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 					
 					hashMap.put("citycode", epcTaskProgress.getCitycode());
 					hashMap.put("stat", yzlXb.getStat());
-					hashMap.put("jh"+epcTaskProgress.getZllb()+"Y"+epcTaskProgress.getGclb(), String.format("%.2f", float1));//计划
+					hashMap.put("jh"+epcTaskProgress.getGclb()+"Y"+epcTaskProgress.getZllb(), String.format("%.2f", float1));//计划
 					hashMap.put("city", list.get(0).getCity());//市
 					String hgmj = yzlXb.getHgmj();//完成的数量
 					Float wc = Float.valueOf(hgmj)/float1;//String chardisPos = String.format("%.2f", Double.valueOf(XTJSBMJ));
-					hashMap.put("wc"+epcTaskProgress.getZllb()+"Y"+epcTaskProgress.getGclb(), String.format("%.2f", Float.valueOf(hgmj)));
-					hashMap.put("zjh"+epcTaskProgress.getZllb()+"Y"+epcTaskProgress.getGclb(), String.format("%.2f", wc*100));//占计划 等于 完成的除以计划
+					hashMap.put("wc"+epcTaskProgress.getGclb()+"Y"+epcTaskProgress.getZllb(), String.format("%.2f", Float.valueOf(hgmj)));
+					hashMap.put("zjh"+epcTaskProgress.getGclb()+"Y"+epcTaskProgress.getZllb(), String.format("%.2f", wc*100));//占计划 等于 完成的除以计划
 					hashMap.put("particulars", "<a class='ptl'  href='#' value='"+"' >详情</a>");
-					hashMap.put(epcTaskProgress.getZllb()+"T"+epcTaskProgress.getGclb(), yzlXb.getXtjsbmj());
+					hashMap.put(epcTaskProgress.getGclb()+"T"+epcTaskProgress.getZllb(), yzlXb.getXtjsbmj());
 					hashMap.put("proceeding", "<a id='pro'  href='#' value='"+"' ><div id='pros' onmouseout='outs()' onmouseover='overs()'><div><li>事项   <ul><a href='#'><li>被退回<li><li>待提交</li><li>待审核</li></a></ul> </li></div> </div>  </a>");
 					break;
 				}
@@ -371,12 +367,12 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 			if (flag == 0) {
 				hashMap.put("citycode", epcTaskProgress.getCitycode());
 				hashMap.put("stat", epcTaskProgress.getStat());
-				hashMap.put("jh"+epcTaskProgress.getZllb()+"Y"+epcTaskProgress.getGclb(), String.format("%.2f", float1));//计划
+				hashMap.put("jh"+epcTaskProgress.getGclb()+"Y"+epcTaskProgress.getZllb(), String.format("%.2f", float1));//计划
 				hashMap.put("city", list.get(0).getCity());//市
-				hashMap.put("wc"+epcTaskProgress.getZllb()+"Y"+epcTaskProgress.getGclb(), "0");
-				hashMap.put("zjh"+epcTaskProgress.getZllb()+"Y"+epcTaskProgress.getGclb(), "0");//占计划 等于 完成的除以计划
+				hashMap.put("wc"+epcTaskProgress.getGclb()+"Y"+epcTaskProgress.getZllb(), "0");
+				hashMap.put("zjh"+epcTaskProgress.getGclb()+"Y"+epcTaskProgress.getZllb(), "0");//占计划 等于 完成的除以计划
 				hashMap.put("particulars", "<a class='ptl'  href='#' value='"+"' >详情</a>");
-				hashMap.put(epcTaskProgress.getZllb()+"T"+epcTaskProgress.getGclb(), "0");
+				hashMap.put(epcTaskProgress.getGclb()+"T"+epcTaskProgress.getZllb(), "0");
 				hashMap.put("proceeding", "<a id='pro'  href='#' value='"+"' ><div id='pros' onmouseout='outs()' onmouseover='overs()'><div><li>事项   <ul><a href='#'><li>被退回<li><li>待提交</li><li>待审核</li></a></ul> </li></div> </div>  </a>");
 			}
 			lists.add(hashMap);
@@ -572,8 +568,8 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 	
 	//查询所有的造林类别
 	@Override
-	public List<YzlTask> show_task() {
-		List<YzlTask> list = taskMapper.select();
+	public List<YzlEpc> show_epc() {
+		List<YzlEpc> list = epcMapper.gclb();
 		return list;
 	}
 	

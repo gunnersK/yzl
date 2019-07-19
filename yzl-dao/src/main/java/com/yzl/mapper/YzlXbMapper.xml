@@ -2143,8 +2143,8 @@
 					 	#{m}
 					</foreach>
 			</if>
-			<if test="zllb != null and zllb != '' and zllb != 'null'">
-				and zllb = #{zllb}
+			<if test="gclb != null and gclb != '' and gclb != 'null'">
+				and gclb = #{gclb}
 			</if>
 			<if test="stats != null and stats.size > 0">
 			 	and stat in
@@ -2256,7 +2256,7 @@
 				
 			</if> -->
 			<if test="proceed != null and proceed != '' and proceed != 'null'">
-				and zllb = #{proceed}
+				and gclb = #{proceed}
 			</if>
 			<!-- <if test="menu.size == 1">
 				AND city =
@@ -2362,11 +2362,11 @@
 			<if test="disCode != null and disCode != '' and disCode.length() >= 6 and disCode != 'GX450'">
 				and countyCode = #{disCode}
 			</if>
-			<if test="zllb != null and zllb != '' and zllb != 'null'">
-				and zllb = #{zllb}
+			<if test="gclb != null and gclb != '' and gclb != 'null'">
+				and gclb = #{gclb}
 			</if>
 			<if test="proceed != 'null' and proceed != null and proceed != ''">
-				and zllb = #{proceed}
+				and gclb = #{proceed}
 			</if>
 			 <if test="stats != null and stats.size > 0">
 				 	and stat in

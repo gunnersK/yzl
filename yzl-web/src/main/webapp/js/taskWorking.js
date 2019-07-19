@@ -31,7 +31,7 @@ var x;
     var cityNode = null;//市的节点
     var disCode;
     var bdgwj = new Array;//保存多个文件
-    var taskMark = null;//工程编号
+    var epcMark = null;//工程编号
   //退回
     var backRows = null;
     var backNode = null;
@@ -117,7 +117,7 @@ var x;
    	    		traditional: true,
    	    		async:false,
    	    		url:'/backData',
-   	    		data:{'backData':backData,"disCode":disCode,"usr":usr,'backDatas':backDatas,"time":backTime,"lea":lea,"fileNames":bdgwj,"countys":backCountys,"zllb":taskMark,"fileNames":bdgwj},
+   	    		data:{'backData':backData,"disCode":disCode,"usr":usr,'backDatas':backDatas,"time":backTime,"lea":lea,"fileNames":bdgwj,"countys":backCountys,"zllb":epcMark,"fileNames":bdgwj},
    				dataType:'json',
    	    		success:function(data){
    					if(data.data==200){
@@ -203,7 +203,7 @@ var x;
    	    		traditional: true,
    	    		async:false,
    	    		url:'/submit',
-   	    		data:{'subData':subData,"disCode":disCode,"usr":usr,'subDatas':subDatas,"time":time,"lea":lea,"zllb":taskMark,"countys":subCountys,"fileNames":bdgwj},
+   	    		data:{'subData':subData,"disCode":disCode,"usr":usr,'subDatas':subDatas,"time":time,"lea":lea,"zllb":epcMark,"countys":subCountys,"fileNames":bdgwj},
    				dataType:'json',
    	    		success:function(data){
    					if(data.data==200){
@@ -289,7 +289,7 @@ var x;
 	    		traditional: true,
 	    		async:false,
 	    		url:'/auditData',
-	    		data:{'auditData':auditData,"disCode":disCode,'auditDatas':auditDatas,"time":time,"zllb":taskMark,"countys":auditCounty,"lea":lea,"fileNames":bdgwj},
+	    		data:{'auditData':auditData,"disCode":disCode,'auditDatas':auditDatas,"time":time,"zllb":epcMark,"countys":auditCounty,"lea":lea,"fileNames":bdgwj},
 				dataType:'json',
 	    		success:function(data){
 					if(data.data==200){
@@ -315,7 +315,7 @@ var x;
 	var columnsTabHead = new Array();
 	
   //选择 查看工程触发
-//    $("#task").combobox({
+//    $("#epc").combobox({
 //    	onSelect:changed
 //    });
   	function changed(preceedStat,beBack,beSubmit,beAudit){
@@ -326,11 +326,11 @@ var x;
 	  	//获取时间
 	    var year = $("#year").val();
 	    var node =$("#tt").tree('getSelected');//点击的行政编号
-	    taskMark = $("#task").combobox('getValue');//工程编号
-	    if(taskMark == '10'){
-	    	taskMark = '';
-	    }
-		var text = $("#task").combobox('getText');//工程名称
+	    epcMark = $("#epc").combobox('getValue');//工程编号
+//	    if(epcMark == '10'){
+//	    	epcMark = '';
+//	    }
+		var text = $("#epc").combobox('getText');//工程名称
 		
 		
 		var oldNode = null;
@@ -360,7 +360,7 @@ var x;
         }
         if(zllbCode != undefined){
  			node.id = zllbCode;
- 			//taskMark=zllbCode;
+ 			//epcMark=zllbCode;
  			
      		frozenColumnsTab = null;
      		columnsTabHead = null;
@@ -581,7 +581,7 @@ var x;
 			traditional: true,
 			async:false,
 			url:'/taskWorking/taskTab',
-			data:{"year":year,"zllb":taskMark,"disCode":disCode,"stat":preceedStat},
+			data:{"year":year,"zllb":epcMark,"disCode":disCode,"stat":preceedStat},
 			dataType:'json',
 			success:function(data){
 				
@@ -637,7 +637,7 @@ var x;
     	inTable();//初始化数据表格
     	
 	  //选择 查看工程触发
-        $("#task").combobox({
+        $("#epc").combobox({
         	onSelect:changed
         });
 		
@@ -666,7 +666,7 @@ var x;
     	var columnsThreeTab = new Array();
     	
     	var node =$("#tt").tree('getSelected');//获取选择的节点
-    	var zllb = $("#task").combobox('getValue');//获取选择的工程编号
+    	var zllb = $("#epc").combobox('getValue');//获取选择的工程编号
     	
     	var oldNode = null;
     	var id = null;
@@ -912,8 +912,8 @@ var x;
     	}
     	//获取时间
     	var year = $("#year").val();
-    	//var url = HttpUtility.UrlEncode('/takWorking/epcTaskData?year='+year+'&disCode='+disCode+'&usr='+usr+'&zllb='+taskMark);
-    	var url = encodeURI('/takWorking/epcTaskData?year='+year+'&disCode='+disCode+'&usr='+usr+'&zllb='+taskMark+'&stat='+preceedStat);
+    	//var url = HttpUtility.UrlEncode('/takWorking/epcTaskData?year='+year+'&disCode='+disCode+'&usr='+usr+'&zllb='+epcMark);
+    	var url = encodeURI('/takWorking/epcTaskData?year='+year+'&disCode='+disCode+'&usr='+usr+'&gclb='+epcMark+'&stat='+preceedStat);
     	$.ajaxSettings.async=false;
     	$("#tab").datagrid({
     		fit:true,
@@ -962,7 +962,7 @@ var x;
 				var js = data.join();
         		$("#opt").window("open");
         		var datefilename;//用来存储文件的时间+名称
-        		var logurl = encodeURI('/takWorking/findLog?row='+data.join()+'&time='+time+'&county='+coy+'&zllb='+taskMark);
+        		var logurl = encodeURI('/takWorking/findLog?row='+data.join()+'&time='+time+'&county='+coy+'&zllb='+epcMark);
         		/* 操作详情的表格 */
         	    $("#optab").datagrid({
         	    	fit:true,
@@ -1125,7 +1125,7 @@ var x;
 		//back = 0;
 		//submit = 0;
 		//audit = 0;
-		$("#task").combobox('setValue','');//工程编号
+		$("#epc").combobox('setValue','');//工程编号
 		zllbCode = anumber;
 		changed('3',back,submit,audit);
 		$("#tooltip").css({"display": "none"});
@@ -1135,7 +1135,7 @@ var x;
 		//back = 0;
 		//submit = 0;
 		//audit = 0;
-		$("#task").combobox('setValue','');//工程编号
+		$("#epc").combobox('setValue','');//工程编号
 		zllbCode = anumber;
 		changed('0',back,submit,audit);
 		$("#tooltip").css({"display": "none"});
@@ -1145,7 +1145,7 @@ var x;
 		//back = 0;
 		//submit = 0;
 		//audit = 0;
-		$("#task").combobox('setValue','');//工程编号
+		$("#epc").combobox('setValue','');//工程编号
 		zllbCode = anumber;
 		changed('1',back,submit,audit);
 		$("#tooltip").css({"display": "none"});
@@ -1220,8 +1220,8 @@ var x;
   	}
     
    	function click(node){
-   		$("#task").combobox('setValue','');//工程编号
-   		taskMark = null;
+   		$("#epc").combobox('setValue','');//工程编号
+   		epcMark = null;
    		init();//加载表头
 		inTable();//初始化表格
    	}
