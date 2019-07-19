@@ -4,7 +4,14 @@
 # Log file
 *.log
 logs/springmvcMybist/
-target/*
+
+#directory
+logs/
+yzl-dao/target/
+yzl-pojo/target/
+yzl-service/target/
+yzl-utils/target/
+yzl-web/target/
 
 # BlueJ files
 *.ctxt
