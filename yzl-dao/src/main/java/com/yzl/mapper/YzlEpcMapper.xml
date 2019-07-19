@@ -276,9 +276,6 @@
 		   	   		<if test="ZLLB!=null and ZLLB!=''">
 		   	   			and ZLLB = #{ZLLB}  	
 		    		</if>
-		   	   		<if test="GCLB!=null and GCLB!=''">
-		   	   			and GCLB = #{GCLB}
-		    		</if>
 		   	   </where>
     </select>
     

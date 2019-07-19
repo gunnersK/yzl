@@ -642,10 +642,10 @@ function dataDrs(){
 	var formData = new FormData();
 	//给formData对象添加<input>标签,注意与input标签的ID一致
 	formData.append('excelName', $('#file')[0].files[0]);
+	formData.append('year', $("#year").val());
 	//$("#mask").css({display: 'block',height: $(window).height()});
 	//$("#msg").html("加载中，请稍候。。。").css({display: 'block',left: ($(document.body).outerWidth(true) - 190) / 2,top: ($(window).height() - 45) / 2});
-
-	    
+	
 	//console.info(22222);
 	//$.ajaxSettings.async=false;
 	$.ajax({
@@ -929,63 +929,63 @@ var ZLLB;
 	    var year = $("#year").val();//获取当前选取的年份
 	    ZLLB = $("#zllb").combobox('getValue');//工程field
 		var GCLB = $("#gclb").combobox('getValue');//工程field
-		var zllbText = $("#zllb").combobox('getText');//获取工程名称
-		if(ZLLB=="" || ZLLB==null){	
-			$.post("/task/getTableHeader",{"year":year,"disCode":targetNode,"GCLB":GCLB},function(data){
+		var gclbText = $("#gclb").combobox('getText');//获取工程名称
+		if(GCLB=="" || GCLB==null){	
+			$.post("/task/getTableHeader",{"year":year,"disCode":targetNode,"ZLLB":ZLLB},function(data){
 				for(var i=0;i<data.length;i++){
-					if(data[i].mark >= 28){
-						columnsOneTab.push({field:'',title:data[i].tname,width:100,colspan:3,'rowspan':2,align:'center'});
-						columnsThreeTab.push({field:'jh'+data[i].mark+"Y"+"",title:'计划',width:115,align:'center',editor:{ type:'text', options:{}}},
-								{field:'wc'+data[i].mark+"Y"+"",title:'完成',width:115,align:'center'},
-								{field:'zjh'+data[i].mark+"Y"+"",title:'占计划%',width:115,align:'center'});
-					}
-					else{
+//					if(data[i].mark >= 28){
+//						columnsOneTab.push({field:'',title:data[i].tname,width:100,colspan:3,'rowspan':2,align:'center'});
+//						columnsThreeTab.push({field:'jh'+data[i].mark+"Y"+"",title:'计划',width:115,align:'center',editor:{ type:'text', options:{}}},
+//								{field:'wc'+data[i].mark+"Y"+"",title:'完成',width:115,align:'center'},
+//								{field:'zjh'+data[i].mark+"Y"+"",title:'占计划%',width:115,align:'center'});
+//					}
+//					else{
 						//拼接一级表头数据
-						columnsOneTab.push({field:'',title:data[i].tname,width:100*data[i].list.length,colspan:data[i].list.length*3,align:'center'});
-						var epc = data[i].list;
+						columnsOneTab.push({field:'',title:data[i].ename,width:100*data[i].list.length,colspan:data[i].list.length*3,align:'center'});
+						var task = data[i].list;
 						if(data[i].list.length > 0){
-							for(var j=0;j<epc.length;j++){
-								var ename = epc[j].ename;
-								var field = epc[j].field;
+							for(var j=0;j<task.length;j++){
+								var tname = task[j].tname;
+								var field = task[j].field;
 								//拼接二级表头数据
-								columnsTowTab.push({title:''+ename+'',width:115*3,align:'center',colspan:3});//field:''+field+'',
+								columnsTowTab.push({title:''+tname+'',width:115*3,align:'center',colspan:3});//field:''+field+'',
 								//拼接三级表头数据
-								columnsThreeTab.push({field:'jh'+data[i].mark+"Y"+epc[j].mark,title:'计划',width:115,align:'center',editor:{ type:'text', options:{}}},
-													 {field:'wc'+data[i].mark+"Y"+epc[j].mark,title:'完成',width:115,align:'center'},
-													 {field:'zjh'+data[i].mark+"Y"+epc[j].mark,title:'占计划%',width:115,align:'center'});
+								columnsThreeTab.push({field:'jh'+data[i].mark+"Y"+task[j].mark,title:'计划',width:115,align:'center',editor:{ type:'text', options:{}}},
+													 {field:'wc'+data[i].mark+"Y"+task[j].mark,title:'完成',width:115,align:'center'},
+													 {field:'zjh'+data[i].mark+"Y"+task[j].mark,title:'占计划%',width:115,align:'center'});
 							}
 						}
-					}
+//					}
 				}
 				header.push(columnsOneTab);
 				header.push(columnsTowTab);
 				header.push(columnsThreeTab);
 			});
 		}else{
-			$.post("/epc/query",{"GCLB":GCLB,"ZLLB":ZLLB,"year":year,"disCode":targetNode},function(data){//查询所有工程
+			$.post("/task/query",{"GCLB":GCLB,"ZLLB":ZLLB,"year":year,"disCode":targetNode},function(data){//查询所有工程
 				if(data.length > 0){
-					if(ZLLB >= 28){
-						columnsOneTab.push({field:'',title:zllbText,width:100,colspan:3,'rowspan':2,align:'center'});
-						columnsThreeTab.push({field:'jh'+ZLLB+"Y"+"",title:'计划',width:100,align:'center',editor:{ type:'text', options:{}}},
-								{field:'wc'+ZLLB+"Y"+"",title:'完成',width:100,align:'center'},
-								{field:'zjh'+ZLLB+"Y"+"",title:'占计划%',width:100,align:'center'});
-					} else{
+//					if(ZLLB >= 28){
+//						columnsOneTab.push({field:'',title:zllbText,width:100,colspan:3,'rowspan':2,align:'center'});
+//						columnsThreeTab.push({field:'jh'+ZLLB+"Y"+"",title:'计划',width:100,align:'center',editor:{ type:'text', options:{}}},
+//								{field:'wc'+ZLLB+"Y"+"",title:'完成',width:100,align:'center'},
+//								{field:'zjh'+ZLLB+"Y"+"",title:'占计划%',width:100,align:'center'});
+//					} else{
 						//拼接一级表头数据
-						columnsOneTab.push({field:'',title:zllbText,width:100*data.length,colspan:data.length*3,align:'center'});
+						columnsOneTab.push({field:'',title:gclbText,width:100*data.length,colspan:data.length*3,align:'center'});
 						for(var i=0;i<data.length;i++){
-							var ename = data[i].ename;//获取工程名称
+							var tname = data[i].tname;//获取任务名称
 							//拼接二级表头数据  
 							var createTree = $("#zllb").combobox('getValue');
 							//if(createTree!=30&&createTree!=31&&createTree!=28&&createTree!=29)
 							if(createTree<28)
 								//拼接二级表头数据
-								columnsTowTab.push({title:''+ename+'',width:100*3,align:'center',colspan:3});//field:''+field+'',
+								columnsTowTab.push({title:''+tname+'',width:100*3,align:'center',colspan:3});//field:''+field+'',
 							//拼接三级表头数据
-							columnsThreeTab.push({field:'jh'+ZLLB+"Y"+data[i].mark,title:'计划',width:100,align:'center',editor:{ type:'text', options:{}}},
-									{field:'wc'+ZLLB+"Y"+data[i].mark,title:'完成',width:100,align:'center'},
-									{field:'zjh'+ZLLB+"Y"+data[i].mark,title:'占计划%',width:100,align:'center'});
+							columnsThreeTab.push({field:'jh'+GCLB+"Y"+data[i].mark,title:'计划',width:100,align:'center',editor:{ type:'text', options:{}}},
+									{field:'wc'+GCLB+"Y"+data[i].mark,title:'完成',width:100,align:'center'},
+									{field:'zjh'+GCLB+"Y"+data[i].mark,title:'占计划%',width:100,align:'center'});
 						}
-					}
+//					}
 				}
 			header.push(columnsOneTab);
 			header.push(columnsTowTab);
@@ -1082,6 +1082,8 @@ var ZLLB;
     		nowrap:false,
     		rownumbers:true,
     		pagination:true,
+    		pageList:[15,30,45,60],
+    		pageSize:15,
     		//checkOnSelect:false,
     		fitColumns:false,
     		border : false,

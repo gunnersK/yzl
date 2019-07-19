@@ -1,42 +1,25 @@
 package com.yzl.distriEpcTaskController;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.apache.ibatis.annotations.Param;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Caching;
-import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.alibaba.fastjson.JSONArray;
-import com.google.gson.JsonObject;
 import com.yzl.LogService.LogAnno;
-import com.yzl.LogService.RedisCache;
 import com.yzl.distriEpcTaskService.TaskService;
 import com.yzl.planManagementService.MessageService;
-import com.yzl.pojo.YzlEpcTaskProgress;
+import com.yzl.pojo.YzlEpc;
 import com.yzl.pojo.YzlTask;
-import com.yzl.pojo.YzlXb;
 import com.yzl.utils.EasyUIResult;
-import com.yzl.utils.LoginUserUtils;
 import com.yzl.utils.YzlResult;
-import com.yzl.utils.enums.ResultEnum;
-import com.yzl.utils.exception.YzlException;
 
 import net.sf.json.JSONObject;
 
@@ -74,6 +57,22 @@ public class TaskController {
 	public YzlResult findAll(){
 		YzlResult result = taskService.findAll();
 		return result;
+	}
+	
+	/***
+	 * 查询所有任务
+	 * @return
+	 */
+	@RequestMapping("/task/query")
+	@ResponseBody
+	public List<YzlTask> queryByYearAndAreaCodeAndZLLBAndGCLB(String year,String disCode,String ZLLB,String GCLB){
+		List<YzlTask> tasks=null;
+		try {
+			tasks = taskService.queryByYearAndAreaCodeAndZLLBAndGCLB(year, disCode, ZLLB, GCLB);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return tasks;
 	}
 	
 	//用户名校验
@@ -287,8 +286,8 @@ public class TaskController {
 	//与世隔绝 ----------------------------------------------------------------
 	@RequestMapping("/task/getTableHeader")
 	@ResponseBody
-	public List<YzlTask> getTableHeader(String year,String disCode,String GCLB){
-		List<YzlTask> result = taskService.getTableHeader(year, disCode,GCLB);
+	public List<YzlEpc> getTableHeader(String year,String disCode,String ZLLB){
+		List<YzlEpc> result = taskService.getTableHeader(year, disCode,ZLLB);
 		return result;
 	}
 	

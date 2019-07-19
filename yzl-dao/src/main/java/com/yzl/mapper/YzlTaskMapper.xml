@@ -346,8 +346,11 @@
 		   	  <where>
 		   	          <!-- 判断计划年度、地区行政编号(模糊查询)、权限 -->
 		   	   		<include refid="AuthorityToJudgeAndAreaCodeAndJHND"></include>
-		   	   		<if test="GCLB !=null and GCLB !=''">
-						and GCLB=#{GCLB}
+					<if test="GCLB!=null and GCLB!=''">
+		   	   			and GCLB = #{GCLB}
+		    		</if>
+		   	   		<if test="ZLLB !=null and ZLLB !=''">
+						and ZLLB=#{ZLLB}
 					</if>
 		   	   </where>
 			

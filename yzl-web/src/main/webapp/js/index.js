@@ -72,13 +72,20 @@ $(function(){
 		//时间设置
 		function currentTime() {
 			var d = new Date(), str = '';
-			str += d.getFullYear() + '年';
-			str += d.getMonth() + 1 + '月';
-			str += d.getDate() + '日';
-			str += d.getHours() + '时';
-			str += d.getMinutes() + '分';
-			str += d.getSeconds() + '秒';
+			var year = d.getFullYear();
+			var month = d.getMonth() + 1;
+			var day = d.getDate();
+			var hours = d.getHours();
+			var minutes = checkNum(d.getMinutes());
+			var seconds = checkNum(d.getSeconds());
+			str = year+'年'+month+'月'+day+'日'+hours+'时'+minutes+'分'+seconds+'秒';
 			return str;
+		}
+		function checkNum(num){
+			if(num < 10){
+				num = "0"+num;
+			}
+			return num;
 		}
 		setInterval(function() {
 			$('#time').html(currentTime)

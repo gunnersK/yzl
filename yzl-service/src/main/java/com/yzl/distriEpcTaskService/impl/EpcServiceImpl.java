@@ -61,7 +61,7 @@ public class EpcServiceImpl implements EpcService{
 		List<YzlEpc> list= new  ArrayList<>();
 		List<String> authoritys = LoginUtils.getLoginUserAuthority(menuMapper);
 		if(!authoritys.contains(AuthorityEnum.TASK_ISSUED_ADD.getPerms())){
-			list = epcMapper.queryDISTINCTEnameAndMarkFormEpctaskprogressTableByZYNDAndCountyCode(year, areaCode, authoritys, null, null);
+			list = epcMapper.queryDISTINCTEnameAndMarkFormEpctaskprogressTableByZYNDAndCountyCode(year, areaCode, authoritys, null);
 		}else{
 			//设置分页信息
 			YzlEpcExample example=new YzlEpcExample();
@@ -165,25 +165,25 @@ public class EpcServiceImpl implements EpcService{
 		}
 	}
 
-	//根据year areaCode zll gclb查询工程
-	@Override
-	public List<YzlEpc> queryByYearAndAreaCodeAndZLLBAndGCLB(String year,String areaCode,String ZLLB,String GCLB) {
-		List<String> authoritys = LoginUtils.getLoginUserAuthority(menuMapper);
-		
-		//通过下发任务数据中查询 工程
-		if(!authoritys.contains(AuthorityEnum.TASK_ISSUED_ADD.getPerms())){
-			List<YzlEpc> epcList = epcMapper.queryDISTINCTEnameAndMarkFormEpctaskprogressTableByZYNDAndCountyCode(year, areaCode, authoritys, ZLLB, GCLB);
-			return epcList;
-		}else{
-			//查询工程
-			YzlEpcExample epcExample = new YzlEpcExample();
-			Criteria epcCreateCriteria = epcExample.createCriteria();
-			if(StringUtils.isNotBlank(GCLB)){//如果GCLB不为空 则按GCLB进行
-				epcCreateCriteria.andMarkEqualTo(GCLB);
-			}
-			return epcMapper.selectByExample(epcExample);
-		}
-	}
+//	//根据year areaCode zll gclb查询工程
+//	@Override
+//	public List<YzlEpc> queryByYearAndAreaCodeAndZLLBAndGCLB(String year,String areaCode,String ZLLB,String GCLB) {
+//		List<String> authoritys = LoginUtils.getLoginUserAuthority(menuMapper);
+//		
+//		//通过下发任务数据中查询 工程
+//		if(!authoritys.contains(AuthorityEnum.TASK_ISSUED_ADD.getPerms())){
+//			List<YzlEpc> epcList = epcMapper.queryDISTINCTEnameAndMarkFormEpctaskprogressTableByZYNDAndCountyCode(year, areaCode, authoritys, ZLLB, GCLB);
+//			return epcList;
+//		}else{
+//			//查询工程
+//			YzlEpcExample epcExample = new YzlEpcExample();
+//			Criteria epcCreateCriteria = epcExample.createCriteria();
+//			if(StringUtils.isNotBlank(GCLB)){//如果GCLB不为空 则按GCLB进行
+//				epcCreateCriteria.andMarkEqualTo(GCLB);
+//			}
+//			return epcMapper.selectByExample(epcExample);
+//		}
+//	}
 	
 	
 	//根据工程查询对应的任务个数 进行数据处理显示到页面

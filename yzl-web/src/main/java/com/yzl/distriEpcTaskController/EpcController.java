@@ -71,21 +71,21 @@ public class EpcController {
 		}
 	}
 	
-	/***
-	 * 查询所有工程
-	 * @return
-	 */
-	@RequestMapping("/epc/query")
-	@ResponseBody
-	public List<YzlEpc> queryByYearAndAreaCodeAndZLLBAndGCLB(String year,String disCode,String ZLLB,String GCLB){
-		List<YzlEpc> epcs=null;
-		try {
-			epcs = epcService.queryByYearAndAreaCodeAndZLLBAndGCLB(year, disCode, ZLLB, GCLB);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return epcs;
-	}
+//	/***
+//	 * 查询所有工程
+//	 * @return
+//	 */
+//	@RequestMapping("/epc/query")
+//	@ResponseBody
+//	public List<YzlEpc> queryByYearAndAreaCodeAndZLLBAndGCLB(String year,String disCode,String ZLLB,String GCLB){
+//		List<YzlEpc> epcs=null;
+//		try {
+//			epcs = epcService.queryByYearAndAreaCodeAndZLLBAndGCLB(year, disCode, ZLLB, GCLB);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return epcs;
+//	}
 	
 	/**
 	 * 查询所有拥有任务的工程，工程拥有任务的数量
