@@ -817,24 +817,25 @@ var x;
 		//获取数据库中的数据表头
 		$.ajax({
 			async:false,
-			url:'/takWorking/taskTab',
+//			url:'/takWorking/taskTab',
+			url:'/task/getTableHeader',
 			dataType:'json',
 			data:{"year":year,"disCode":disCode,"zllb":zllb},
 			success:function(data){
 				
 				for(var i=0;i<data.length;i++){
-					columnsOneTab.push({field:'',title:data[i].tname,width:130*data[i].list.length,colspan:data[i].list.length*3,align:'center'});
+					columnsOneTab.push({field:'',title:data[i].ename,width:130*data[i].list.length,colspan:data[i].list.length*3,align:'center'});
 					
-					var epc = data[i].list;
+					var task = data[i].list;
 					
 					if(data[i].list.length > 0){
-						for(var j=0;j<epc.length;j++){
-							var ename = epc[j].ename;
-							var field = epc[j].field;
-							columnsTowTab.push({title:''+ename+'',width:130*3,align:'center',colspan:3});//field:''+field+'',
-							columnsThreeTab.push({field:'jh'+data[i].mark+"Y"+epc[j].mark,title:'计划',width:130,align:'center'},
-												 {field:'wc'+data[i].mark+"Y"+epc[j].mark,title:'完成',width:130,align:'center'},
-												 {field:'zjh'+data[i].mark+"Y"+epc[j].mark,title:'占计划%',width:130,align:'center'});
+						for(var j=0;j<task.length;j++){
+							var tname = task[j].tname;
+							var field = task[j].field;
+							columnsTowTab.push({title:''+tname+'',width:130*3,align:'center',colspan:3});//field:''+field+'',
+							columnsThreeTab.push({field:'jh'+data[i].mark+"Y"+task[j].mark,title:'计划',width:130,align:'center'},
+												 {field:'wc'+data[i].mark+"Y"+task[j].mark,title:'完成',width:130,align:'center'},
+												 {field:'zjh'+data[i].mark+"Y"+task[j].mark,title:'占计划%',width:130,align:'center'});
 						}
 					}
 				}
