@@ -13,8 +13,6 @@ yzl-service/target/
 yzl-utils/target/
 yzl-web/target/
 
-#Jdbc FIile
-yzl-web/src/main/resources/jdbc.properties
 
 # BlueJ files
 *.ctxt
