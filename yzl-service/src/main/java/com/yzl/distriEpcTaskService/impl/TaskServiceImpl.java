@@ -836,7 +836,7 @@ public class TaskServiceImpl implements TaskService{
 		List<String> authoritys = getAuthoritys();//获取当前登录用户的权限
 		//根据权限 地区行政编号，年份查询 任务下发中的 task
 		List<YzlEpc> epcList = epcMapper.queryDISTINCTEnameAndMarkFormEpctaskprogressTableByZYNDAndCountyCode(year, disCode, authoritys,ZLLB);
-		for (YzlEpc epc : epcList) {
+		for (YzlEpc epc : epcList) { 
 			String GCLB = epc.getMark();//获取造林类别
 			//根据权限 地区行政编号，年份，造林类别。 查询任务下发中的 epc
 			List<YzlTask> taskList = taskMapper.queryDISTINCTTnameAndMarkFormEpctaskprogressTableByZYNDAndCountyCode(year, disCode, authoritys,GCLB, ZLLB);
