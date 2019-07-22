@@ -6,18 +6,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import javax.servlet.http.HttpServletResponse;
-
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -33,13 +30,10 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.dubbo.common.utils.StringUtils;
-import com.google.gson.Gson;
-import com.yzl.distriEpcTaskService.impl.TaskIssuedServiceImpl;
 import com.yzl.mapper.YzlDistrictMapper;
 import com.yzl.mapper.YzlEpcMapper;
 import com.yzl.mapper.YzlEpcTaskProgressMapper;
@@ -56,10 +50,8 @@ import com.yzl.pojo.YzlMenu;
 import com.yzl.pojo.YzlTask;
 import com.yzl.pojo.YzlUser;
 import com.yzl.pojo.YzlXb;
-import com.yzl.utils.CountZLLBDTO;
 import com.yzl.utils.EasyUIResult;
 import com.yzl.utils.LoginUserUtils;
-import com.yzl.utils.LoginUtils;
 import com.yzl.utils.YzlEpcAndTaskStaticti;
 import com.yzl.utils.YzlResult;
 import com.yzl.utils.enums.DistrictEnum;
@@ -125,7 +117,7 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 	
 	//查询表头
 		@Override
-		public List<YzlTask> epcTab(String year, String disCode,String zllb) {
+		public List<YzlEpc> epcTab(String year, String disCode,String zllb) {
 			System.out.println(disCode);
 			if ("10".equals(zllb)) {
 				zllb = null;
@@ -138,23 +130,23 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 			//查询审核完成的表头
 //			List<YzlTask> tasks = XbMapper.selectEpcTabName(stats,year,disCode,menu,zllb);
 			//查询下发的表头
-			List<YzlTask> tasks = XbMapper.selectByTaskIssuedTableHead(year, disCode, zllb, menu,stats);
+			List<YzlEpc> epcs = XbMapper.selectByTaskIssuedTableHead(year, disCode, zllb, menu,stats);
 			
-			for (YzlTask task : tasks) {
-				String tcode = task.getMark();
+			for (YzlEpc epc : epcs) {
+				String ecode = epc.getMark();
 				//查询这个造林类别拥有的工程
 				//List<YzlEpc> epcs = XbMapper.selectByEpcPossessTask(tcode,year,stats,disCode,menu,zllb);
-				List<YzlEpc> epcs = XbMapper.selectByZllb(tcode,year,disCode,menu,zllb,stats);
+				List<YzlTask> tasks = XbMapper.selectByGclb(ecode,year,disCode,menu,zllb,stats);
 //						HashMap<String, String> hashMap = new HashMap<>();
-				for (YzlEpc yzlEpc : epcs) {//把造林类别和工程拼在一起
-					yzlEpc.setField(tcode+"T"+yzlEpc.getMark());
+				for (YzlTask yzlTask : tasks) {//把造林类别和工程拼在一起
+					yzlTask.setField(ecode+"T"+yzlTask.getMark());
 				}
-				if (epcs.size()>0) {
-					task.setList(epcs);
+				if (tasks.size()>0) {
+					epc.setList(tasks);
 //							epcAndTask.add(hashMap);
 				}
 			}
-			return tasks;
+			return epcs;
 		}
 	
 	@Override

@@ -78,11 +78,11 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 	private YzlEpcTaskProgressMapper epcTaskProgressMapper;
 	//查询表头
 	@Override
-	public List<YzlTask> taskTab(String year, String disCode,String zllb,String stat) {
+	public List<YzlEpc> taskTab(String year, String disCode,String gclb,String stat) {
 //		System.out.println(stat);·
-		if(zllb.equals("10")) {
-			zllb = null;
-		}
+//		if(zllb.equals("10")) {
+//			zllb = null;
+//		}
 		//要查询的状态
 		List<String> stats = new ArrayList<>();
 		if (stat == null || stat.equals("undefined") || stat.equals("[object Object]") ) {
@@ -97,23 +97,24 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 		//查询审核完成的表头
 //		List<YzlTask> tasks = XbMapper.selectEpcTabName(stats,year,disCode,menu,zllb);
 		//查询下发的表头
-		List<YzlTask> tasks = XbMapper.selectByTaskIssuedTableHead(year, disCode, zllb, menu,stats);
+		List<YzlEpc> epcs = XbMapper.selectByTaskIssuedTableHead(year, disCode, gclb, menu,stats);
 		
-		for (YzlTask task : tasks) {
-			String tcode = task.getMark();
+		for (YzlEpc epc : epcs) {
+			String ecode = epc.getMark();
 			//查询这个造林类别拥有的工程
 			//List<YzlEpc> epcs = XbMapper.selectByEpcPossessTask(tcode,year,stats,disCode,menu,zllb);
-			List<YzlEpc> epcs = XbMapper.selectByZllb(tcode,year,disCode,menu,zllb,stats);
+			List<YzlTask> tasks = XbMapper.selectByGclb(ecode,year,disCode,menu,gclb,stats);
 //					HashMap<String, String> hashMap = new HashMap<>();
-			for (YzlEpc yzlEpc : epcs) {//把造林类别和工程拼在一起
-				yzlEpc.setField(tcode+"T"+yzlEpc.getMark());
+			for (YzlTask yzlTask : tasks) {//把造林类别和工程拼在一起
+				yzlTask.setField(ecode+"T"+yzlTask.getMark());
 			}
-			if (epcs.size()>0) {
-				task.setList(epcs);
-//						epcAndTask.add(hashMap);
-			}
+			epc.setList(tasks);
+//			if (epcs.size()>0) {
+//				System.out.println("========================="+task.getList());
+////						epcAndTask.add(hashMap);
+//			}
 		}
-		return tasks;
+		return epcs;
 	}
 	
 	//数据展示
@@ -150,17 +151,17 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 		
 		//起始 等于 当前页-1乘以每页记录数
 		int page2 = (page-1)*rows;
-		
+		int lastIndex = page2+rows;
 		//如果集合中的数据没有分页的多久把集合的大小给分页
-		if(rows>list.size()) {
-			rows = list.size();
+		if(lastIndex>list.size()) {
+			lastIndex = list.size();
 		}
 		List<Map<String,String>> subList = new ArrayList<>();
 		//截取
-		if (list.size()<10) {
+		if (list.size()<rows) {
 			subList = list;
 		}else {
-			subList = list.subList(page2, rows);
+			subList = list.subList(page2, lastIndex);
 		}
 		
 		EasyUIResult result = new EasyUIResult();

@@ -32,9 +32,9 @@ public class taskWorkingController {
 	//查询表头
 	@RequestMapping("/takWorking/taskTab")
 	@ResponseBody
-	public List<YzlTask> taskTab(String year,String disCode,String zllb){
+	public List<YzlEpc> taskTab(String year,String disCode,String gclb){
 		YzlUser user = LoginUserUtils.getLoginUser();
-		return taskWorkingService.taskTab(year,disCode,zllb,null);
+		return taskWorkingService.taskTab(year,disCode,gclb,null);
 	}
 	
 	//数据展示
@@ -69,8 +69,8 @@ public class taskWorkingController {
 	//根据造林类别查询表头
 	@RequestMapping("/taskWorking/taskTab")
 	@ResponseBody
-	public List<YzlTask> ZLLBFindTable(String year,String disCode,String zllb,String stat){
-		return taskWorkingService.taskTab(year, disCode,zllb,stat);
+	public List<YzlEpc> ZLLBFindTable(String year,String disCode,String gclb,String stat){
+		return taskWorkingService.taskTab(year, disCode,gclb,stat);
 	}
 	
 //	@LogAnno(opreateType="审核")

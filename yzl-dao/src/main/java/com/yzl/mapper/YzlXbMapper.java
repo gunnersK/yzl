@@ -162,9 +162,9 @@ public interface YzlXbMapper {
 	//查询工作中或完成的任务
 	List<YzlXb> selectByCityComplation(@Param("year")String year,@Param("stats") List<String> stats, @Param("menu")List<String> menu,@Param("disCode") String disCode,@Param("gclb") String gclb,@Param("proceed")String proceed);
 
-	List<YzlTask> selectByTaskIssuedTableHead(@Param("year")String year, @Param("disCode")String disCode,@Param("zllb") String zllb,@Param("menu") List<String> menu,@Param("stats")List<String> stats);
+	List<YzlEpc> selectByTaskIssuedTableHead(@Param("year")String year, @Param("disCode")String disCode,@Param("zllb") String zllb,@Param("menu") List<String> menu,@Param("stats")List<String> stats);
 
-	List<YzlEpc> selectByZllb(@Param("tcode")String tcode,@Param("year")String year,@Param("disCode") String disCode,@Param("menu") List<String> menu,@Param("zllb") String zllb,@Param("stats")List<String> stats);
+	List<YzlTask> selectByGclb(@Param("ecode")String ecode,@Param("year")String year,@Param("disCode") String disCode,@Param("menu") List<String> menu,@Param("gclb") String gclb,@Param("stats")List<String> stats);
 
 	List<YzlEpcTaskProgress> selectByCountyCountyTaskIssued(@Param("year")String year,@Param("menu") List<String> menu,@Param("disCode") String disCode,@Param("gclb") String gclb,@Param("stats")List<String> stats,@Param("proceed")String proceed);
 

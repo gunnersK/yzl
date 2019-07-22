@@ -817,12 +817,11 @@ var x;
 		//获取数据库中的数据表头
 		$.ajax({
 			async:false,
-//			url:'/takWorking/taskTab',
-			url:'/task/getTableHeader',
+			url:'/takWorking/taskTab',
+//			url:'/task/getTableHeader',
 			dataType:'json',
-			data:{"year":year,"disCode":disCode,"zllb":zllb},
+			data:{"year":year,"disCode":disCode,"gclb":zllb},
 			success:function(data){
-				
 				for(var i=0;i<data.length;i++){
 					columnsOneTab.push({field:'',title:data[i].ename,width:130*data[i].list.length,colspan:data[i].list.length*3,align:'center'});
 					

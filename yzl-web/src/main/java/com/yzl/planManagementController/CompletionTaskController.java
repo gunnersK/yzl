@@ -5,21 +5,15 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.yzl.LogService.LogAnno;
 import com.yzl.distriEpcTaskService.TaskIssuedService;
-import com.yzl.LogService.RedisCache;
 import com.yzl.planManagementService.CompletionTaskService;
 import com.yzl.pojo.YzlDistrict;
 import com.yzl.pojo.YzlEpc;
-import com.yzl.pojo.YzlTask;
 import com.yzl.utils.EasyUIResult;
 import com.yzl.utils.YzlResult;
 
@@ -33,7 +27,7 @@ public class CompletionTaskController {
 	
 	@RequestMapping("/completionTask/taskTab")
 	@ResponseBody
-	public List<YzlTask> epcTab(String year,String disCode,String usr,String zllb){
+	public List<YzlEpc> epcTab(String year,String disCode,String usr,String zllb){
 		if ("GX45".equals(disCode)) {
 			disCode = "45";
 		}
@@ -57,7 +51,7 @@ public class CompletionTaskController {
 	//根据造林类别查询表头
 	@RequestMapping("/Completion/taskTab")
 	@ResponseBody
-	public List<YzlTask> ZLLBFindTable(String year,String disCode,String zllb){
+	public List<YzlEpc> ZLLBFindTable(String year,String disCode,String zllb){
 		return completionTaskService.epcTab(year, disCode,zllb);
 	}
 	
@@ -78,7 +72,7 @@ public class CompletionTaskController {
 	
 //	@CacheEvict(value = {"completionWorkEpcTaskData","completionWorktb","taskWork"},allEntries=true)
 //	@RedisCache(type="taksWorkdel")
-	@LogAnno(opreateType="自治区退回")
+//	@LogAnno(opreateType="自治区退回")
 	@RequestMapping("/completionTask/backData")
 	@ResponseBody
 	public YzlResult back(String[] backData,String disCode,String usr,String backDatas,String time,String lea,String [] fileNames,String zllb,String [] countys) {

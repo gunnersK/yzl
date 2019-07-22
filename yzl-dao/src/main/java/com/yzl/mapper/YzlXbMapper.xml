@@ -2282,10 +2282,10 @@
 		</choose>
 	</select>
 	
-	<select id="selectByTaskIssuedTableHead" resultType="com.yzl.pojo.YzlTask">
-		SELECT * FROM yzl_task
+	<select id="selectByTaskIssuedTableHead" resultType="com.yzl.pojo.YzlEpc">
+		SELECT * FROM yzl_epc
 		WHERE mark IN(
-			SELECT zllb FROM yzl_epc_task_progress
+			SELECT gclb FROM yzl_epc_task_progress
 			<where>
 				<if test="year != null and year != ''">
 					and zynd = #{year}
@@ -2316,16 +2316,16 @@
 		)
 	</select>
 	
-	<select id="selectByZllb" resultType="com.yzl.pojo.YzlEpc">
-		SELECT * FROM yzl_epc 
+	<select id="selectByGclb" resultType="com.yzl.pojo.YzlTask">
+		SELECT * FROM yzl_task
 		WHERE mark IN(
-		SELECT DISTINCT GCLB FROM yzl_epc_task_progress
+		SELECT DISTINCT ZLLB FROM yzl_epc_task_progress
 		<where>
 			<if test="year != null and year != ''">
 				and zynd = #{year}
 			</if>
-			<if test="tcode != null and tcode != ''">
-			 	and ZLLB = #{tcode}
+			<if test="ecode != null and ecode != ''">
+			 	and GCLB = #{ecode}
 			</if>
 			<if test="disCode != null and disCode != '' and disCode.length() == 2 and disCode != '45'">
 				and cityCode = (select distinct citycode from yzl_district where flag = #{disCode})

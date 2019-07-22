@@ -17,7 +17,7 @@ import com.yzl.utils.YzlResult;
 
 public interface TaskWorkingService {
 	
-	public List<YzlTask> taskTab(String year, String disCode,String zllb,String stat);
+	public List<YzlEpc> taskTab(String year, String disCode,String zllb,String stat);
 
 	public EasyUIResult epcTaskData(String year, String disCode,String gclb, Integer page, Integer rows,String stat,String proceed);
 

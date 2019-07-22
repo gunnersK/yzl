@@ -12,7 +12,7 @@ import com.yzl.utils.YzlResult;
 
 public interface CompletionTaskService {
 
-	List<YzlTask> epcTab(String year,String disCode, String zllb);
+	List<YzlEpc> epcTab(String year,String disCode, String zllb);
 	
 
 	EasyUIResult epcTaskData(String year,String disCode,Integer page,Integer rows,String usr,String zllb);
