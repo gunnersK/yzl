@@ -99,14 +99,14 @@
      
 	//查询
 	function sear(){
-			var searchKey = $("#searchInp").val();
+		/* 	var searchKey = $("#searchInp").val();
 			$.post("${pageContext.request.contextPath}/district/search",{"searchKey":searchKey},function(data){
 				if(data.status==200){
 					$("#tab").datagrid('load',data.data);
 				}else{
 					$.messager.alert('提示',data.data,'warning');
 				}
-			}); 
+			});  */
 			$("#searchWindow").window('open');
 		}
 	//添加
@@ -114,7 +114,7 @@
 			$("#modifyDiv").window('open');
 		}
      $("#tab").datagrid({
- 		url:'${pageContext.request.contextPath}/district/pageQuery',
+ 		url:'/district/pageQuery',
 			nowrap:false,//字符太多是否换行
 			fit:true,//自适应
 			toolbar : '#tb'/* [
@@ -222,11 +222,77 @@
  	        height: 400,
  	        resizable:false
  	    });
+ 		
  	     $("#btn").click(function(){
- 			var p = $("#searchForm").serializeJson();
- 			console.log(p);
- 			$("#tab").datagrid('load',p);
- 			$("#searchWindow").window("close");
+ 	    	 
+ 	    	$.ajax({
+   	    		type:'post',
+   	    		traditional: true,
+   	    		async:false,
+   	    		url : "/district/selectByCityorCounty",//url
+   	    		//data:{'city':city,"county":county},
+   	    		data : $('#searchForm').serialize(),
+   				dataType:'json',
+   	    		success:function(data){
+   					if(data.status==200){
+   						$.messager.alert('提示框','成功','info');
+   						//$("#tab").datagrid('load');
+   						/* init();
+   				    	inTable();
+   						$("#tbody").html("");
+   						bdgwj = []; */
+   						//$("#tab").datagrid('load');
+   						$("#searchWindow").window('close');
+   					}else{
+   						//$("#tab").datagrid('load');
+   						/* $("#tab").datagrid('load',p);
+   						$("#searchWindow").window('close'); */
+   						alert("失败");
+   						$("#searchWindow").window('close');
+   					}
+   				},
+   	    	});
+ 	    	//var p = $("#searchForm").serializeJson();
+ 	    	/* var r = $("#searchForm").form('validate');
+ 	    	$.post("/district/selectByCityorConty",function(r){
+ 				console.log(r);
+ 	 			$("#tab").datagrid('load',r);
+ 	 			$("#searchWindow").window("close");
+      		});  */
+ 		 	//var p = $("#searchForm").serializeJson();
+ 			/* $.post("/district/search",function(data){
+ 				console.log(p);
+ 	 			$("#tab").datagrid('load',p);
+ 	 			$("#searchWindow").window("close");
+      		});   */
+      	/* 	$.ajax({
+      			//url:/district/selectByCityorConty,
+      			type : "POST",//方法类型
+				async : false,
+				dataType : "json",//预期服务器返回的数据类型
+				url : "/district/selectByCityorCounty",//url
+				data : $('#searchForm').serialize(),
+				
+				sucess:function(data){
+					alert(data.status);
+					if(data.status == 200){
+					/* 	$("#searchWindow").window("close");
+						$("#tab").datagrid('load'); */
+						/* console.log(p);
+		 	 			$("#tab").datagrid('load',p); */
+		 	 			/* alert();
+		 	 			$("#searchWindow").window('close');
+		 	 			$("#tab").datagrid('load');
+							
+					}else{
+						alert("查询结果不存在");
+					}
+					
+				}
+				
+      		});  */
+ 	    	
+ 			
       });
  	     
  		$("#button-import").upload({

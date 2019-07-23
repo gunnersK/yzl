@@ -20,6 +20,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.yzl.distriEpcTaskService.DistrictService;
 import com.yzl.pojo.YzlDistrict;
+import com.yzl.pojo.YzlDistrictVo;
 import com.yzl.utils.EasyUIResult;
 import com.yzl.utils.YzlResult;
 import com.yzl.utils.vo.DistrictTreeVO;
@@ -73,8 +74,22 @@ public class DistrictController {
 		return YzlResult.ok();
 	}
 	
-
-
+	/*
+	 * 根据市名和县名条件查询
+	 */
+	@RequestMapping("/district/selectByCityorCounty")
+	@ResponseBody
+	public List<YzlDistrict> selectByCityorCounty(YzlDistrictVo yzlDistrictVo,String city,String county){
+		YzlDistrict yzlDistrict = new YzlDistrict();
+		yzlDistrict.setCity(city);
+		yzlDistrict.setCounty(county);
+//		YzlDistrictVo yzlDistrictVo = new YzlDistrictVo();
+		yzlDistrictVo.setYzlDistrict(yzlDistrict);
+		System.out.println("city================================="+city);
+		System.out.println("city===================================="+yzlDistrictVo.getYzlDistrict().getCity());
+		List<YzlDistrict> result = districtService.selectByConditions(yzlDistrictVo);
+		return result;	
+	}
 	/***
 	 * 搜索
 	 */
