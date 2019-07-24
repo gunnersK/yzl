@@ -156,5 +156,5 @@ public interface YzlEpcTaskProgressMapper {
 	//根据计划年度、县行政编号
 //	List<YzlEpcTaskProgress>  selectByJhndAndCountyCode(YzlEpcTaskProgress epcTaskProgress);
 
-	List<YzlEpcTaskProgress> selectByProceed(@Param("zllb")String zllb,@Param("anumber")String anumber, @Param("year")String year,@Param("stats")List<String> stats);
+	List<YzlEpcTaskProgress> selectByProceed(@Param("gclb")String gclb,@Param("anumber")String anumber, @Param("year")String year,@Param("stats")List<String> stats);
 }

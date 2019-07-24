@@ -1156,8 +1156,8 @@
 	</select>
 	
 	<select id="selectByProceed" resultType="com.yzl.pojo.YzlEpcTaskProgress">
-		SELECT zllb,stat FROM yzl_epc_task_progress 
-		WHERE zllb = #{zllb} AND countyCode = #{anumber} AND ZYND = #{year}
+		SELECT gclb,stat FROM yzl_epc_task_progress 
+		WHERE gclb = #{gclb} AND countyCode = #{anumber} AND ZYND = #{year}
 		 AND stat in
 		 <foreach collection="stats" item="st" open="(" separator="," close=")">
 		 	#{st}

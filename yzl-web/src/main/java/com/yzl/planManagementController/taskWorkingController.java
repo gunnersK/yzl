@@ -125,8 +125,8 @@ public class taskWorkingController {
 	//ÊÂÏî
 	@RequestMapping("/takWorking/proceed")
 	@ResponseBody
-	public List<YzlProceed> proceed(String [] zllbs,String county,String year) {
-		return taskWorkingService.proceed(zllbs,county,year);
+	public List<YzlProceed> proceed(String [] gclbs,String county,String year) {
+		return taskWorkingService.proceed(gclbs,county,year);
 	}
 	
 }

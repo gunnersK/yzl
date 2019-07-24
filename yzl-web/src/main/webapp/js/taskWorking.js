@@ -1049,7 +1049,6 @@ var x;
 	
     //鼠标经过
     function overs(audits,submits,backs){
-    	
     	if(i==0){
     		i++;
     		var year = $("#year").val();
@@ -1059,19 +1058,22 @@ var x;
 			var JsonObj = eval('('+r+')');//将json串转成json对象
 			var county = JsonObj.county;
 			var anumber = JsonObj.countycode;
-			
+//			alert(r);
+			      
 			var array = new Array();
 			
 			for(var key in JsonObj){//遍历json对象
 				var index = key.indexOf("T");
 				if(index != -1){
-					var zl = key.substring(0,index);
-					array.push(zl);
+					var gl = key.substring(0,index);
+					array.push(gl);
 				}
 			}
+//			alert(array.toString());
 			
-			var urls = encodeURI('/takWorking/proceed?zllbs='+array+'&county='+county+'&year='+year);
+			var urls = encodeURI('/takWorking/proceed?gclbs='+array+'&county='+anumber+'&year='+year);
 			$.getJSON(urls,function(data){
+				alert(JSON.stringify(data));
 				back = 0;//计数
 				submit = 0;
 				audit = 0;

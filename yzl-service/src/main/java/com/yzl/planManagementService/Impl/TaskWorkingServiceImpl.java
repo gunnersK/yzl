@@ -255,7 +255,9 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 				String string2 = map.get("countycode");
 				if (countyCode.equals(string2)) {
 					Set<Entry<String,String>> entrySet = map.entrySet();
+//					System.out.println("entrySet================="+entrySet);
 					for (Entry<String, String> entry : entrySet) {
+//						System.out.println("entry================="+entry);
 						if (entry.getKey().equals("stat")) {
 							switch (entry.getValue()) {
 							case "0":
@@ -896,9 +898,9 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 	}
 
 	@Override
-	public List<YzlProceed> proceed(String[] zllbs,String county,String year) {
+	public List<YzlProceed> proceed(String[] gclbs,String county,String year) {
 		
-		YzlDistrict district = districtMapper.selectByCounty(county);
+		YzlDistrict district = districtMapper.selectByNumber(county);
 		
 		List<String> stats = new ArrayList<>();
 		stats.add("0");
@@ -907,22 +909,24 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 		
 		LinkedHashSet<String> hashSet = new LinkedHashSet<>();
 		
-		for (String string : zllbs) {
+		for (String string : gclbs) {
 			hashSet.add(string);
 		}
 		
 		List<YzlProceed> proceeds = new ArrayList<>();
+//		System.out.println("district.getAnumber()============"+district.toString()+"year=="+year);
 		
-		for (String zllb : hashSet) {
-			List<YzlEpcTaskProgress> epcTaskProgresses = epcTaskProgressMapper.selectByProceed(zllb,district.getAnumber(),year,stats);
+		for (String gclb : hashSet) {
+			System.out.println("zllb============"+gclb);
+			List<YzlEpcTaskProgress> epcTaskProgresses = epcTaskProgressMapper.selectByProceed(gclb,district.getAnumber(),year,stats);
 			for (YzlEpcTaskProgress yzlEpcTaskProgress : epcTaskProgresses) {
-				String zllb2 = yzlEpcTaskProgress.getZllb();
-				YzlTask task = taskMapper.selectByMark(zllb2);
+				String gclb2 = yzlEpcTaskProgress.getGclb();
+				YzlEpc epc = epcMapper.selectByMark(gclb2);
 				YzlProceed proceed = new YzlProceed();
-				proceed.setName(task.getTname());
+				proceed.setName(epc.getEname());
 				proceed.setStat(yzlEpcTaskProgress.getStat());
-				proceed.setNameAnumber(task.getMark());
-				proceed.setZllb(yzlEpcTaskProgress.getZllb());
+				proceed.setNameAnumber(epc.getMark());
+				proceed.setGclb(yzlEpcTaskProgress.getGclb());
 				proceeds.add(proceed);
 			}
 		}

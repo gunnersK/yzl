@@ -5,13 +5,13 @@ public class YzlProceed {
 	private String stat;
 	private String name;
 	private String nameAnumber;
-	private String zllb;
+	private String gclb;
 	
-	public String getZllb() {
-		return zllb;
+	public String getGclb() {
+		return gclb;
 	}
-	public void setZllb(String zllb) {
-		this.zllb = zllb;
+	public void setGclb(String gclb) {
+		this.gclb = gclb;
 	}
 	public String getNameAnumber() {
 		return nameAnumber;

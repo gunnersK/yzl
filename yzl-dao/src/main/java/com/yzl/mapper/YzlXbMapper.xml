@@ -2243,18 +2243,18 @@
 	</select>
 
 	<select id="selectByCityComplation" resultType="com.yzl.pojo.YzlXb">
-		SELECT city,county,GCLB,ZLLB,ZYND,JHND,SUM(HGMJ) AS HGMJ<!-- stat --> FROM yzl_xb
+		SELECT city,county,GCLB,ZLLB,ZYND,JHND,SUM(HGMJ) AS HGMJ, stat FROM yzl_xb
 		<where>
 			<if test="year != null and year != ''">
 				ZYND = #{year}
 			</if>
-			<!-- <if test="stats != null and stats.size > 0">
+			<if test="stats != null and stats.size > 0">
 				AND stat IN
 				<foreach collection="stats" item="stat" open="(" separator="," close=")">
 					#{stat}
 				</foreach>
 				
-			</if> -->
+			</if>
 			<if test="proceed != null and proceed != '' and proceed != 'null'">
 				and gclb = #{proceed}
 			</if>

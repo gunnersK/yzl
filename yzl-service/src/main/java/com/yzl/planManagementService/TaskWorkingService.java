@@ -39,6 +39,6 @@ public interface TaskWorkingService {
 
 	public YzlDistrict findByFlag(String flag);
 
-	public List<YzlProceed> proceed(String[] zllbs,String county,String year);
+	public List<YzlProceed> proceed(String[] gclbs,String county,String year);
 
 }
