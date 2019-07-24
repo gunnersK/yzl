@@ -412,13 +412,13 @@ var x;
         	    					//<div id='pros' onmouseout='outs()' onmouseover='overs()' style='height:25px;width:70px;margin-left:12px;margin-top:5px'><div>事项 </div> </div>
              	    		         if (value == "1"){
               	    		             //return "<p style='color:blue;'>待审核</p>";
-             	  return "<div id='pros' onmouseout='outs()' onmouseover='overs("+audit+","+submit+","+back+")' style='height:25px;width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:blue;text-decoration: none;'>待审核("+audit+")</a></p> </div>"
+             	  return "<div id='pros' onmouseout='outs()' onmouseover='overs("+audit+","+submit+","+back+")' style='width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:blue;text-decoration: none;'>待审核("+audit+")</a></p> </div>"
               	    		          } else if (value == "0"){
               	    		             //return "<p style='color:green;'>待提交</p>";
-              	  return "<div id='pros' onmouseout='outs()' onmouseover='overs("+audit+","+submit+","+back+")' style='height:25px;width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:green;text-decoration: none;'>待提交("+submit+")</a></p> </div>"
+              	  return "<div id='pros' onmouseout='outs()' onmouseover='overs("+audit+","+submit+","+back+")' style='width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:green;text-decoration: none;'>待提交("+submit+")</a></p> </div>"
               	    		          }else if (value == "3"){
               	    		             //return "<p style='color:red;'>被退回</p>";
-              	  return "<div id='pros' onmouseout='outs()' onmouseover='overs("+audit+","+submit+","+back+")' style='height:25px;width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:red;text-decoration: none;'>被退回("+back+")</a></p> </div>"
+              	  return "<div id='pros' onmouseout='outs()' onmouseover='overs("+audit+","+submit+","+back+")' style='width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:red;text-decoration: none;'>被退回("+back+")</a></p> </div>"
               	    		          }else{
               	    		             return "<p style='color:gray;'>无状态</p>";
               	    		          }  			
@@ -472,13 +472,13 @@ var x;
 	            	    					//<div id='pros' onmouseout='outs()' onmouseover='overs()' style='height:25px;width:70px;margin-left:12px;margin-top:5px'><div>事项 </div> </div>
 	                 	    		         if (value == "1"){console.info(1);
 	                  	    		             //return "<p style='color:blue;'>待审核</p>";
-	                 	  return "<div id='pros' onmouseout='outs()' onmouseover='overs("+audit+","+submit+","+back+")' style='height:25px;width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:blue;text-decoration: none;'>待审核("+audit+")</a></p> </div>"
+	                 	  return "<div id='pros' onmouseout='outs()' onmouseover='overs("+audit+","+submit+","+back+")' style='width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:blue;text-decoration: none;'>待审核("+audit+")</a></p> </div>"
 	                  	    		          } else if (value == "0"){console.info(0);
 	                  	    		             //return "<p style='color:green;'>待提交</p>";
-	                  	  return "<div id='pros' onmouseout='outs()' onmouseover='overs("+audit+","+submit+","+back+")' style='height:25px;width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:green;text-decoration: none;'>待提交("+submit+")</a></p> </div>"
+	                  	  return "<div id='pros' onmouseout='outs()' onmouseover='overs("+audit+","+submit+","+back+")' style='width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:green;text-decoration: none;'>待提交("+submit+")</a></p> </div>"
 	                  	    		          }else if (value == "3"){console.info(3);
 	                  	    		             //return "<p style='color:red;'>被退回</p>";
-	                  	  return "<div id='pros' onmouseout='outs()' onmouseover='overs("+audit+","+submit+","+back+")' style='height:25px;width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:red;text-decoration: none;'>被退回("+back+")</a></p> </div>"
+	                  	  return "<div id='pros' onmouseout='outs()' onmouseover='overs("+audit+","+submit+","+back+")' style='width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:red;text-decoration: none;'>被退回("+back+")</a></p> </div>"
 	                  	    		          }else{
 	                  	    		             return "<p style='color:gray;'>无状态</p>";
 	                  	    		          }  			
@@ -523,13 +523,13 @@ var x;
 	        	    					//<div id='pros' onmouseout='outs()' onmouseover='overs()' style='height:25px;width:70px;margin-left:12px;margin-top:5px'><div>事项 </div> </div>
 	             	    		         if (value == "1"){console.info(1);
 	              	    		             //return "<p style='color:blue;'>待审核</p>";
-	             	  return "<div id='pros' onmouseout='outs()' onmouseover='overs("+audit+","+submit+","+back+")' style='height:25px;width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:blue;text-decoration: none;'>待审核("+audit+")</a></p> </div>"
+	             	  return "<div id='pros' onmouseout='outs()' onmouseover='overs("+audit+","+submit+","+back+")' style='width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:blue;text-decoration: none;'>待审核("+audit+")</a></p> </div>"
 	              	    		          } else if (value == "0"){
 	              	    		             //return "<p style='color:green;'>待提交</p>";
-	              	  return "<div id='pros' onmouseout='outs()' onmouseover='overs("+audit+","+submit+","+back+")' style='height:25px;width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:green;text-decoration: none;'>待提交("+submit+")</a></p> </div>"
+	              	  return "<div id='pros' onmouseout='outs()' onmouseover='overs("+audit+","+submit+","+back+")' style='width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:green;text-decoration: none;'>待提交("+submit+")</a></p> </div>"
 	              	    		          }else if (value == "3"){console.info(3);
 	              	    		             //return "<p style='color:red;'>被退回</p>";
-	              	  return "<div id='pros' onmouseout='outs()' onmouseover='overs("+audit+","+submit+","+back+")' style='height:25px;width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:red;text-decoration: none;'>被退回("+back+")</a></p> </div>"
+	              	  return "<div id='pros' onmouseout='outs()' onmouseover='overs("+audit+","+submit+","+back+")' style='width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:red;text-decoration: none;'>被退回("+back+")</a></p> </div>"
 	              	    		          }else{
 	              	    		             return "<p style='color:gray;'>无状态</p>";
 	              	    		          }  			
@@ -545,9 +545,10 @@ var x;
 	    				dataType:'json',
 	    				data:{"dcode":node.id},
 	    				success:function(data){
+	    					disCode = node.id;
 	    					//var si = JOSN.stringify(data);
 	    					//var obj = JSON.parse(data);&& data.length>0 && data != "[object Object]"
-	    					console.info(data+"------------");
+	    					console.info(data+"------------"+node.id);
 	    					if(data!=null ){
 	    						disCode = data.anumber;
 	    					}
@@ -581,23 +582,23 @@ var x;
 			traditional: true,
 			async:false,
 			url:'/taskWorking/taskTab',
-			data:{"year":year,"zllb":epcMark,"disCode":disCode,"stat":preceedStat},
+			data:{"year":year,"gclb":epcMark,"disCode":disCode,"stat":preceedStat},
 			dataType:'json',
 			success:function(data){
 				
 		    	for(var i=0;i<data.length;i++){
-					columnsOneTab.push({field:'',title:data[i].tname,width:100*data[i].list.length,colspan:data[i].list.length*3,align:'center'});
+					columnsOneTab.push({field:'',title:data[i].ename,width:100*data[i].list.length,colspan:data[i].list.length*3,align:'center'});
 					
-					var epc = data[i].list;
+					var task = data[i].list;
 					
 					if(data[i].list.length > 0){
-						for(var j=0;j<epc.length;j++){
-							var ename = epc[j].ename;
-							var field = epc[j].field;
-							columnsTowTab.push({title:''+ename+'',width:100*3,align:'center',colspan:3});//field:''+field+'',
-							columnsThreeTab.push({field:'jh'+data[i].mark+"Y"+epc[j].mark,title:'计划',width:100,align:'center'},
-												 {field:'wc'+data[i].mark+"Y"+epc[j].mark,title:'完成',width:100,align:'center'},
-												 {field:'zjh'+data[i].mark+"Y"+epc[j].mark,title:'占计划%',width:100,align:'center'});
+						for(var j=0;j<task.length;j++){
+							var tname = task[j].tname;
+							var field = task[j].field;
+							columnsTowTab.push({title:''+tname+'',width:100*3,align:'center',colspan:3});//field:''+field+'',
+							columnsThreeTab.push({field:'jh'+data[i].mark+"Y"+task[j].mark,title:'计划',width:100,align:'center'},
+												 {field:'wc'+data[i].mark+"Y"+task[j].mark,title:'完成',width:100,align:'center'},
+												 {field:'zjh'+data[i].mark+"Y"+task[j].mark,title:'占计划%',width:100,align:'center'});
 						}
 					}
 				}
@@ -666,7 +667,8 @@ var x;
     	var columnsThreeTab = new Array();
     	
     	var node =$("#tt").tree('getSelected');//获取选择的节点
-    	var zllb = $("#epc").combobox('getValue');//获取选择的工程编号
+//    	var zllb = $("#epc").combobox('getValue');//获取选择的工程编号
+    	var gclb = $("#epc").combobox('getValue');//获取选择的工程编号
     	
     	var oldNode = null;
     	var id = null;
@@ -729,13 +731,13 @@ var x;
         	    					//<div id='pros' onmouseout='outs()' onmouseover='overs()' style='height:25px;width:70px;margin-left:12px;margin-top:5px'><div>事项 </div> </div>
              	    		         if (value == "1"){console.info(1);
               	    		             //return "<p style='color:blue;'>待审核</p>";
-             	  return "<div id='pros' onmouseout='outs()' onmouseover='overs()' style='height:25px;width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:blue;text-decoration: none;'>待审核("+audit+")</a></p> </div>"
+             	  return "<div id='pros' onmouseout='outs()' onmouseover='overs()' style='width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:blue;text-decoration: none;'>待审核("+audit+")</a></p> </div>"
               	    		          } else if (value == "0"){console.info(0);
               	    		             //return "<p style='color:green;'>待提交</p>";
-              	  return "<div id='pros' onmouseout='outs()' onmouseover='overs()' style='height:25px;width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:green;text-decoration: none;'>待提交("+submit+")</a></p> </div>"
+              	  return "<div id='pros' onmouseout='outs()' onmouseover='overs()' style='width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:green;text-decoration: none;'>待提交("+submit+")</a></p> </div>"
               	    		          }else if (value == "3"){console.info(3);
               	    		             //return "<p style='color:red;'>被退回</p>";
-              	  return "<div id='pros' onmouseout='outs()' onmouseover='overs()' style='height:25px;width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:red;text-decoration: none;'>被退回("+back+")</a></p> </div>"
+              	  return "<div id='pros' onmouseout='outs()' onmouseover='overs()' style='width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:red;text-decoration: none;'>被退回("+back+")</a></p> </div>"
               	    		          }else{
               	    		             return "<p style='color:gray;'>无状态</p>";
               	    		          }  			
@@ -770,13 +772,13 @@ var x;
         	    					//<div id='pros' onmouseout='outs()' onmouseover='overs()' style='height:25px;width:70px;margin-left:12px;margin-top:5px'><div>事项 </div> </div>
              	    		         if (value == "1"){console.info(1);
               	    		             //return "<p style='color:blue;'>待审核</p>";
-             	  return "<div id='pros' onmouseout='outs()' onmouseover='overs()' style='height:25px;width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:blue;text-decoration: none;'>待审核("+audit+")</a></p> </div>"
+             	  return "<div id='pros' onmouseout='outs()' onmouseover='overs()' style='width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:blue;text-decoration: none;'>待审核("+audit+")</a></p> </div>"
               	    		          } else if (value == "0"){console.info(0);
               	    		             //return "<p style='color:green;'>待提交</p>";
-              	  return "<div id='pros' onmouseout='outs()' onmouseover='overs()' style='height:25px;width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:green;text-decoration: none;'>待提交("+submit+")</a></p> </div>"
+              	  return "<div id='pros' onmouseout='outs()' onmouseover='overs()' style='width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:green;text-decoration: none;'>待提交("+submit+")</a></p> </div>"
               	    		          }else if (value == "3"){console.info(3);
               	    		             //return "<p style='color:red;'>被退回</p>";
-              	  return "<div id='pros' onmouseout='outs()' onmouseover='overs()' style='height:25px;width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:red;text-decoration: none;'>被退回("+back+")</a></p> </div>"
+              	  return "<div id='pros' onmouseout='outs()' onmouseover='overs()' style='width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:red;text-decoration: none;'>被退回("+back+")</a></p> </div>"
               	    		          }else{
               	    		             return "<p style='color:gray;'>无状态</p>";
               	    		          }  			
@@ -820,7 +822,7 @@ var x;
 			url:'/takWorking/taskTab',
 //			url:'/task/getTableHeader',
 			dataType:'json',
-			data:{"year":year,"disCode":disCode,"gclb":zllb},
+			data:{"year":year,"disCode":disCode,"gclb":gclb},
 			success:function(data){
 				for(var i=0;i<data.length;i++){
 					columnsOneTab.push({field:'',title:data[i].ename,width:130*data[i].list.length,colspan:data[i].list.length*3,align:'center'});
@@ -1073,7 +1075,7 @@ var x;
 			
 			var urls = encodeURI('/takWorking/proceed?gclbs='+array+'&county='+anumber+'&year='+year);
 			$.getJSON(urls,function(data){
-				alert(JSON.stringify(data));
+//				alert(JSON.s tringify(data));
 				back = 0;//计数
 				submit = 0;
 				audit = 0;

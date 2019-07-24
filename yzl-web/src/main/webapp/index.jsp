@@ -13,7 +13,7 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<title>广西营造林数据分析系统</title>
+<title>营造林数据分析系统</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="assets/css/font-awesome.min.css" />

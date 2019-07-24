@@ -85,7 +85,7 @@ public class MonitoringstatisticsController {
 	 * @return
 	 */
 //	@Cacheable(value = "moniCache",key = "#usr+':'+#page+':'+#stime+':'+#sname+':'+#rows")
-	@RedisCache(type="monitMunicipality")
+//	@RedisCache(type="monitMunicipality")
 	@RequestMapping("/show_xbMunicipality")
 	@ResponseBody
 	public EasyUIResult monitMunicipality(String stime,String sname,String time,Integer page,Integer rows,String usr,String cityCode,String zllb,String gclb) {
@@ -96,7 +96,7 @@ public class MonitoringstatisticsController {
 	 * ÊÐ
 	 */
 //	@Cacheable(value = "cityCache",key = "#flag+':'+#usr+':'+#page+':'+#stime+':'+#sname+':'+#rows")
-	@RedisCache(type="monitCity")
+//	@RedisCache(type="monitCity")
 	@RequestMapping("/show_xbCity")
 	@ResponseBody
 	public EasyUIResult monitCity(String flag,Integer page,Integer rows,String sname,String stime,String time,String usr,String cityCode,String zllb,String gclb){
@@ -108,7 +108,7 @@ public class MonitoringstatisticsController {
 	 * @return
 	 */
 //	@Cacheable(value = "countyCache",key = "#dcode+':'+#usr+':'+#page+':'+#stime+':'+#sname+':'+#rows")
-	@RedisCache(type="monitCounty")
+//	@RedisCache(type="monitCounty")
 	@RequestMapping("/show_xbCounty")
 	@ResponseBody
 	public EasyUIResult monitCounty(String dcode,Integer page,Integer rows,String sname,String stime,String time,String usr,String zllb,String gclb) {

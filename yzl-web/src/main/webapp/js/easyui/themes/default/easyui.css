@@ -986,7 +986,7 @@ a:hover.l-btn-disabled {
 }
 .datagrid-header-row,
 .datagrid-row {
-  height: 25px;
+  height: 30px;
 }
 .datagrid-header td,
 .datagrid-body td,

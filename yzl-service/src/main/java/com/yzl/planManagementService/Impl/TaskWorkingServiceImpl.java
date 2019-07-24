@@ -694,8 +694,8 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 			StringBuffer buffer = new StringBuffer();
 			
 			for (String string : split2) {
-				YzlTask task = taskMapper.selectByMark(string);//根据工程编号查询
-				buffer.append(task.getTname()+",");
+				YzlEpc epc = epcMapper.selectByMark(string);//根据工程编号查询
+				buffer.append(epc.getEname()+",");
 			}
 			yzlLog.setGclb(buffer.toString());
 			//yzlLog.setDcode(county);

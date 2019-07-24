@@ -12,7 +12,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
  <!--  <link href="assets/css/bootstrap.min.css" rel="stylesheet" /> -->
 <!--   <link rel="stylesheet" href="assets/css/font-awesome.min.css" /> -->
-  <link rel="stylesheet" href="assets/css/jquery-ui-1.10.3.full.min.css">
+  <!-- <link rel="stylesheet" href="assets/css/jquery-ui-1.10.3.full.min.css"> -->
 <!--   <link rel="stylesheet" href="assets/css/ace.min.css" />
   <link rel="stylesheet" href="css/style.css"/> -->
   <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-easyui-1.4.1/jquery.min.js"></script>
@@ -104,6 +104,18 @@ display: none;
 }
 #pros li ul{
 display: none;
+}
+#pros p{
+margin:0px;
+/* top: 2px; */
+} 
+#pros{
+height:20px;
+margin-bottom: 2px;
+}
+.ptl{
+text-decoration: none;
+color: #4169E1;
 }
 
 

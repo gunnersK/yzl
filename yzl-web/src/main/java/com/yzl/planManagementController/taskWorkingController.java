@@ -1,5 +1,6 @@
 package com.yzl.planManagementController;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -91,7 +92,13 @@ public class taskWorkingController {
 	@ResponseBody				//String row,String time,String county,Integer page,Integer rows,String zllb
 	public EasyUIResult findLog(String row,String time,String county,Integer page,Integer rows,String zllb) {
 		//System.out.println("ccc");
-		return taskWorkingService.findLog(row,time,county,page,rows,zllb);
+		String countyName = null;
+		try {
+			countyName = new String(county.getBytes("ISO8859-1"), "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return taskWorkingService.findLog(row,time,countyName,page,rows,zllb);
 	}
 	
 	/**
