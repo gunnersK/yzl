@@ -546,7 +546,7 @@ public class TaskIssuedServiceImpl implements TaskIssuedService {
 				
 				String value = null;
 				if(!"fileUrl".equals(key)) {
-					value = entry.getValue();
+					value = String.valueOf(entry.getValue());
 				}
 				
 				
