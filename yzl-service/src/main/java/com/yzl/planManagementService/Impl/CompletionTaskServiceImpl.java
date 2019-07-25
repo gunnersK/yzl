@@ -117,11 +117,11 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 	
 	//查询表头
 		@Override
-		public List<YzlEpc> epcTab(String year, String disCode,String zllb) {
+		public List<YzlEpc> epcTab(String year, String disCode,String gclb) {
 			System.out.println(disCode);
-			if ("10".equals(zllb)) {
-				zllb = null;
-			}
+//			if ("10".equals(zllb)) {
+//				zllb = null;
+//			}
 			//要查询的状态
 			List<String> stats = new ArrayList<>();
 			stats.add("2");
@@ -130,13 +130,13 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 			//查询审核完成的表头
 //			List<YzlTask> tasks = XbMapper.selectEpcTabName(stats,year,disCode,menu,zllb);
 			//查询下发的表头
-			List<YzlEpc> epcs = XbMapper.selectByTaskIssuedTableHead(year, disCode, zllb, menu,stats);
+			List<YzlEpc> epcs = XbMapper.selectByTaskIssuedTableHead(year, disCode, gclb, menu,stats);
 			
 			for (YzlEpc epc : epcs) {
 				String ecode = epc.getMark();
 				//查询这个造林类别拥有的工程
 				//List<YzlEpc> epcs = XbMapper.selectByEpcPossessTask(tcode,year,stats,disCode,menu,zllb);
-				List<YzlTask> tasks = XbMapper.selectByGclb(ecode,year,disCode,menu,zllb,stats);
+				List<YzlTask> tasks = XbMapper.selectByGclb(ecode,year,disCode,menu,gclb,stats);
 //						HashMap<String, String> hashMap = new HashMap<>();
 				for (YzlTask yzlTask : tasks) {//把造林类别和工程拼在一起
 					yzlTask.setField(ecode+"T"+yzlTask.getMark());
@@ -150,11 +150,11 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 		}
 	
 	@Override
-	public EasyUIResult queryTaskData(Integer page, Integer rows, String year, String areaCode,String ZLLB,String usr) {
+	public EasyUIResult queryTaskData(Integer page, Integer rows, String year, String areaCode,String GCLB,String usr) {
 		list.clear();
-		if ("10".equals(ZLLB)) {
-			ZLLB = null;
-		}
+//		if ("10".equals(ZLLB)) {
+//			ZLLB = null;
+//		}
 		List<String> stats = new ArrayList<>();
 		stats.add(TaskWorkSatusEnum.TASK_CITY_VERIFIED.getCode().toString());
 		if(StringUtils.isBlank(year)){//如果年份等于 空 则获取当前时间的年份
@@ -174,9 +174,9 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 	//	if(areaCode.equals(DistrictEnum.REGION_ADMIN.getCode())){//如果相等就是当前选择的是自治区
 		if(StringUtils.isBlank(areaCode) || areaCode.equals(DistrictEnum.REGION_ADMIN.getCode())){
 //			resultList = queryCityDataAndCount(year,areaCode,stats,authoritys,ZLLB,keywork); //查询并统计市级数据
-			resultList = selectByCityAndCount(year, stats, menu, areaCode, ZLLB);
+			resultList = selectByCityAndCount(year, stats, menu, areaCode, GCLB);
 		}else{
-			resultList = selectByCountyCount(year, stats, menu, areaCode, ZLLB);
+			resultList = selectByCountyCount(year, stats, menu, areaCode, GCLB);
 			//return epcTaskData(year, areaCode, page, rows, usr);
 //			resultList = queryCountyDataAndCount(year, areaCode, stats, authoritys, ZLLB, keywork);//查询并统计县级数据
 		}
@@ -288,9 +288,9 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 	
 	
 	//对市的统计和查询
-	private List<Map<String,String>> selectByCityAndCount(String year,List<String> stats,List<String> menu,String disCode,String zllb){
+	private List<Map<String,String>> selectByCityAndCount(String year,List<String> stats,List<String> menu,String disCode,String gclb){
 		//统计市的任务下发
-		List<YzlEpcTaskProgress> epcTaskProgresses = XbMapper.selectByCityCountyTaskIssued(year,menu,zllb,stats);
+		List<YzlEpcTaskProgress> epcTaskProgresses = XbMapper.selectByCityCountyTaskIssued(year,menu,gclb,stats);
 		LinkedHashSet<String> hashSetCity = new LinkedHashSet<>();
 		
 		//获得所有的市并去重
@@ -301,7 +301,7 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 		List<Map<String,String>> lists = new ArrayList<>();
 		
 		//查询任务完成的数据并统计市级数据
-		List<YzlXb> xbs = XbMapper.selectByCityComplation(year,stats,menu,disCode,zllb,null);
+		List<YzlXb> xbs = XbMapper.selectByCityComplation(year,stats,menu,disCode,gclb,null);
 		
 		int flag = 0 ;
 		for (YzlEpcTaskProgress epcTaskProgress : epcTaskProgresses) {//遍历所有的市
@@ -322,27 +322,27 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 					hashMap.put(epcTaskProgress.getZllb()+"zl", yzlXb.getXtjsbmj());
 					hashMap.put("citycode", epcTaskProgress.getCitycode());
 					hashMap.put("stat", yzlXb.getStat());
-					hashMap.put("jh"+epcTaskProgress.getZllb()+"Y"+epcTaskProgress.getGclb(), String.format("%.2f", float1));//计划
+					hashMap.put("jh"+epcTaskProgress.getGclb()+"Y"+epcTaskProgress.getZllb(), String.format("%.2f", float1));//计划
 					hashMap.put("city", list.get(0).getCity());//市
 					String xtjsbmj = yzlXb.getXtjsbmj();//完成的数量
 					Float wc = Float.valueOf(xtjsbmj)/float1;//String chardisPos = String.format("%.2f", Double.valueOf(XTJSBMJ));
-					hashMap.put("wc"+epcTaskProgress.getZllb()+"Y"+epcTaskProgress.getGclb(), String.format("%.2f", Float.valueOf(xtjsbmj)));
-					hashMap.put("zjh"+epcTaskProgress.getZllb()+"Y"+epcTaskProgress.getGclb(), String.format("%.2f", wc*100));//占计划 等于 完成的除以计划
+					hashMap.put("wc"+epcTaskProgress.getGclb()+"Y"+epcTaskProgress.getZllb(), String.format("%.2f", Float.valueOf(xtjsbmj)));
+					hashMap.put("zjh"+epcTaskProgress.getGclb()+"Y"+epcTaskProgress.getZllb(), String.format("%.2f", wc*100));//占计划 等于 完成的除以计划
 					hashMap.put("particulars", "<a class='ptl'  href='#' value='"+"' >详情</a>");
-					hashMap.put(epcTaskProgress.getZllb()+"T"+epcTaskProgress.getGclb(), yzlXb.getXtjsbmj());
+					hashMap.put(epcTaskProgress.getGclb()+"T"+epcTaskProgress.getZllb(), yzlXb.getXtjsbmj());
 					break;
 				}
 			}
 			if (flag == 0) {
-				hashMap.put(epcTaskProgress.getZllb()+"zl", "0");
+				hashMap.put(epcTaskProgress.getGclb()+"zl", "0");
 				hashMap.put("citycode", epcTaskProgress.getCitycode());
 				hashMap.put("stat", epcTaskProgress.getStat());
-				hashMap.put("jh"+epcTaskProgress.getZllb()+"Y"+epcTaskProgress.getGclb(), String.format("%.2f", float1));//计划
+				hashMap.put("jh"+epcTaskProgress.getGclb()+"Y"+epcTaskProgress.getZllb(), String.format("%.2f", float1));//计划
 				hashMap.put("city", list.get(0).getCity());//市
-				hashMap.put("wc"+epcTaskProgress.getZllb()+"Y"+epcTaskProgress.getGclb(), "0");
-				hashMap.put("zjh"+epcTaskProgress.getZllb()+"Y"+epcTaskProgress.getGclb(), "0");//占计划 等于 完成的除以计划
+				hashMap.put("wc"+epcTaskProgress.getGclb()+"Y"+epcTaskProgress.getZllb(), "0");
+				hashMap.put("zjh"+epcTaskProgress.getGclb()+"Y"+epcTaskProgress.getZllb(), "0");//占计划 等于 完成的除以计划
 				hashMap.put("particulars", "<a class='ptl'  href='#' value='"+"' >详情</a>");
-				hashMap.put(epcTaskProgress.getZllb()+"T"+epcTaskProgress.getGclb(), "0");
+				hashMap.put(epcTaskProgress.getGclb()+"T"+epcTaskProgress.getZllb(), "0");
 			}
 			lists.add(hashMap);
 			flag = 0;
@@ -398,9 +398,9 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 	
 	
 	//对县的统计和查询
-	private List<Map<String, String>> selectByCountyCount(String year, List<String> stats, List<String> menu,String disCode,String zllb) {
+	private List<Map<String, String>> selectByCountyCount(String year, List<String> stats, List<String> menu,String disCode,String gclb) {
 		//统计县的任务下发
-		List<YzlEpcTaskProgress> epcTaskProgresses = XbMapper.selectByCountyCountyTaskIssued(year,menu,disCode,zllb,stats,null);
+		List<YzlEpcTaskProgress> epcTaskProgresses = XbMapper.selectByCountyCountyTaskIssued(year,menu,disCode,gclb,stats,null);
 		LinkedHashSet<String> hashSet = new LinkedHashSet<>();//装县的集合不含重复
 		
 		for (YzlEpcTaskProgress yzlEpcTaskProgress : epcTaskProgresses) {
@@ -409,7 +409,7 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 		List<Map<String,String>> lists = new ArrayList<>();//返回的数据
 		
 		//查询任务完成的数据并统计市级数据
-		List<YzlXb> xbs = XbMapper.selectByCityComplation(year, stats, menu, disCode,zllb,null);
+		List<YzlXb> xbs = XbMapper.selectByCityComplation(year, stats, menu, disCode,gclb,null);
 		
 		for (YzlEpcTaskProgress yzlEpcTaskProgress : epcTaskProgresses) {
 			
@@ -432,15 +432,15 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 					
 					hashMap.put("countycode", yzlEpcTaskProgress.getCountycode());
 					hashMap.put("stat", yzlXb.getStat());
-					hashMap.put("jh"+yzlEpcTaskProgress.getZllb()+"Y"+yzlEpcTaskProgress.getGclb(), String.format("%.2f", float1));//计划
+					hashMap.put("jh"+yzlEpcTaskProgress.getGclb()+"Y"+yzlEpcTaskProgress.getZllb(), String.format("%.2f", float1));//计划
 					hashMap.put("city", list.get(0).getCity());//市
 					hashMap.put("county", list.get(0).getCounty());//县
 					String xtjsbmj = yzlXb.getXtjsbmj();//完成的数量
 					Float wc = Float.valueOf(xtjsbmj)/float1;//String chardisPos = String.format("%.2f", Double.valueOf(XTJSBMJ));
-					hashMap.put("wc"+yzlEpcTaskProgress.getZllb()+"Y"+yzlEpcTaskProgress.getGclb(), String.format("%.2f", Float.valueOf(xtjsbmj)));
-					hashMap.put("zjh"+yzlEpcTaskProgress.getZllb()+"Y"+yzlEpcTaskProgress.getGclb(), String.format("%.2f", wc*100));//占计划 等于 完成的除以计划
+					hashMap.put("wc"+yzlEpcTaskProgress.getGclb()+"Y"+yzlEpcTaskProgress.getZllb(), String.format("%.2f", Float.valueOf(xtjsbmj)));
+					hashMap.put("zjh"+yzlEpcTaskProgress.getGclb()+"Y"+yzlEpcTaskProgress.getZllb(), String.format("%.2f", wc*100));//占计划 等于 完成的除以计划
 					hashMap.put("particulars", "<a class='ptl'  href='#' value='"+"' >详情</a>");
-					hashMap.put(yzlEpcTaskProgress.getZllb()+"T"+yzlEpcTaskProgress.getGclb(), yzlXb.getXtjsbmj());
+					hashMap.put(yzlEpcTaskProgress.getGclb()+"T"+yzlEpcTaskProgress.getZllb(), yzlXb.getXtjsbmj());
 					break;
 				}
 				
@@ -448,13 +448,13 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 			if (flag == 0) {
 				hashMap.put("countycode", yzlEpcTaskProgress.getCountycode());
 				hashMap.put("stat", yzlEpcTaskProgress.getStat());
-				hashMap.put("jh"+yzlEpcTaskProgress.getZllb()+"Y"+yzlEpcTaskProgress.getGclb(), String.format("%.2f", float1));//计划
+				hashMap.put("jh"+yzlEpcTaskProgress.getGclb()+"Y"+yzlEpcTaskProgress.getZllb(), String.format("%.2f", float1));//计划
 				hashMap.put("city", list.get(0).getCity());//市
 				hashMap.put("county", list.get(0).getCounty());//县
-				hashMap.put("wc"+yzlEpcTaskProgress.getZllb()+"Y"+yzlEpcTaskProgress.getGclb(), "0");//完成
-				hashMap.put("zjh"+yzlEpcTaskProgress.getZllb()+"Y"+yzlEpcTaskProgress.getGclb(), "0");//占计划 等于 完成的除以计划
+				hashMap.put("wc"+yzlEpcTaskProgress.getGclb()+"Y"+yzlEpcTaskProgress.getZllb(), "0");//完成
+				hashMap.put("zjh"+yzlEpcTaskProgress.getGclb()+"Y"+yzlEpcTaskProgress.getZllb(), "0");//占计划 等于 完成的除以计划
 				hashMap.put("particulars", "<a class='ptl'  href='#' value='"+"' >详情</a>");
-				hashMap.put(yzlEpcTaskProgress.getZllb()+"T"+yzlEpcTaskProgress.getGclb(), "0");
+				hashMap.put(yzlEpcTaskProgress.getGclb()+"T"+yzlEpcTaskProgress.getZllb(), "0");
 			}
 			flag = 0;
 			lists.add(hashMap);
@@ -812,8 +812,8 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 
 	//导入
 	@Override
-	public void derive(String nid, String year, HttpServletResponse response,String disCode,String new_zllb) {
-		EasyUIResult result = queryTaskData(1, 10, year, disCode, new_zllb, null);
+	public void derive(String nid, String year, HttpServletResponse response,String disCode,String new_gclb) {
+		EasyUIResult result = queryTaskData(1, 10, year, disCode, new_gclb, null);
 //		EasyUIResult result = epcTaskData(1, 10, year, disCode, new_zllb, null);
 		
 		
@@ -965,6 +965,9 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 				}
 			}
 		}
+//		for(String s : hashSet){
+//			System.out.println("======key======="+s);
+//		}
 		return hashSet;
 	}
 	
@@ -981,12 +984,12 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 		if (nid.equals("45")) {
 			for (String string : hashSet) {
 				//根据编号查询造林类别
-				YzlTask task = taskMapper.selectByMark(string);
+				YzlEpc epc = epcMapper.selectByMark(string);
 				sheet.addMergedRegion(new CellRangeAddress(2, 4, start, start));//合并单元格
 //				sheet.addMergedRegion(new CellRangeAddress(firstRow, lastRow, firstCol, lastCol));
 				//一级表头
 				HSSFCell cell = row3.createCell(start);
-				cell.setCellValue(task.getTname());
+				cell.setCellValue(epc.getEname());
 				cell.setCellStyle(style);//设置样式
 				start++;
 				estart++;
@@ -994,11 +997,11 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 		}
 
 		//遍历所有造林类别
-		for (String tcode : hashSet) {
+		for (String ecode : hashSet) {
 			//根据编号查询造林类别
-			YzlTask task = taskMapper.selectByMark(tcode);
-			//查询该造林类别拥有的工程
-			List<String> tas = xbMapper.selectByTaskPossessEpc(tcode,year,TaskWorkSatusEnum.TASK_CITY_VERIFIED.getCode().toString(),nid);
+			YzlEpc epc = epcMapper.selectByMark(ecode);
+			//查询该工程拥有的造林类别
+			List<String> tas = xbMapper.selectByTaskPossessEpc(ecode,year,TaskWorkSatusEnum.TASK_CITY_VERIFIED.getCode().toString(),nid);
 //			List<YzlEpc> epcs = XbMapper.selectByZllb(tcode,year,disCode,menu,zllb,stats);
 			int size = tas.size()*3;//这个表头所占据的表格数
 			if (tas.size()>0) {
@@ -1006,14 +1009,14 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 			}
 			//一级表头
 			HSSFCell cell = row3.createCell(start);
-			cell.setCellValue(task.getTname());
+			cell.setCellValue(epc.getEname());
 			cell.setCellStyle(style);//设置样式
 			
 			
 			//二级表头
-			for (String ecode : tas) {
+			for (String tcode : tas) {
 				
-				YzlEpc epc = epcMapper.selectByMark(ecode);//根据工程编号查询
+				YzlTask task = taskMapper.selectByMark(tcode);//根据工程编号查询
 				sheet.addMergedRegion(new CellRangeAddress(3, 3, estart, estart+2));
 				HSSFCell cell2 = row4.createCell(estart);
 				cell2.setCellValue(epc.getEname());
@@ -1132,7 +1135,7 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 
 	//抽检完成的退回
 	@Override
-	public YzlResult back(String[] backData, String time,String zllb,String [] countys) {
+	public YzlResult back(String[] backData, String time,String gclb,String [] countys) {
 		String county = null;
 		String ZYND = time;
 		int result = 0;
@@ -1144,8 +1147,8 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 		for (String string : countys) {
 			YzlDistrict district = districtMapper.selectByCounty(string);
 			county = district.getAnumber();
-			tableResult += xbMapper.updateByEpcTaskTable(zllb,county,ZYND,stats,code);
-			result += xbMapper.updateByMark(null,county,null,ZYND,code.toString(),stats,zllb);
+			tableResult += xbMapper.updateByEpcTaskTable(gclb,county,ZYND,stats,code);
+//			result += xbMapper.updateByMark(null,county,null,ZYND,code.toString(),stats,zllb);
 		}
 		if (result > 0 || tableResult > 0) {
 			return new YzlResult(200);

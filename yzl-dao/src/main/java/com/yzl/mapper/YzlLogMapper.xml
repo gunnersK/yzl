@@ -326,8 +326,8 @@
 			<if test="time != null and time != '' and time != 'null'">
 				AND YEAR = #{time}
 			</if>
-			<if test="zllb != null and zllb != '' and zllb != 'null'">
-				AND GCLB LIKE "%"#{zllb}"%" 
+			<if test="gclb != null and gclb != '' and gclb != 'null'">
+				AND GCLB LIKE "%"#{gclb}"%" 
 			</if>
 			  
 		</where>

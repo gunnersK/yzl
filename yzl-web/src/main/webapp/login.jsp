@@ -221,8 +221,8 @@ $(function(){
 								}); 
 								//alert();
 								//$.post("${pageContext.request.contextPath }/index",function(){});//跳首页controller
-							location.href = "http://192.168.1.42:8088/${pageContext.request.contextPath}";
-							//location.href = "http://localhost:8088/${pageContext.request.contextPath}";
+							//location.href = "http://192.168.1.42:8088/${pageContext.request.contextPath}";
+							location.href = "http://localhost:8088/${pageContext.request.contextPath}";
 						});
 					 	
 					} else {

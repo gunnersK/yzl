@@ -1613,8 +1613,8 @@
 			<if test="ZYND != null and ZYND != ''">
 				AND ZYND = #{ZYND}
 			</if>
-			<if test="zllb != null and zllb != '' and zllb != 'null'">
-				AND zllb = #{zllb}
+			<if test="gclb != null and gclb != '' and gclb != 'null'">
+				AND gclb = #{gclb}
 			</if>
 		</where>
 		
@@ -1954,7 +1954,7 @@
 		city,county,GCLB,ZLLB,JHND,ZYND,stat,SUM(XTJSBMJ) AS XTJSBMJ
 	</sql>
 	<select id="selectByTaskPossessEpc" resultType="java.lang.String">
-		SELECT DISTINCT GCLB FROM yzl_epc_task_progress WHERE zllb = #{tcode} AND ZYND = #{year} AND stat = #{stat}
+		SELECT DISTINCT ZLLB FROM yzl_epc_task_progress WHERE gclb = #{ecode} AND ZYND = #{year} AND stat = #{stat}
 		<if test="nid.length() > 1 ">
 			AND countyCode like "%"#{nid}"%"
 		</if>
@@ -2290,8 +2290,8 @@
 				<if test="year != null and year != ''">
 					and zynd = #{year}
 				</if>
-				 <if test="zllb != null and zllb != ''">
-				 	and ZLLB = #{zllb}
+				 <if test="gclb != null and gclb != ''">
+				 	and GCLB = #{gclb}
 				 </if>
 				 <if test="disCode != null and disCode != '' and disCode.length() == 2 and disCode != '45'">
 				 	and cityCode = (select distinct citycode from yzl_district where flag = #{disCode})
@@ -2312,7 +2312,7 @@
 				 	</foreach>
 				 </if>
 			</where>
-			GROUP BY zllb
+			GROUP BY gclb
 		)
 	</select>
 	
@@ -2406,8 +2406,8 @@
 		UPDATE yzl_epc_task_progress 
 		SET stat = #{code}
 		<where>
-			<if test="zllb != null and zllb != ''">
-				and zllb = #{zllb}
+			<if test="gclb != null and gclb != ''">
+				and gclb = #{gclb}
 			</if>
 			<if test="county != null and county != ''">
 				AND countyCode = #{county}

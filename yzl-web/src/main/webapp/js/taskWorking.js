@@ -117,11 +117,11 @@ var x;
    	    		traditional: true,
    	    		async:false,
    	    		url:'/backData',
-   	    		data:{'backData':backData,"disCode":disCode,"usr":usr,'backDatas':backDatas,"time":backTime,"lea":lea,"fileNames":bdgwj,"countys":backCountys,"zllb":epcMark,"fileNames":bdgwj},
+   	    		data:{'backData':backData,"disCode":disCode,"usr":usr,'backDatas':backDatas,"time":backTime,"lea":lea,"fileNames":bdgwj,"countys":backCountys,"gclb":epcMark,"fileNames":bdgwj},
    				dataType:'json',
    	    		success:function(data){
    					if(data.data==200){
-   						$.messager.alert('提示框','成功','info');
+   						$.messager.show({title:'提示',msg:"退回成功",timeout:3000,showType:'slide'});
    						back = 0;
    						submit = 0;
    						audit = 0;
@@ -131,7 +131,7 @@ var x;
    						$("#tbody").html("");
    						bdgwj = [];
    					}else{
-   						$.messager.alert('提示框','出错!!','info');
+   						$.messager.show({title:'提示',msg:"退回失败",timeout:3000,showType:'slide'});
    					}
    					
    				},
@@ -203,11 +203,11 @@ var x;
    	    		traditional: true,
    	    		async:false,
    	    		url:'/submit',
-   	    		data:{'subData':subData,"disCode":disCode,"usr":usr,'subDatas':subDatas,"time":time,"lea":lea,"zllb":epcMark,"countys":subCountys,"fileNames":bdgwj},
+   	    		data:{'subData':subData,"disCode":disCode,"usr":usr,'subDatas':subDatas,"time":time,"lea":lea,"gclb":epcMark,"countys":subCountys,"fileNames":bdgwj},
    				dataType:'json',
    	    		success:function(data){
    					if(data.data==200){
-   						$.messager.alert('提示框','成功','info');
+   						$.messager.show({title:'提示',msg:"提交成功",timeout:3000,showType:'slide'});
    						back = 0;
    						submit = 0;
    						audit = 0;
@@ -217,7 +217,7 @@ var x;
    						$("#tbody").html("");
    						bdgwj = [];
    					}else{
-   						$.messager.alert('提示框','失败','info');
+   						$.messager.show({title:'提示',msg:"提交失败",timeout:3000,showType:'slide'});
    					}
    				},
    	    	});
@@ -289,11 +289,11 @@ var x;
 	    		traditional: true,
 	    		async:false,
 	    		url:'/auditData',
-	    		data:{'auditData':auditData,"disCode":disCode,'auditDatas':auditDatas,"time":time,"zllb":epcMark,"countys":auditCounty,"lea":lea,"fileNames":bdgwj},
+	    		data:{'auditData':auditData,"disCode":disCode,'auditDatas':auditDatas,"time":time,"gclb":epcMark,"countys":auditCounty,"lea":lea,"fileNames":bdgwj},
 				dataType:'json',
 	    		success:function(data){
 					if(data.data==200){
-						$.messager.alert('提示框','成功','info');
+						$.messager.show({title:'提示',msg:"审核成功",timeout:3000,showType:'slide'});
 						back = 0;
 						submit = 0;
 						audit = 0;
@@ -303,7 +303,7 @@ var x;
 						$("#tbody").html("");
 						bdgwj = [];
 					}else{
-						$.messager.alert('提示框','失败','info');
+						$.messager.show({title:'提示',msg:"审核失败",timeout:3000,showType:'slide'});
 					}
 				},
 	    	});
@@ -315,9 +315,9 @@ var x;
 	var columnsTabHead = new Array();
 	
   //选择 查看工程触发
-//    $("#epc").combobox({
-//    	onSelect:changed
-//    });
+    $("#epc").combobox({
+    	onSelect:changed
+    });
   	function changed(preceedStat,beBack,beSubmit,beAudit){
     	var columnsOneTab = new Array();
     	var columnsTowTab = new Array();
@@ -585,7 +585,6 @@ var x;
 			data:{"year":year,"gclb":epcMark,"disCode":disCode,"stat":preceedStat},
 			dataType:'json',
 			success:function(data){
-				
 		    	for(var i=0;i<data.length;i++){
 					columnsOneTab.push({field:'',title:data[i].ename,width:100*data[i].list.length,colspan:data[i].list.length*3,align:'center'});
 					

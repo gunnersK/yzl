@@ -592,7 +592,7 @@ public class TaskServiceImpl implements TaskService{
 
 	//Ìá½»
 	@Override
-	public YzlResult sub(String[] subData,String time,String zllb,String [] countys) {
+	public YzlResult sub(String[] subData,String time,String gclb,String [] countys) {
 		
 		String county = null;
 		String ZYND = time;
@@ -616,13 +616,14 @@ public class TaskServiceImpl implements TaskService{
 			
 			YzlDistrict district = districtMapper.selectByCounty(string);
 			county = district.getAnumber();
-			tableResult += xbMapper.updateByEpcTaskTable(zllb,county,ZYND,stats,code);
-			result += xbMapper.updateByMark(null,county,null,ZYND,code.toString(),stats,zllb);
+			tableResult += xbMapper.updateByEpcTaskTable(gclb,county,ZYND,stats,code);
+//			result += xbMapper.updateByMark(null,county,null,ZYND,code.toString(),stats,gclb);
 			
 			
 		}
 		
-		if (result > 0 || tableResult > 0) {
+//		if (result > 0 || tableResult > 0) {
+		if (tableResult > 0) {
 			
 			/*for (String fl : subData) {
 				HashMap<String,String> hashMap = JSONObject.parseObject(fl, HashMap.class);
@@ -690,7 +691,7 @@ public class TaskServiceImpl implements TaskService{
 	
 	//ÍË»Ø
 	@Override
-	public YzlResult back(String[] backData,String time,String zllb,String [] countys) {
+	public YzlResult back(String[] backData,String time,String gclb,String [] countys) {
 		
 		String county = null;
 		String ZYND = time;
@@ -703,10 +704,11 @@ public class TaskServiceImpl implements TaskService{
 			
 			YzlDistrict district = districtMapper.selectByCounty(string);
 			county = district.getAnumber();
-			tableResult += xbMapper.updateByEpcTaskTable(zllb,county,ZYND,stats,code);
-			result += xbMapper.updateByMark(null,county,null,ZYND,code.toString(),stats,zllb);
+			tableResult += xbMapper.updateByEpcTaskTable(gclb,county,ZYND,stats,code);
+//			result += xbMapper.updateByMark(null,county,null,ZYND,code.toString(),stats,gclb);
 		}
-		if (result > 0 || tableResult > 0) {
+//		if (result > 0 || tableResult > 0) {
+		if (tableResult > 0) {
 			/*for (String fl : backData) {
 				HashMap<String,String> hashMap = JSONObject.parseObject(fl, HashMap.class);
 				
@@ -800,7 +802,7 @@ public class TaskServiceImpl implements TaskService{
 
 	//ÉóºË
 	@Override
-	public YzlResult audit(String[] auditData,String time,String zllb,String [] countys) {
+	public YzlResult audit(String[] auditData,String time,String gclb,String [] countys) {
 		String county = null;
 		String ZYND = time;
 		int result = 0;
@@ -813,10 +815,11 @@ public class TaskServiceImpl implements TaskService{
 			
 			YzlDistrict district = districtMapper.selectByCounty(string);
 			county = district.getAnumber();
-			tableResult += xbMapper.updateByEpcTaskTable(zllb,county,ZYND,stats,code);
-			result += xbMapper.updateByMark(null,county,null,ZYND,code.toString(),stats,zllb);
+			tableResult += xbMapper.updateByEpcTaskTable(gclb,county,ZYND,stats,code);
+//			result += xbMapper.updateByMark(null,county,null,ZYND,code.toString(),stats,gclb);
 		}
-		if (result > 0 || tableResult > 0) {
+//		if (result > 0 || tableResult > 0) {
+		if (tableResult > 0) {
 			/*for (String fl : auditData) {
 				HashMap<String,String> hashMap = JSONObject.parseObject(fl, HashMap.class);
 				

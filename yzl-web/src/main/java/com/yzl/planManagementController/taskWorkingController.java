@@ -90,7 +90,7 @@ public class taskWorkingController {
 	 */
 	@RequestMapping("/takWorking/findLog")
 	@ResponseBody				//String row,String time,String county,Integer page,Integer rows,String zllb
-	public EasyUIResult findLog(String row,String time,String county,Integer page,Integer rows,String zllb) {
+	public EasyUIResult findLog(String row,String time,String county,Integer page,Integer rows,String gclb) {
 		//System.out.println("ccc");
 		String countyName = null;
 		try {
@@ -98,7 +98,7 @@ public class taskWorkingController {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		return taskWorkingService.findLog(row,time,countyName,page,rows,zllb);
+		return taskWorkingService.findLog(row,time,countyName,page,rows,gclb);
 	}
 	
 	/**

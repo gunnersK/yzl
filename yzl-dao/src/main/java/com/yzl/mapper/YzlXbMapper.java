@@ -86,7 +86,7 @@ public interface YzlXbMapper {
 	List<CountyTaskWorkingDTO> queryTaskWorkingByGroupCountyAndGCLBAndZLLBAndAreaCode(@Param("aNumbers")List<String> aNumbers,@Param("areaCode")String areaCode,@Param("year")String year,@Param("stats")List<Integer> stats);
 
 	//提交
-	int updateByMark(@Param("city")String city, @Param("county")String county, @Param("JHND")String jHND, @Param("ZYND")String zYND,@Param("stat")String stat,@Param("stats")List<String> stats,@Param("zllb")String zllb);
+	int updateByMark(@Param("city")String city, @Param("county")String county, @Param("JHND")String jHND, @Param("ZYND")String zYND,@Param("stat")String stat,@Param("stats")List<String> stats,@Param("gclb")String gclb);
 
 	List<YzlTask> selectByCodeAndEpc(@Param("time")String time, @Param("code")String code,@Param("epc") String epc,@Param("stat")String stat);
 
@@ -132,7 +132,7 @@ public interface YzlXbMapper {
 	YzlEpcAndTaskStaticti selectByCompleteTask(@Param("zllb")String zllb, @Param("gclb")String gclb, @Param("county")String county, @Param("jhnd")String jhnd, @Param("zynd")String zynd,@Param("stats")List<String> stats);
 
 	//查询这个造林类别拥有多少个工程//	tcode 造林类别编号	year时间		stat状态		nid市县或自治区
-	List<String> selectByTaskPossessEpc(@Param("tcode")String tcode, @Param("year")String year,@Param("stat") String stat, @Param("nid")String nid);
+	List<String> selectByTaskPossessEpc(@Param("ecode")String ecode, @Param("year")String year,@Param("stat") String stat, @Param("nid")String nid);
 
 	/*List<YzlEpcAndTaskStaticti> selectByCityAndEpcInMenu(@Param("stat")Integer stat,@Param("year") String year,@Param("citys") List<String> citys, @Param("disCode")String disCode);*/
 	List<YzlTask> selectByCodeAndEpc();
@@ -162,13 +162,13 @@ public interface YzlXbMapper {
 	//查询工作中或完成的任务
 	List<YzlXb> selectByCityComplation(@Param("year")String year,@Param("stats") List<String> stats, @Param("menu")List<String> menu,@Param("disCode") String disCode,@Param("gclb") String gclb,@Param("proceed")String proceed);
 
-	List<YzlEpc> selectByTaskIssuedTableHead(@Param("year")String year, @Param("disCode")String disCode,@Param("zllb") String zllb,@Param("menu") List<String> menu,@Param("stats")List<String> stats);
+	List<YzlEpc> selectByTaskIssuedTableHead(@Param("year")String year, @Param("disCode")String disCode,@Param("gclb") String gclb,@Param("menu") List<String> menu,@Param("stats")List<String> stats);
 
 	List<YzlTask> selectByGclb(@Param("ecode")String ecode,@Param("year")String year,@Param("disCode") String disCode,@Param("menu") List<String> menu,@Param("gclb") String gclb,@Param("stats")List<String> stats);
 
 	List<YzlEpcTaskProgress> selectByCountyCountyTaskIssued(@Param("year")String year,@Param("menu") List<String> menu,@Param("disCode") String disCode,@Param("gclb") String gclb,@Param("stats")List<String> stats,@Param("proceed")String proceed);
 
-	int updateByEpcTaskTable(@Param("zllb")String zllb, @Param("county")String county,@Param("ZYND") String ZYND, @Param("stats")List<String> stats,@Param("code")Integer code);
+	int updateByEpcTaskTable(@Param("gclb")String gclb, @Param("county")String county,@Param("ZYND") String ZYND, @Param("stats")List<String> stats,@Param("code")Integer code);
 
 	
 	List<YzlXb> queryDemo(@Param("messageList")List<YzlMessage> messageList);

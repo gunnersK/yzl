@@ -603,7 +603,7 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 	 * 日志查询
 	 */
 	@Override
-	public EasyUIResult findLog(String row,String time,String county,Integer page,Integer rows,String zllb) {
+	public EasyUIResult findLog(String row,String time,String county,Integer page,Integer rows,String gclb) {
 		
 		//根据县名称查询
 		YzlDistrict district = new YzlDistrict();
@@ -648,7 +648,7 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 //		criteria.andZllbNotLike(zllb);
 //		criteria.andGclbNotLike(zllb);
 //		List<YzlLog> list = logMapper.selectByExample(example);//查询出来的数据
-		List<YzlLog> list = logMapper.findLog(anumber,time,zllb);
+		List<YzlLog> list = logMapper.findLog(anumber,time,gclb);
 		//起始 等于 当前页-1乘以每页记录数
 		int page2 = (page-1)*rows;
 		
@@ -689,15 +689,15 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 				yzlLog.setFilename(substring);
 			}
 			yzlLog.setHi(filename);
-			String gclb = yzlLog.getGclb();//得到工程类别
-			String[] split2 = gclb.split(",");//切割
+			String gclb2 = yzlLog.getGclb();//得到工程类别
+			String[] split2 = gclb2.split(",");//切割
 			StringBuffer buffer = new StringBuffer();
-			
+
 			for (String string : split2) {
 				YzlEpc epc = epcMapper.selectByMark(string);//根据工程编号查询
 				buffer.append(epc.getEname()+",");
 			}
-			yzlLog.setGclb(buffer.toString());
+			yzlLog.setGclb(buffer.toString().substring(0,buffer.toString().length()-1));
 			//yzlLog.setDcode(county);
 		}
 		

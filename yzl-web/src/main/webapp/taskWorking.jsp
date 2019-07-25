@@ -137,8 +137,10 @@ color: #4169E1;
     <!-- </div> -->
     
     <div id="tbs" style="height:28px;dispaly:none;  ">
+       	<label class="" id="labelName" style="font-size: 12px;">年份:</label>
+       	<input id=year value=<%=new SimpleDateFormat("yyyy").format(new Date())%>; data-options="min:2000,max:2050,editable:false" class="easyui-numberspinner"  style="width:70px;;height:19px;margin-top: 0px">&nbsp;&nbsp;
     	
-    	<label class="" id="labelName" style="font-size: 12px;">造林类别:</label>
+    	<label class="" id="labelName" style="font-size: 12px;">工程类别:</label>
 		<input style="width: 100px" id="epc" class="easyui-combobox" name="dept" data-options="valueField:'mark',textField:'ename',url:'${pageContext.request.contextPath }/taskWorking/show_epcs'" />&nbsp;&nbsp;
 			
        	<shiro:hasPermission name="sys:rwgzz:sh">
@@ -153,8 +155,6 @@ color: #4169E1;
        	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true" onclick="submitFunction()">提交</a>
        	</shiro:hasPermission>
        	&nbsp;&nbsp;
-       	<label class="" id="labelName" style="font-size: 12px;">年份:</label>
-       	<input id=year value=<%=new SimpleDateFormat("yyyy").format(new Date())%>; data-options="min:2000,max:2050,editable:false" class="easyui-numberspinner"  style="width:70px;;height:19px;margin-top: 0px">
    </div>
     <input type="hidden" id="pagex" />
 	<input type="hidden" id="pagey" />

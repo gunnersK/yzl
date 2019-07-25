@@ -55,16 +55,16 @@ public interface TaskService {
 	//根据工程id查询所有任务  当前方式适配于任务进度管理
 	YzlResult queryByXbGCLB(HttpServletRequest request,int ecode,String year,String disCode);
 	
-	YzlResult sub(String[] subData,String time,String zllb,String [] countys);
+	YzlResult sub(String[] subData,String time,String gclb,String [] countys);
 	
-	YzlResult back(String [] backData,String time,String zllb,String [] countys);
+	YzlResult back(String [] backData,String time,String gclb,String [] countys);
 	
 	List<YzlTask> ChangedEpc(String time, String code, String epc);
 	
 	EasyUIResult epcData(String time, String code, String epc,Integer page,Integer rows);
 	
 	//审核
-	YzlResult audit(String[] auditData,String time,String zllb,String [] countys);
+	YzlResult audit(String[] auditData,String time,String gclb,String [] countys);
 	
 	List<List<YzlXb>> checkOut(String eids,String year,String [] countys);
 

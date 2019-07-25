@@ -223,13 +223,13 @@ public class TaskController {
 	//Ã·Ωª
 	@RequestMapping("/submit")
 	@ResponseBody
-	public YzlResult sub(String[]  subData,String disCode,String usr,String subDatas,String time,String lea,String zllb,String [] countys,String [] fileNames,HttpServletRequest request) {
+	public YzlResult sub(String[]  subData,String disCode,String usr,String subDatas,String time,String lea,String gclb,String [] countys,String [] fileNames,HttpServletRequest request) {
 		if (subDatas!=null) {
 			subData = null;
 			subData =new String[1];
 			subData[0] = subDatas;
 		}
-		YzlResult sub = taskService.sub(subData,time,zllb,countys);
+		YzlResult sub = taskService.sub(subData,time,gclb,countys);
 		messageService.getRecordsByUserId(request);
 		return sub;
 	}
@@ -241,13 +241,13 @@ public class TaskController {
 	@LogAnno(opreateType="ÕÀªÿ")
 	@RequestMapping("/backData")
 	@ResponseBody
-	public YzlResult back( String[] backData,String disCode,String usr,String backDatas,String time,String lea,String [] fileNames,String [] countys,String zllb,HttpServletRequest request) {
+	public YzlResult back( String[] backData,String disCode,String usr,String backDatas,String time,String lea,String [] fileNames,String [] countys,String gclb,HttpServletRequest request) {
 		if (backDatas!=null) {
 			backData = null;
 			backData =new String [1];
 			backData[0] = backDatas;
 		}
-		YzlResult back = taskService.back(backData,time,zllb,countys);
+		YzlResult back = taskService.back(backData,time,gclb,countys);
 		messageService.getRecordsByUserId(request);
 		return back;
 	}
@@ -257,13 +257,13 @@ public class TaskController {
 	//…Û∫À
 	@RequestMapping("/auditData")
 	@ResponseBody
-	public YzlResult audit( String[] auditData,String disCode,String auditDatas,String time,String zllb,String [] countys,String lea,String [] fileNames,HttpServletRequest request) {
+	public YzlResult audit( String[] auditData,String disCode,String auditDatas,String time,String gclb,String [] countys,String lea,String [] fileNames,HttpServletRequest request) {
 		if (auditDatas!=null) {
 			auditData = null;
 			auditData =new String [1];
 			auditData[0] = auditDatas;
 		}
-		YzlResult yzlResult = taskService.audit(auditData,time,zllb,countys);
+		YzlResult yzlResult = taskService.audit(auditData,time,gclb,countys);
 		messageService.getRecordsByUserId(request);
 		return yzlResult;
 	}

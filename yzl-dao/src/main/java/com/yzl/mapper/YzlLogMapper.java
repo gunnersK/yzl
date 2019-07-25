@@ -28,5 +28,5 @@ public interface YzlLogMapper {
 
     int updateByPrimaryKey(YzlLog record);
 
-	List<YzlLog> findLog(@Param("anumber")String anumber, @Param("time")String time,@Param("zllb") String zllb);
+	List<YzlLog> findLog(@Param("anumber")String anumber, @Param("time")String time,@Param("gclb") String gclb);
 }
