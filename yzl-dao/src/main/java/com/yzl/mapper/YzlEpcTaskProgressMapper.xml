@@ -1070,7 +1070,7 @@
     </select>
     
     <select id="selectByTaskPosessEpc" resultType="java.lang.String">
-    	SELECT DISTINCT GCLB FROM yzl_epc_task_progress WHERE ZYND = #{year} AND zllb = #{zllb} AND countyCode LIKE "%"#{code}"%"
+    	SELECT DISTINCT GCLB FROM yzl_epc_task_progress WHERE ZYND = #{year} AND gclb = #{gclb} AND countyCode LIKE "%"#{code}"%"
     	<if test="authority.size > 0">
     		AND countyCode IN
     		<foreach collection="authority" item="auth" open="(" separator="," close=")">

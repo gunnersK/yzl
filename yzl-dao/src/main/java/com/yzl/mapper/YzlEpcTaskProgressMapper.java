@@ -137,7 +137,7 @@ public interface YzlEpcTaskProgressMapper {
 	List<String> selectByZJCCZ(@Param("zynd")String zYND,@Param("jhnd") String jHND,@Param("countyCode") String countyCode,@Param("cityCode") String cityCode,
 			@Param("gclbs")Set<String>  gclbs,@Param("zllbs")Set<String> zllbs);
 	//查询这个造林类别拥有的工程
-	List<String> selectByTaskPosessEpc(@Param("year")String year,@Param("zllb")String zllb, @Param("code")String clcik,@Param("authority")List<String> authoritys);
+	List<String> selectByTaskPosessEpc(@Param("year")String year,@Param("gclb")String gclb, @Param("code")String clcik,@Param("authority")List<String> authoritys);
 	//根据县级行政编号和作业年度 更新上传的文件
 	int updatefilesUrlByCountCodeAndZYND(@Param("year")String year,@Param("countyCode")String countyCode,@Param("cityCode")String cityCode,@Param("filesUrl")String filesUrl
 			,@Param("modifier")String modifier ,@Param("updateTime")Date updateTime);

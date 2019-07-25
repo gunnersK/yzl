@@ -857,8 +857,8 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 					if (key.contains("zl")) {
 						//将zl两个字母去掉
 						int indexOf = key.indexOf("z");
-						String tmark = key.substring(0,indexOf);//造林类别的编号
-						YzlTask task = taskMapper.selectByMark(tmark);
+						String emark = key.substring(0,indexOf);//造林类别的编号
+						YzlEpc epc = epcMapper.selectByMark(emark);
 						
 						//获取合并单元格的植
 						int regions = sheet.getNumMergedRegions();
@@ -873,9 +873,9 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 							if (firstRow == 2 && lastRow == 4) {
 								HSSFRow row = sheet.getRow(firstRow);
 								HSSFCell cell = row.getCell(firstColumn);
-								String zllb = cell.getStringCellValue();//得到造林类别的名称
-								cell.setCellValue(zllb);//放回去
-								if (task.getTname().equals(zllb)) {
+								String gclb = cell.getStringCellValue();//得到造林类别的名称
+								cell.setCellValue(gclb);//放回去
+								if (epc.getEname().equals(gclb)) {
 									HSSFCell createCell = createRow.createCell(firstColumn);
 									createCell.setCellValue(value);
 									break;
@@ -897,8 +897,8 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 						String substring = key.substring(2, key.length());
 						//16Y8
 						int indexOf = substring.indexOf("Y");
-						String zllb = substring.substring(0, indexOf);//造林类别编号
-						String gclb = substring.substring(indexOf+1, substring.length());//工程编号
+						String gclb = substring.substring(0, indexOf);//造林类别编号
+						String zllb = substring.substring(indexOf+1, substring.length());//工程编号
 						
 						//获取指定的工程把数据放到指定的位置
 						gainEpcPutLocation(zllb, gclb, sheet, createRow, value, string);
@@ -909,8 +909,8 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 						String substring = key.substring(2, key.length());
 						//16Y8
 						int indexOf = substring.indexOf("Y");
-						String zllb = substring.substring(0, indexOf);//造林类别编号
-						String gclb = substring.substring(indexOf+1, substring.length());//工程编号
+						String gclb = substring.substring(0, indexOf);//造林类别编号
+						String zllb = substring.substring(indexOf+1, substring.length());//工程编号
 						
 						//获取指定的工程把数据放到指定的位置
 						gainEpcPutLocation(zllb, gclb, sheet, createRow, value , string);
@@ -920,8 +920,8 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 						String substring = key.substring(3, key.length());
 						//16Y8
 						int indexOf = substring.indexOf("Y");
-						String zllb = substring.substring(0, indexOf);//造林类别编号
-						String gclb = substring.substring(indexOf+1, substring.length());//工程编号
+						String gclb = substring.substring(0, indexOf);//造林类别编号
+						String zllb = substring.substring(indexOf+1, substring.length());//工程编号
 						
 						//获取指定的工程把数据放到指定的位置
 						gainEpcPutLocation(zllb, gclb, sheet, createRow, value , string);
@@ -1019,7 +1019,7 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 				YzlTask task = taskMapper.selectByMark(tcode);//根据工程编号查询
 				sheet.addMergedRegion(new CellRangeAddress(3, 3, estart, estart+2));
 				HSSFCell cell2 = row4.createCell(estart);
-				cell2.setCellValue(epc.getEname());
+				cell2.setCellValue(task.getTname());
 				cell2.setCellStyle(style);
 				
 				int atr = 1;
@@ -1093,12 +1093,12 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 			if (firstRow == 2) {
 				HSSFRow row = sheet.getRow(firstRow);
 				HSSFCell cell = row.getCell(firstColumn);
-				String tname = cell.getStringCellValue();//取出来//取到的是造林类别名称
-				cell.setCellValue(tname);//放回去
+				String ename = cell.getStringCellValue();//取出来//取到的是造林类别名称
+				cell.setCellValue(ename);//放回去
 				
 				//上面获取的是表头
 				
-				if (task.getTname().equals(tname)) {//判断数据中的造林类别和表头的是否一样
+				if (epc.getEname().equals(ename)) {//判断数据中的造林类别和表头的是否一样
 					//相同就进来
 					
 					HSSFRow row2 = sheet.getRow(3);//获取工程
@@ -1106,10 +1106,10 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 					for(int k=firstColumn; k <= lastColumn;k++) {
 						HSSFCell cell2 = row2.getCell(k);
 						if (cell2 != null) {
-							String ename = cell2.getStringCellValue();//工程名称
-							cell2.setCellValue(ename);
+							String tname = cell2.getStringCellValue();//工程名称
+							cell2.setCellValue(tname);
 							
-							if (epc.getEname().equals(ename)) {//判断工程名是否一样
+							if (epc.getEname().equals(tname)) {//判断工程名是否一样
 								
 								if (ex.equals("jh")) {
 									HSSFCell cell3 = createRow.createCell(k);
