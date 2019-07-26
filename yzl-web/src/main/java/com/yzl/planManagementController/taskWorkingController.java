@@ -17,7 +17,6 @@ import com.yzl.planManagementService.TaskWorkingService;
 import com.yzl.pojo.YzlDistrict;
 import com.yzl.pojo.YzlEpc;
 import com.yzl.pojo.YzlProceed;
-import com.yzl.pojo.YzlTask;
 import com.yzl.pojo.YzlUser;
 import com.yzl.pojo.YzlXb;
 import com.yzl.utils.EasyUIResult;

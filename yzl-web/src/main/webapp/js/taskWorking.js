@@ -820,7 +820,7 @@ var x;
 			async:false,
 			url:'/takWorking/taskTab',
 //			url:'/task/getTableHeader',
-			dataType:'json',
+//			dataType:'json',
 			data:{"year":year,"disCode":disCode,"gclb":gclb},
 			success:function(data){
 				for(var i=0;i<data.length;i++){

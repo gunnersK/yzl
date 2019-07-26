@@ -831,7 +831,7 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 		HSSFCellStyle style = workbook.createCellStyle();//设置样式
 		HSSFSheet sheet = workbook.createSheet();//创建一个sheet
 		
-		//遍历集合获取所有的造林类别
+		//遍历集合获取所有的工程类别
 		LinkedHashSet<String> hashSet = gainZllb();
 		
 		//表头的制作hashSet:所有的造林类别 style:样式 year:时间 nid:市县自治区
@@ -851,7 +851,6 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 				for (Entry<String, String> entry : entrySet) {
 					String key = entry.getKey();
 					String value = entry.getValue();
-					
 					//获取前面两个字符
 					String string = key.substring(0, 2);
 					if (key.contains("zl")) {
@@ -887,6 +886,7 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 					if (key.equals("city")) {
 						HSSFCell cell = createRow.createCell(0);
 						cell.setCellValue(value);
+//						System.out.println("=======value====="+value+"=====value====");
 					}
 					if (nid.length()>1 && key.equals("county")) {
 						HSSFCell cell = createRow.createCell(1);
@@ -996,7 +996,7 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 			}
 		}
 
-		//遍历所有造林类别
+		//遍历所有工程类别
 		for (String ecode : hashSet) {
 			//根据编号查询造林类别
 			YzlEpc epc = epcMapper.selectByMark(ecode);
@@ -1109,11 +1109,12 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 							String tname = cell2.getStringCellValue();//工程名称
 							cell2.setCellValue(tname);
 							
-							if (epc.getEname().equals(tname)) {//判断工程名是否一样
+							if (task.getTname().equals(tname)) {//判断工程名是否一样
 								
 								if (ex.equals("jh")) {
 									HSSFCell cell3 = createRow.createCell(k);
 									cell3.setCellValue(value);
+									System.out.println("=======jh==="+value+"===jh");
 								}else if(ex.equals("wc")){
 									HSSFCell cell3 = createRow.createCell(k+1);
 									cell3.setCellValue(value);
