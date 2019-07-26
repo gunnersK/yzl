@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.yzl.pojo.YzlDistrict;
+import com.yzl.pojo.YzlEpc;
 import com.yzl.pojo.YzlProceed;
 import com.yzl.pojo.YzlTask;
 import com.yzl.pojo.YzlXb;
@@ -16,13 +17,13 @@ import com.yzl.utils.YzlResult;
 
 public interface TaskWorkingService {
 	
-	public List<YzlTask> taskTab(String year, String disCode,String zllb,String stat);
+	public List<YzlEpc> taskTab(String year, String disCode,String zllb,String stat);
 
-	public EasyUIResult epcTaskData(String year, String disCode,String zllb, Integer page, Integer rows,String stat,String proceed);
+	public EasyUIResult epcTaskData(String year, String disCode,String gclb, Integer page, Integer rows,String stat,String proceed);
 
 	public YzlDistrict Ddis(String dcode);
 
-	public List<YzlTask> show_task();
+	public List<YzlEpc> show_epc();
 
 	public List<List<YzlXb>> checkOut(String eids, String year, String[] countys,String [] bdgwj,String [] json);
 
@@ -38,6 +39,6 @@ public interface TaskWorkingService {
 
 	public YzlDistrict findByFlag(String flag);
 
-	public List<YzlProceed> proceed(String[] zllbs,String county,String year);
+	public List<YzlProceed> proceed(String[] gclbs,String county,String year);
 
 }

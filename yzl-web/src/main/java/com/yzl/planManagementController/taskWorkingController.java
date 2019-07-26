@@ -1,27 +1,22 @@
 package com.yzl.planManagementController;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.yzl.LogService.LogAnno;
-import com.yzl.LogService.RedisCache;
 import com.yzl.planManagementService.TaskWorkingService;
 import com.yzl.pojo.YzlDistrict;
+import com.yzl.pojo.YzlEpc;
 import com.yzl.pojo.YzlProceed;
-import com.yzl.pojo.YzlTask;
 import com.yzl.pojo.YzlUser;
 import com.yzl.pojo.YzlXb;
 import com.yzl.utils.EasyUIResult;
@@ -37,9 +32,9 @@ public class taskWorkingController {
 	//查询表头
 	@RequestMapping("/takWorking/taskTab")
 	@ResponseBody
-	public List<YzlTask> taskTab(String year,String disCode,String zllb){
+	public List<YzlEpc> taskTab(String year,String disCode,String gclb){
 		YzlUser user = LoginUserUtils.getLoginUser();
-		return taskWorkingService.taskTab(year,disCode,zllb,null);
+		return taskWorkingService.taskTab(year,disCode,gclb,null);
 	}
 	
 	//数据展示
@@ -48,8 +43,8 @@ public class taskWorkingController {
 //	@RedisCache(type = "taksWorkadd")
 	@RequestMapping(value="/takWorking/epcTaskData",produces="application/json;charset=utf-8")  //String year,String disCode,String zllb,Integer page,Integer rows,String usr
 	@ResponseBody								//String year,String disCode,String usr,String zllb,Integer page,Integer rows
-	public EasyUIResult epcTaskData(String year,String disCode,String usr,String zllb,Integer page,Integer rows,String stat,String proceed) {
-		return taskWorkingService.epcTaskData(year,disCode,zllb,page,rows,stat,proceed);
+	public EasyUIResult epcTaskData(String year,String disCode,String usr,String gclb,Integer page,Integer rows,String stat,String proceed) {
+		return taskWorkingService.epcTaskData(year,disCode,gclb,page,rows,stat,proceed);
 	}
 	
 	@RequestMapping("/takWorking/Ddis")
@@ -65,17 +60,17 @@ public class taskWorkingController {
 	}
 	
 	//查询所有的造林类别
-	@RequestMapping("/taskWorking/show_tasks")
+	@RequestMapping("/taskWorking/show_epcs")
 	@ResponseBody
-	public List<YzlTask> show_task(){
-		return taskWorkingService.show_task();
+	public List<YzlEpc> show_epc(){
+		return taskWorkingService.show_epc();
 	}
 	
 	//根据造林类别查询表头
 	@RequestMapping("/taskWorking/taskTab")
 	@ResponseBody
-	public List<YzlTask> ZLLBFindTable(String year,String disCode,String zllb,String stat){
-		return taskWorkingService.taskTab(year, disCode,zllb,stat);
+	public List<YzlEpc> ZLLBFindTable(String year,String disCode,String gclb,String stat){
+		return taskWorkingService.taskTab(year, disCode,gclb,stat);
 	}
 	
 //	@LogAnno(opreateType="审核")
@@ -94,9 +89,15 @@ public class taskWorkingController {
 	 */
 	@RequestMapping("/takWorking/findLog")
 	@ResponseBody				//String row,String time,String county,Integer page,Integer rows,String zllb
-	public EasyUIResult findLog(String row,String time,String county,Integer page,Integer rows,String zllb) {
+	public EasyUIResult findLog(String row,String time,String county,Integer page,Integer rows,String gclb) {
 		//System.out.println("ccc");
-		return taskWorkingService.findLog(row,time,county,page,rows,zllb);
+		String countyName = null;
+		try {
+			countyName = new String(county.getBytes("ISO8859-1"), "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return taskWorkingService.findLog(row,time,countyName,page,rows,gclb);
 	}
 	
 	/**
@@ -130,8 +131,8 @@ public class taskWorkingController {
 	//事项
 	@RequestMapping("/takWorking/proceed")
 	@ResponseBody
-	public List<YzlProceed> proceed(String [] zllbs,String county,String year) {
-		return taskWorkingService.proceed(zllbs,county,year);
+	public List<YzlProceed> proceed(String [] gclbs,String county,String year) {
+		return taskWorkingService.proceed(gclbs,county,year);
 	}
 	
 }

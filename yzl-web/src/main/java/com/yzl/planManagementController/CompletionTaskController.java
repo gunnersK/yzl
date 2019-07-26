@@ -5,21 +5,15 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.yzl.LogService.LogAnno;
 import com.yzl.distriEpcTaskService.TaskIssuedService;
-import com.yzl.LogService.RedisCache;
 import com.yzl.planManagementService.CompletionTaskService;
 import com.yzl.pojo.YzlDistrict;
 import com.yzl.pojo.YzlEpc;
-import com.yzl.pojo.YzlTask;
 import com.yzl.utils.EasyUIResult;
 import com.yzl.utils.YzlResult;
 
@@ -33,11 +27,11 @@ public class CompletionTaskController {
 	
 	@RequestMapping("/completionTask/taskTab")
 	@ResponseBody
-	public List<YzlTask> epcTab(String year,String disCode,String usr,String zllb){
+	public List<YzlEpc> epcTab(String year,String disCode,String usr,String gclb){
 		if ("GX45".equals(disCode)) {
 			disCode = "45";
 		}
-		return completionTaskService.epcTab(year,disCode,zllb);
+		return completionTaskService.epcTab(year,disCode,gclb);
 	}
 	
 	
@@ -45,20 +39,20 @@ public class CompletionTaskController {
 //	@RedisCache(type="completionTask")
 	@RequestMapping(value = "/completionTask/epcTaskData",produces="application/json;charset=utf-8")
 	@ResponseBody
-	public EasyUIResult epcTaskData(String year,String disCode,String usr,Integer page,Integer rows,String zllb) {
+	public EasyUIResult epcTaskData(String year,String disCode,String usr,Integer page,Integer rows,String gclb) {
 		if ("GX45".equals(disCode)) {
 			disCode = "45";
 		}
 		//return completionTaskService.epcTaskData(year,disCode,page,rows,usr);
-		EasyUIResult result = completionTaskService.queryTaskData(page, rows, year, disCode,zllb,usr);
+		EasyUIResult result = completionTaskService.queryTaskData(page, rows, year, disCode,gclb,usr);
 		return result;
 	}
 	
 	//根据造林类别查询表头
 	@RequestMapping("/Completion/taskTab")
 	@ResponseBody
-	public List<YzlTask> ZLLBFindTable(String year,String disCode,String zllb){
-		return completionTaskService.epcTab(year, disCode,zllb);
+	public List<YzlEpc> ZLLBFindTable(String year,String disCode,String gclb){
+		return completionTaskService.epcTab(year, disCode,gclb);
 	}
 	
 	//根据dcode获取地区
@@ -72,22 +66,22 @@ public class CompletionTaskController {
 	//导出
 	@RequestMapping("/completionTask/derive")
 	@ResponseBody
-	public void derive(String nid,String year,HttpServletResponse response,String disCode,String zllb) {
-		completionTaskService.derive(nid,year,response,disCode,zllb);
+	public void derive(String nid,String year,HttpServletResponse response,String disCode,String gclb) {
+		completionTaskService.derive(nid,year,response,disCode,gclb);
 	}
 	
 //	@CacheEvict(value = {"completionWorkEpcTaskData","completionWorktb","taskWork"},allEntries=true)
 //	@RedisCache(type="taksWorkdel")
-	@LogAnno(opreateType="自治区退回")
+//	@LogAnno(opreateType="自治区退回")
 	@RequestMapping("/completionTask/backData")
 	@ResponseBody
-	public YzlResult back(String[] backData,String disCode,String usr,String backDatas,String time,String lea,String [] fileNames,String zllb,String [] countys) {
+	public YzlResult back(String[] backData,String disCode,String usr,String backDatas,String time,String lea,String [] fileNames,String gclb,String [] countys) {
 		if (backDatas!=null) {
 			backData = null;
 			backData =new String [1];
 			backData[0] = backDatas;
 		}
-		YzlResult back = completionTaskService.back(backData,time,zllb,countys);
+		YzlResult back = completionTaskService.back(backData,time,gclb,countys);
 		return back;
 	}
 }

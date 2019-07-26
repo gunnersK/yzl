@@ -15,20 +15,20 @@
   <link rel="stylesheet" href="assets/css/jquery-ui-1.10.3.full.min.css">
 <!--   <link rel="stylesheet" href="assets/css/ace.min.css" />
   <link rel="stylesheet" href="css/style.css"/> -->
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="/js/jquery-1.8.3.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-easyui-1.4.1/plugins/jquery.messager.js"></script>
 <!-- 导入jquery核心类库 -->
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/js/easyui/themes/default/easyui.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/js/easyui/themes/icon.css">
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/easyui/locale/easyui-lang-zh_CN.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/easyui/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/easyui/locale/easyui-lang-zh_CN.js"></script>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/js/easyui/themes/default/easyui.css" />
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/js/easyui/themes/icon.css" />
+<link rel="stylesheet" type="text/css" href="/js/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="/js/easyui/themes/icon.css">
+<script type="text/javascript" src="/js/easyui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="/js/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="/js/easyui/locale/easyui-lang-zh_CN.js"></script>
+<link rel="stylesheet" type="text/css" href="/js/easyui/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css" href="/js/easyui/themes/icon.css" />
 
-<script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath }/js/app/assets/javascripts/jquery-fileupload/vendor/jquery.ui.widget.js"></script>
-<script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath }/js/app/assets/javascripts/jquery-fileupload/jquery.iframe-transport.js"></script>
-<script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath }/js/app/assets/javascripts/jquery-fileupload/jquery.fileupload.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/app/assets/javascripts/jquery-fileupload/vendor/jquery.ui.widget.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/app/assets/javascripts/jquery-fileupload/jquery.iframe-transport.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/app/assets/javascripts/jquery-fileupload/jquery.fileupload.js"></script>
 <title>xxx</title>
 <style type="text/css">
 .datagrid-body{
@@ -112,15 +112,17 @@ z-index: 1000
 
 		    
 		    <%-- <label class="" id="labelName" style="font-size: 12px;">造林类别:</label>
-			<input id="task" class="easyui-combobox" name="dept" data-options="valueField:'mark',textField:'tname',url:'${pageContext.request.contextPath }/taskWorking/show_tasks'" />&nbsp;&nbsp;
+			<input id="task" class="easyui-combobox" name="dept" data-options="valueField:'mark',textField:'tname',url:'/taskWorking/show_tasks'" />&nbsp;&nbsp;
 			 --%>
 			<div id="ce" data-options="region:'center',title:'',border : false" style="width:1400px;padding:5px;background:#eee;">
 				<table id="tab" style="display:none;height:530px"></table>
 			</div>
     <div id="tbs" style="height:28px;dispaly:none">
+       	<label class="" id="labelName" style="font-size: 12px;">年份:</label>
+       	<input id=year value=<%=new SimpleDateFormat("yyyy").format(new Date())%>; data-options="min:2000,max:2050,editable:false" class="easyui-numberspinner"  style="width:70px;;height:19px;margin-top: 0px">&nbsp;&nbsp;
 
-    	<label class="" id="labelName" style="font-size: 12px;">造林类别:</label>
-		<input id="zllb" class="easyui-combobox" name="dept" data-options="valueField:'mark',textField:'tname',url:'${pageContext.request.contextPath }/taskWorking/show_tasks'" />&nbsp;&nbsp;
+    	<label class="" id="labelName" style="font-size: 12px;">工程类别:</label>
+		<input id="gclb" class="easyui-combobox" name="dept" data-options="valueField:'mark',textField:'ename',url:'/taskWorking/show_epcs'" />&nbsp;&nbsp;
 			
        	<!-- <input id=searchKey value="" class="easyui-searchbox" style="width:110px;height:19px;margin-top: 20px"> -->
        	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo',plain:true" onclick="derive()">导出</a>
@@ -129,8 +131,6 @@ z-index: 1000
        	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-back',plain:true" onclick="back()">退回</a>
        	</shiro:hasPermission>
        	&nbsp;&nbsp;
-       	<label class="" id="labelName" style="font-size: 12px;">年份:</label>
-       	<input id=year value=<%=new SimpleDateFormat("yyyy").format(new Date())%>; data-options="min:2000,max:2050,editable:false" class="easyui-numberspinner"  style="width:70px;;height:19px;margin-top: 0px">
        	<!-- <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:true" onclick="submit()">提交</a>
        	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-back',plain:true" onclick="back()">退回</a>
        	<a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:true" onclick="audit()">审核</a> -->
@@ -144,7 +144,7 @@ z-index: 1000
     var sh1 = false;//sh1
     var sh2 = true;//sh2
     var disCode;
-    var zllb = null;
+    var gclb = null;
     var muniLength = null;//多少个市
     var coutyLength = null;//多少个县
     var countNode = null;//县的节点
@@ -217,8 +217,8 @@ z-index: 1000
 		   	    		type:'post',
 		   	    		traditional: true,
 		   	    		async:false,
-		   	    		url:'${pageContext.request.contextPath}/completionTask/backData',
-		   	    		data:{'backData':backData,"disCode":disCode,"usr":usr,'backDatas':backDatas,"time":time,"lea":lea,"fileNames":bdgwj,"zllb":zllb,"countys":backCountys},
+		   	    		url:'/completionTask/backData',
+		   	    		data:{'backData':backData,"disCode":disCode,"usr":usr,'backDatas':backDatas,"time":time,"lea":lea,"fileNames":bdgwj,"gclb":gclb,"countys":backCountys},
 		   				dataType:'json',
 		   	    		success:function(data){
 		   					if(data.data==200){
@@ -256,7 +256,7 @@ z-index: 1000
 	  	//获取时间
 	    var year = $("#year").val();
 	    var node =$("#tt").tree('getSelected');//点击的行政编号
-	    zllb = $("#zllb").combobox('getValue');//工程编号
+	    gclb = $("#gclb").combobox('getValue');//工程编号
 		var text = $("#task").combobox('getText');//工程名称
 		
 		var oldNode = null;
@@ -338,8 +338,8 @@ z-index: 1000
 			type:'post',
 			traditional: true,
 			async:false,
-			url:'${pageContext.request.contextPath}/Completion/taskTab',
-			data:{"year":year,"zllb":zllb,"disCode":disCode},
+			url:'/Completion/taskTab',
+			data:{"year":year,"gclb":gclb,"disCode":disCode},
 			dataType:'json',
 			success:function(data){
 				
@@ -400,7 +400,7 @@ z-index: 1000
         	disCode = node.id;
         	id = disCode;
         }
-    	window.location.href="${pageContext.request.contextPath}/completionTask/derive?nid="+id+'&year='+year+"&disCode="+disCode+"&zllb="+zllb;
+    	window.location.href="/completionTask/derive?nid="+id+'&year='+year+"&disCode="+disCode+"&gclb="+gclb;
     }
 
 	
@@ -500,7 +500,7 @@ z-index: 1000
     	var columnsThreeTab = new Array();
     	
     	var node =$("#tree").tree('getSelected');//获取选择的节点
-    	 zllb = $("#zllb").combobox('getValue');//造林类别
+    	 gclb = $("#gclb").combobox('getValue');//造林类别
     	var disCode = "GX45";//地区编号
     	
    		var oldNode = null;
@@ -543,27 +543,27 @@ z-index: 1000
 		//获取数据库中的数据表头
 		$.ajax({
 			async:false,
-			url:'${pageContext.request.contextPath }/completionTask/taskTab',
+			url:'/completionTask/taskTab',
 			dataType:'json',
-			data:{"year":year,"disCode":disCode,"usr":usr,"zllb":zllb},
+			data:{"year":year,"disCode":disCode,"usr":usr,"gclb":gclb},
 			success:function(data){
-				for(var i=0;i<data.length;i++){				
+			/* 	for(var i=0;i<data.length;i++){				
 					if(node == null || node.id == "45"){
-						columnsOneTab.push({field:data[i].mark+"zl",title:data[i].tname,width:100,rowspan:3,align:'center'});
+						columnsOneTab.push({field:data[i].mark+"zl",title:data[i].ename,width:100,rowspan:3,align:'center'});
 					}
-				}
+				} */
 				for(var i=0;i<data.length;i++){
 	    			//frozenColumnsTab.push({field:'county',title:'县',width:100,rowspan:'2',align:'center'});
-					columnsOneTab.push({field:'',title:data[i].tname,width:100*data[i].list.length,colspan:data[i].list.length*3,align:'center'});
-					var epc = data[i].list;
+					columnsOneTab.push({field:'',title:data[i].ename,width:100*data[i].list.length,colspan:data[i].list.length*3,align:'center'});
+					var task = data[i].list;
 					if(data[i].list.length > 0){
-						for(var j=0;j<epc.length;j++){
-							var ename = epc[j].ename;
-							var field = epc[j].field;
-							columnsTowTab.push({title:''+ename+'',width:100*3,align:'center',colspan:3});//field:''+field+'',
-							columnsThreeTab.push({field:'jh'+data[i].mark+"Y"+epc[j].mark,title:'计划',width:100,align:'center'},
-												 {field:'wc'+data[i].mark+"Y"+epc[j].mark,title:'完成',width:100,align:'center'},
-												 {field:'zjh'+data[i].mark+"Y"+epc[j].mark,title:'占计划%',width:100,align:'center'});
+						for(var j=0;j<task.length;j++){
+							var tname = task[j].tname;
+							var field = task[j].field;
+							columnsTowTab.push({title:''+tname+'',width:100*3,align:'center',colspan:3});//field:''+field+'',
+							columnsThreeTab.push({field:'jh'+data[i].mark+"Y"+task[j].mark,title:'计划',width:100,align:'center'},
+												 {field:'wc'+data[i].mark+"Y"+task[j].mark,title:'完成',width:100,align:'center'},
+												 {field:'zjh'+data[i].mark+"Y"+task[j].mark,title:'占计划%',width:100,align:'center'});
 						}
 					}
 				}
@@ -575,7 +575,7 @@ z-index: 1000
 		columnsTabHead.push(columnsThreeTab);
 	}
 	//选择 查看工程触发
-    $("#zllb").combobox({
+    $("#gclb").combobox({
     	onSelect:changed
     });
 	
@@ -619,7 +619,7 @@ z-index: 1000
         }
     	//获取时间
     	var year = $("#year").val();
-    	var url = encodeURI('${pageContext.request.contextPath}/completionTask/epcTaskData?year='+year+'&disCode='+disCode+'&usr='+usr+'&zllb='+zllb);
+    	var url = encodeURI('/completionTask/epcTaskData?year='+year+'&disCode='+disCode+'&usr='+usr+'&gclb='+gclb);
     	$("#tab").datagrid({
     		fit:true,
 			url:url,
@@ -653,7 +653,7 @@ z-index: 1000
     				}
             		$("#opt").window("open");
             		var datefilename;//用来存储文件的时间+名称
-            		var logurl = encodeURI('${pageContext.request.contextPath}/takWorking/findLog?row='+data.join()+'&time='+time+'&county='+coy+'&zllb='+zllb);
+            		var logurl = encodeURI('/takWorking/findLog?row='+data.join()+'&time='+time+'&county='+coy+'&gclb='+gclb);
             		//$.ajaxSettings.async = false;
             		/* 操作详情的表格 */
             	    $("#optab").datagrid({
@@ -731,7 +731,7 @@ z-index: 1000
     });
     
     	function click(node){
-    		$("#zllb").combobox('clear');//清楚工程列表
+    		$("#gclb").combobox('clear');//清楚工程列表
     		init();//加载表头
 			inTable();//初始化表格
     	}

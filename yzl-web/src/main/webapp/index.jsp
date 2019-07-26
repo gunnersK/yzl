@@ -13,7 +13,7 @@
 <html>
 <head>
 <meta charset="utf-8" />
-<title>广西营造林数据分析系统</title>
+<title>营造林数据分析系统</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
@@ -225,7 +225,8 @@ body {
 					<a href="#" class="navbar-brand">
 						<img style="width:85px;height:80px;margin-top: -10px;" alt=广西营造林  src="${pageContext.request.contextPath }/images/logo_index.png">
 						<small style="font:50px">					
-						<font size="6" color="#1f880e">广西营造林数据分析系统</font><!-- color="#1f880e" -->
+<!-- 						<font size="6" color="#1f880e">广西营造林数据分析系统</font>color="#1f880e" -->
+						<font size="6" color="#1f880e">营造林数据分析系统</font><!-- color="#1f880e" -->
 						</small> 
 					</a><!-- /.brand -->
 				</div><!-- /.navbar-header -->

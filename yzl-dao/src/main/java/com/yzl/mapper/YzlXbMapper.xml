@@ -1613,8 +1613,8 @@
 			<if test="ZYND != null and ZYND != ''">
 				AND ZYND = #{ZYND}
 			</if>
-			<if test="zllb != null and zllb != '' and zllb != 'null'">
-				AND zllb = #{zllb}
+			<if test="gclb != null and gclb != '' and gclb != 'null'">
+				AND gclb = #{gclb}
 			</if>
 		</where>
 		
@@ -1954,7 +1954,7 @@
 		city,county,GCLB,ZLLB,JHND,ZYND,stat,SUM(XTJSBMJ) AS XTJSBMJ
 	</sql>
 	<select id="selectByTaskPossessEpc" resultType="java.lang.String">
-		SELECT DISTINCT GCLB FROM yzl_epc_task_progress WHERE zllb = #{tcode} AND ZYND = #{year} AND stat = #{stat}
+		SELECT DISTINCT ZLLB FROM yzl_epc_task_progress WHERE gclb = #{ecode} AND ZYND = #{year} AND stat = #{stat}
 		<if test="nid.length() > 1 ">
 			AND countyCode like "%"#{nid}"%"
 		</if>
@@ -2143,8 +2143,8 @@
 					 	#{m}
 					</foreach>
 			</if>
-			<if test="zllb != null and zllb != '' and zllb != 'null'">
-				and zllb = #{zllb}
+			<if test="gclb != null and gclb != '' and gclb != 'null'">
+				and gclb = #{gclb}
 			</if>
 			<if test="stats != null and stats.size > 0">
 			 	and stat in
@@ -2243,20 +2243,20 @@
 	</select>
 
 	<select id="selectByCityComplation" resultType="com.yzl.pojo.YzlXb">
-		SELECT city,county,GCLB,ZLLB,ZYND,JHND,SUM(HGMJ) AS HGMJ<!-- stat --> FROM yzl_xb
+		SELECT city,county,GCLB,ZLLB,ZYND,JHND,SUM(HGMJ) AS HGMJ, stat FROM yzl_xb
 		<where>
 			<if test="year != null and year != ''">
 				ZYND = #{year}
 			</if>
-			<!-- <if test="stats != null and stats.size > 0">
+			<if test="stats != null and stats.size > 0">
 				AND stat IN
 				<foreach collection="stats" item="stat" open="(" separator="," close=")">
 					#{stat}
 				</foreach>
 				
-			</if> -->
+			</if>
 			<if test="proceed != null and proceed != '' and proceed != 'null'">
-				and zllb = #{proceed}
+				and gclb = #{proceed}
 			</if>
 			<!-- <if test="menu.size == 1">
 				AND city =
@@ -2282,16 +2282,16 @@
 		</choose>
 	</select>
 	
-	<select id="selectByTaskIssuedTableHead" resultType="com.yzl.pojo.YzlTask">
-		SELECT * FROM yzl_task
+	<select id="selectByTaskIssuedTableHead" resultType="com.yzl.pojo.YzlEpc">
+		SELECT * FROM yzl_epc
 		WHERE mark IN(
-			SELECT zllb FROM yzl_epc_task_progress
+			SELECT gclb FROM yzl_epc_task_progress
 			<where>
 				<if test="year != null and year != ''">
 					and zynd = #{year}
 				</if>
-				 <if test="zllb != null and zllb != ''">
-				 	and ZLLB = #{zllb}
+				 <if test="gclb != null and gclb != ''">
+				 	and GCLB = #{gclb}
 				 </if>
 				 <if test="disCode != null and disCode != '' and disCode.length() == 2 and disCode != '45'">
 				 	and cityCode = (select distinct citycode from yzl_district where flag = #{disCode})
@@ -2312,20 +2312,20 @@
 				 	</foreach>
 				 </if>
 			</where>
-			GROUP BY zllb
+			GROUP BY gclb
 		)
 	</select>
 	
-	<select id="selectByZllb" resultType="com.yzl.pojo.YzlEpc">
-		SELECT * FROM yzl_epc 
+	<select id="selectByGclb" resultType="com.yzl.pojo.YzlTask">
+		SELECT * FROM yzl_task
 		WHERE mark IN(
-		SELECT DISTINCT GCLB FROM yzl_epc_task_progress
+		SELECT DISTINCT ZLLB FROM yzl_epc_task_progress
 		<where>
 			<if test="year != null and year != ''">
 				and zynd = #{year}
 			</if>
-			<if test="tcode != null and tcode != ''">
-			 	and ZLLB = #{tcode}
+			<if test="ecode != null and ecode != ''">
+			 	and GCLB = #{ecode}
 			</if>
 			<if test="disCode != null and disCode != '' and disCode.length() == 2 and disCode != '45'">
 				and cityCode = (select distinct citycode from yzl_district where flag = #{disCode})
@@ -2362,11 +2362,11 @@
 			<if test="disCode != null and disCode != '' and disCode.length() >= 6 and disCode != 'GX450'">
 				and countyCode = #{disCode}
 			</if>
-			<if test="zllb != null and zllb != '' and zllb != 'null'">
-				and zllb = #{zllb}
+			<if test="gclb != null and gclb != '' and gclb != 'null'">
+				and gclb = #{gclb}
 			</if>
 			<if test="proceed != 'null' and proceed != null and proceed != ''">
-				and zllb = #{proceed}
+				and gclb = #{proceed}
 			</if>
 			 <if test="stats != null and stats.size > 0">
 				 	and stat in
@@ -2406,8 +2406,8 @@
 		UPDATE yzl_epc_task_progress 
 		SET stat = #{code}
 		<where>
-			<if test="zllb != null and zllb != ''">
-				and zllb = #{zllb}
+			<if test="gclb != null and gclb != ''">
+				and gclb = #{gclb}
 			</if>
 			<if test="county != null and county != ''">
 				AND countyCode = #{county}

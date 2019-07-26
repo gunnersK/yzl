@@ -1082,7 +1082,7 @@ var ZLLB;
     		nowrap:false,
     		rownumbers:true,
     		pagination:true,
-    		pageList:[15,30,45,60],
+    		pageList:[10,20,30,40],
     		pageSize:15,
     		//checkOnSelect:false,
     		fitColumns:false,
