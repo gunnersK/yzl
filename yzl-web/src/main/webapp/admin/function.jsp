@@ -30,6 +30,7 @@
 <script type="text/javascript">
 
 	$(function(){
+		
 		$("#grid").datagrid({
 			toolbar : '#tb',
 			pageList: [10,30,50],
@@ -134,7 +135,11 @@
 					<tr>
 						<td>父功能点</td>
 						<td>
-							<input name="pid" class="easyui-combotree" data-options="url:'${pageContext.request.contextPath }/function/getParentNode'"/>
+							<%-- <input name="pid" class="easyui-combotree" data-options="url:'${pageContext.request.contextPath }/function/getParentNode'"/> --%>
+							<!-- <select class="easyui-combotree" url="/function/getParentNode" name="pid" style="width:156px;"/> -->
+							    <select id="cc" class="easyui-combotree" style="width:200px;"
+       												 data-options="url:'/function/getParentNode'">
+    							</select>
 						</td>
 					</tr>
 					<tr>
@@ -167,8 +172,9 @@
 								//把所有id拼起来，用","隔开
 								var ids = array.join(",");
 								$.post("${pageContext.request.contextPath}/function/deleteBatch",{"ids":ids},function(){
-									
+									$("#modifyTb").form('load',rows);
 								});
+								
 							//location.href='${pageContext.request.contextPath}/function/delete';
 							}
 					   });

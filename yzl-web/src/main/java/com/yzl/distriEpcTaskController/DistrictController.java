@@ -58,7 +58,7 @@ public class DistrictController {
 	 */
 	@RequestMapping("district/pageQuery")
 	@ResponseBody
-	public EasyUIResult pageQuery(@RequestParam(value="page",defaultValue="1")int page,@RequestParam(value="row",defaultValue="10")int rows){
+	public EasyUIResult pageQuery(int page,int rows){
 		EasyUIResult result = districtService.pageQuery(page,rows);
 		return result;
 	}
@@ -79,15 +79,9 @@ public class DistrictController {
 	 */
 	@RequestMapping("/district/selectByCityorCounty")
 	@ResponseBody
-	public List<YzlDistrict> selectByCityorCounty(YzlDistrictVo yzlDistrictVo,String city,String county){
-		YzlDistrict yzlDistrict = new YzlDistrict();
-		yzlDistrict.setCity(city);
-		yzlDistrict.setCounty(county);
-//		YzlDistrictVo yzlDistrictVo = new YzlDistrictVo();
-		yzlDistrictVo.setYzlDistrict(yzlDistrict);
-		System.out.println("city================================="+city);
-		System.out.println("city===================================="+yzlDistrictVo.getYzlDistrict().getCity());
-		List<YzlDistrict> result = districtService.selectByConditions(yzlDistrictVo);
+	public EasyUIResult selectByCityorCounty(YzlDistrictVo yzlDistrictVo,String city,String county,@RequestParam(value="page",defaultValue="1")int page,@RequestParam(value="rows",defaultValue="10")int rows){
+		
+		EasyUIResult result = districtService.selectByConditions(yzlDistrictVo,city,county,page,rows);
 		return result;	
 	}
 	/***

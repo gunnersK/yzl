@@ -28,11 +28,13 @@ public interface DistrictService {
 	List<YzlDistrict> show(String q);
 	
 	//条件查询
-	List<YzlDistrict> selectByConditions(YzlDistrictVo yzlDistrictVo);
+	//List<YzlDistrict> selectByConditions(YzlDistrictVo yzlDistrictVo);
 
 	YzlDistrict ver(String county);
 	
 	List<DistrictTreeVO> queryTreeNode(HttpServletRequest request);
+	//条件查询
+	EasyUIResult selectByConditions(YzlDistrictVo yzlDistrictVo, String city, String county, int page, int rows);
 
 //	List<YzlDistrict> selectByConditions(YzlDistrict yzlDistrict, int page, int rows);
 }

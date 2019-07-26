@@ -223,13 +223,18 @@ public class DistrictServiceImpl implements DistrictService {
 
 
 	@Override
-	public List<YzlDistrict>  selectByConditions(YzlDistrictVo yzlDistrictVo) {
-		// TODO Auto-generated method stub
-		//PageHelper.startPage(page, rows);
+	public EasyUIResult  selectByConditions(YzlDistrictVo yzlDistrictVo,String city,String county,int page, int rows) {
+		
+		PageHelper.startPage(page, rows);
+		YzlDistrict yzlDistrict = new YzlDistrict();
+		yzlDistrict.setCity(city);
+		yzlDistrict.setCounty(county);		
+		yzlDistrictVo.setYzlDistrict(yzlDistrict);		
 		List<YzlDistrict> list = districtMapper.selectByCityOrCounty(yzlDistrictVo);
-		if(list!=null&&list.size()>0){
-			return list;
-		}
-		return null;
+		PageInfo<YzlDistrict> pageInfo = new PageInfo<>(list);
+		EasyUIResult easyUIResult = new EasyUIResult();
+		easyUIResult.setRows(pageInfo.getList());
+		easyUIResult.setTotal((int)pageInfo.getTotal());
+		return easyUIResult;
 	}
 }

@@ -58,10 +58,17 @@ public class TreeVO {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getName() {
+	/*public String getName() {
 		return name;
 	}
 	public void setName(String name) {
+		this.name = name;
+	}*/
+	public String getText() {
+		return name;
+	}
+	
+	public void setText(String name) {
 		this.name = name;
 	}
 	public List<YzlMenu> getChildren() {
