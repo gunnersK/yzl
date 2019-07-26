@@ -327,7 +327,33 @@
 				 OR county LIKE "%${searchKey}%"
 			 </if>
     </select>
-    
+    <!--条件查询  -->
+    <select id="selectByCityOrCounty" parameterType="com.yzl.pojo.YzlDistrictVo" resultMap="BaseResultMap">
+		SELECT 
+				dcode, 
+				city,
+				county, 
+				pcode, 
+				shortcode, 
+				citycode, 
+				burg, 
+				village, 
+				mark, flag, 
+				Anumber
+		  FROM  
+		  		yzl_district	
+			 		
+				<where>
+				<if test="yzlDistrict!=null">
+					<if test="yzlDistrict.city!=null and yzlDistrict.city!=''">
+						and yzl_district.city = '${yzlDistrict.city}'
+          			</if>
+          			<if test="yzlDistrict.county!=null and yzlDistrict.county!=''">
+               				and yzl_district.county = '${yzlDistrict.county}'
+           			</if>
+           		</if>	
+				</where>		
+    </select>
     <!-- 查询市名并去重复 -->
         <select id="findDistinctCity" resultType="String">
 		SELECT 

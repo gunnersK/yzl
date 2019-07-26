@@ -2,6 +2,7 @@ package com.yzl.mapper;
 
 import com.yzl.pojo.YzlDistrict;
 import com.yzl.pojo.YzlDistrictExample;
+import com.yzl.pojo.YzlDistrictVo;
 import com.yzl.utils.vo.DistrictTreeVO;
 import com.yzl.utils.vo.TreeVO;
 
@@ -33,6 +34,9 @@ public interface YzlDistrictMapper {
     int updateByPrimaryKeySelective(YzlDistrict record);
 
     int updateByPrimaryKey(YzlDistrict record);
+    
+    //条件查询
+    List<YzlDistrict> selectByCityOrCounty(YzlDistrictVo yzlDistrictVo);
     
   //根据地区id查询地区标识
     String findMarkByDcode(@RequestParam("dcode")Integer dcode);

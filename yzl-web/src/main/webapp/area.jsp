@@ -99,25 +99,32 @@
      
 	//查询
 	function sear(){
-			var searchKey = $("#searchInp").val();
+		/* 	var searchKey = $("#searchInp").val();
 			$.post("${pageContext.request.contextPath}/district/search",{"searchKey":searchKey},function(data){
 				if(data.status==200){
 					$("#tab").datagrid('load',data.data);
 				}else{
 					$.messager.alert('提示',data.data,'warning');
 				}
-			}); 
+			});  */
 			$("#searchWindow").window('open');
 		}
 	//添加
      function add(){
 			$("#modifyDiv").window('open');
 		}
+	
+	
      $("#tab").datagrid({
- 		url:'${pageContext.request.contextPath}/district/pageQuery',
+ 			url:'/district/selectByCityorCounty',
 			nowrap:false,//字符太多是否换行
 			fit:true,//自适应
-			toolbar : '#tb'/* [
+			toolbar : '#tb',
+			//显示序号rownumbers
+			rownumbers:true,
+			pageList: [10,20,30,40],
+			pagination:true,//显示分页
+			/* [
 						{
 						   id : 'search',
 						   iconCls : 'icon-search',
@@ -177,8 +184,7 @@
 							text : '导入',
 							iconCls : 'icon-redo',
 						}
-					  ] */ ,
-			
+					  ] */ 
 			//表头
 			columns:[
 						[
@@ -186,10 +192,8 @@
 							{align:'center',width:300, title:'城市',			field:'city'},
 							{align:'center',width:300, title:'县/区',	field:'county'}
 						 ]
-					], 
-			//显示序号rownumbers
-			rownumbers:true,
-			pagination:true//显示分页
+					] 
+			
  	});
      
 		//将表单对象转成Json
@@ -222,11 +226,45 @@
  	        height: 400,
  	        resizable:false
  	    });
+ 		
  	     $("#btn").click(function(){
- 			var p = $("#searchForm").serializeJson();
- 			console.log(p);
- 			$("#tab").datagrid('load',p);
- 			$("#searchWindow").window("close");
+ 		 	var p = $("#searchForm").serializeJson();
+ 		 	var city = $('#city').val();
+ 		 	var county = $('#county').val();
+ 			 $.post("/district/selectByCityorCounty",{"city":city,"county":county},function(data){
+ 				console.log(p);
+ 	 			$("#tab").datagrid('load',p);
+ 	 			$("#searchWindow").window("close");
+      		});   
+ 			 
+ 			 
+ 			 
+      		/* $.ajax({
+      			//url:/district/selectByCityorConty,
+      			type : "POST",//方法类型
+				async : false,
+				dataType : "json",//预期服务器返回的数据类型
+				url : "/district/queryCountyByCityName",//url
+				data : $('#searchForm').serialize(),
+				sucess:function(data){
+					//if(data.status == 200){
+					/* 	$("#searchWindow").window("close");
+						$("#tab").datagrid('load'); */
+						//console.log(p);
+		 	 			//$("#tab").datagrid('load',p);
+		 	 			//$("#searchWindow").window("close");
+							
+					//}
+					//return true;
+			/* 	},
+				error : function(data, XMLHttpRequest, textStatus,
+						errorThrown) {
+					alert(textStatus);
+					return false;
+				}
+      		}); */ 
+ 	    	
+ 			
       });
  	     
  		$("#button-import").upload({
@@ -248,11 +286,11 @@
 					</tr>
 					<tr>
 						<td>市</td>
-						<td><input type="text" name="city"/></td>
+						<td><input type="text" id="city" name="city"/></td>
 					</tr>
 					<tr>
 						<td>区（县）</td>
-						<td><input type="text" name="county"/></td>
+						<td><input type="text" id="county" name="county"/></td>
 					</tr>
 					<tr>
 						<td colspan="2"><a id="btn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a> </td>

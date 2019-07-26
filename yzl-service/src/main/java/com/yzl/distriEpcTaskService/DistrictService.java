@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import com.yzl.pojo.YzlDistrict;
+import com.yzl.pojo.YzlDistrictVo;
 import com.yzl.utils.EasyUIResult;
 import com.yzl.utils.YzlResult;
 import com.yzl.utils.vo.DistrictTreeVO;
@@ -25,8 +26,15 @@ public interface DistrictService {
 	List<YzlDistrict> queryCountyByCityName(String cityName);
 
 	List<YzlDistrict> show(String q);
+	
+	//条件查询
+	//List<YzlDistrict> selectByConditions(YzlDistrictVo yzlDistrictVo);
 
 	YzlDistrict ver(String county);
 	
 	List<DistrictTreeVO> queryTreeNode(HttpServletRequest request);
+	//条件查询
+	EasyUIResult selectByConditions(YzlDistrictVo yzlDistrictVo, String city, String county, int page, int rows);
+
+//	List<YzlDistrict> selectByConditions(YzlDistrict yzlDistrict, int page, int rows);
 }

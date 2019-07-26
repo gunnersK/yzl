@@ -64,6 +64,13 @@ public class TreeVO {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public String getText() {
+		return name;
+	}
+	
+	public void setText(String name) {
+		this.name = name;
+	}
 	public List<YzlMenu> getChildren() {
 		return children;
 	}

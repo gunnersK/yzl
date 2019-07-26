@@ -20,6 +20,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.yzl.distriEpcTaskService.DistrictService;
 import com.yzl.pojo.YzlDistrict;
+import com.yzl.pojo.YzlDistrictVo;
 import com.yzl.utils.EasyUIResult;
 import com.yzl.utils.YzlResult;
 import com.yzl.utils.vo.DistrictTreeVO;
@@ -57,7 +58,7 @@ public class DistrictController {
 	 */
 	@RequestMapping("district/pageQuery")
 	@ResponseBody
-	public EasyUIResult pageQuery(@RequestParam(value="page",defaultValue="1")int page,@RequestParam(value="row",defaultValue="10")int rows){
+	public EasyUIResult pageQuery(int page,int rows){
 		EasyUIResult result = districtService.pageQuery(page,rows);
 		return result;
 	}
@@ -73,8 +74,16 @@ public class DistrictController {
 		return YzlResult.ok();
 	}
 	
-
-
+	/*
+	 * 根据市名和县名条件查询
+	 */
+	@RequestMapping("/district/selectByCityorCounty")
+	@ResponseBody
+	public EasyUIResult selectByCityorCounty(YzlDistrictVo yzlDistrictVo,String city,String county,@RequestParam(value="page",defaultValue="1")int page,@RequestParam(value="rows",defaultValue="10")int rows){
+		
+		EasyUIResult result = districtService.selectByConditions(yzlDistrictVo,city,county,page,rows);
+		return result;	
+	}
 	/***
 	 * 搜索
 	 */

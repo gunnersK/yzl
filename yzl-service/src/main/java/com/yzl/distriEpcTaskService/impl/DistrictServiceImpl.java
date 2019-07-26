@@ -19,6 +19,7 @@ import com.yzl.mapper.YzlMenuMapper;
 import com.yzl.pojo.YzlDistrict;
 import com.yzl.pojo.YzlDistrictExample;
 import com.yzl.pojo.YzlDistrictExample.Criteria;
+import com.yzl.pojo.YzlDistrictVo;
 import com.yzl.pojo.YzlUser;
 import com.yzl.utils.EasyUIResult;
 import com.yzl.utils.LoginUserUtils;
@@ -218,5 +219,22 @@ public class DistrictServiceImpl implements DistrictService {
 		districtTreeVO.setChildren(districtTreeVOChildren);
 		districtTreeVOList.add(districtTreeVO);
 		return districtTreeVOList;
+	}
+
+
+	@Override
+	public EasyUIResult  selectByConditions(YzlDistrictVo yzlDistrictVo,String city,String county,int page, int rows) {
+		
+		PageHelper.startPage(page, rows);
+		YzlDistrict yzlDistrict = new YzlDistrict();
+		yzlDistrict.setCity(city);
+		yzlDistrict.setCounty(county);		
+		yzlDistrictVo.setYzlDistrict(yzlDistrict);		
+		List<YzlDistrict> list = districtMapper.selectByCityOrCounty(yzlDistrictVo);
+		PageInfo<YzlDistrict> pageInfo = new PageInfo<>(list);
+		EasyUIResult easyUIResult = new EasyUIResult();
+		easyUIResult.setRows(pageInfo.getList());
+		easyUIResult.setTotal((int)pageInfo.getTotal());
+		return easyUIResult;
 	}
 }
