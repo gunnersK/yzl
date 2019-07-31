@@ -769,13 +769,13 @@ var x;
         	    			{field:'stat',title:'状态',width:100,rowspan:'2',align:'center',
         	    				formatter: function(value,row,index){
         	    					//<div id='pros' onmouseout='outs()' onmouseover='overs()' style='height:25px;width:70px;margin-left:12px;margin-top:5px'><div>事项 </div> </div>
-             	    		         if (value == "1"){console.info(1);
+             	    		         if (value == "1"){console.info(1+value);
               	    		             //return "<p style='color:blue;'>待审核</p>";
              	  return "<div id='pros' onmouseout='outs()' onmouseover='overs()' style='width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:blue;text-decoration: none;'>待审核("+audit+")</a></p> </div>"
-              	    		          } else if (value == "0"){console.info(0);
+              	    		          } else if (value == "0"){console.info(0+value);
               	    		             //return "<p style='color:green;'>待提交</p>";
               	  return "<div id='pros' onmouseout='outs()' onmouseover='overs()' style='width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:green;text-decoration: none;'>待提交("+submit+")</a></p> </div>"
-              	    		          }else if (value == "3"){console.info(3);
+              	    		          }else if (value == "3"){console.info(3+value);
               	    		             //return "<p style='color:red;'>被退回</p>";
               	  return "<div id='pros' onmouseout='outs()' onmouseover='overs()' style='width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:red;text-decoration: none;'>被退回("+back+")</a></p> </div>"
               	    		          }else{

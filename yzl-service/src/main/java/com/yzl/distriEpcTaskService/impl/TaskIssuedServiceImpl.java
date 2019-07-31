@@ -401,8 +401,8 @@ public class TaskIssuedServiceImpl implements TaskIssuedService {
 						String substring = key.substring(2, key.length());//把jh两字母去掉
 						int indexOf = substring.indexOf("Y");
 						
-						String zllb = substring.substring(0,indexOf);//造林类别
-						String gclb = substring.substring(indexOf+1, substring.length());//工程类别
+						String gclb = substring.substring(0,indexOf);//造林类别
+						String zllb = substring.substring(indexOf+1, substring.length());//工程类别
 						gclbSet.add(gclb);//封装所有工程类别
 						zllbSet.add(zllb);//封装所有造林类别
 					}

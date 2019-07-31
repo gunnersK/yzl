@@ -222,7 +222,7 @@ z-index: 1000
 		   				dataType:'json',
 		   	    		success:function(data){
 		   					if(data.data==200){
-		   						$.messager.alert('提示框','成功','info');
+		   						$.messager.show({title:'提示',msg:"退回成功",timeout:3000,showType:'slide'});
 		   						//$("#tab").datagrid('load');
 		   						init();
 		   				    	inTable();

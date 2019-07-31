@@ -600,7 +600,7 @@ function addTimFn(){
 					   return false;
 				   }
 			   });
-			   $.messager.alert('提示','添加成功!','info');
+			   $.messager.show({title:'提示',msg:"添加成功",timeout:3000});
 			   $('#addTaskDialog').dialog('close');			
 		   }
 	   });

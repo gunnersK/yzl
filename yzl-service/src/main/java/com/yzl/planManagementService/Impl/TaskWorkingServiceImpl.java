@@ -205,7 +205,7 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 					flag++;
 					
 					hashMap.put("countycode", yzlEpcTaskProgress.getCountycode());
-					hashMap.put("stat", yzlXb.getStat());
+					hashMap.put("stat", yzlEpcTaskProgress.getStat());
 					hashMap.put("jh"+yzlEpcTaskProgress.getGclb()+"Y"+yzlEpcTaskProgress.getZllb(), String.format("%.2f", float1));//计划
 					hashMap.put("city", list.get(0).getCity());//市
 					hashMap.put("county", list.get(0).getCounty());//县
@@ -354,7 +354,7 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 					flag++;
 					
 					hashMap.put("citycode", epcTaskProgress.getCitycode());
-					hashMap.put("stat", yzlXb.getStat());
+					hashMap.put("stat", epcTaskProgress.getStat());
 					hashMap.put("jh"+epcTaskProgress.getGclb()+"Y"+epcTaskProgress.getZllb(), String.format("%.2f", float1));//计划
 					hashMap.put("city", list.get(0).getCity());//市
 					String hgmj = yzlXb.getHgmj();//完成的数量
