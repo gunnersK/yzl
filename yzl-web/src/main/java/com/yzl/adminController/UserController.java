@@ -1,6 +1,7 @@
 package com.yzl.adminController;
 
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.UUID;
 
@@ -49,6 +50,12 @@ public class UserController {
 	@RequestMapping(value="/user/login",method=RequestMethod.GET)
 	@ResponseBody
 	public YzlResult login(HttpServletRequest httpServletRequest, String username,String password){
+		try {
+			username = new String(username.getBytes("ISO8859-1"),"UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		//使用shiro框架提供的方式进行认证
 		Subject subject = SecurityUtils.getSubject();//获取当前登录用户对象，现在状态为：未验证
 		//用户名密码令牌

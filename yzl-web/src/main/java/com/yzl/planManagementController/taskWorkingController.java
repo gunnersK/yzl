@@ -28,6 +28,11 @@ public class taskWorkingController {
 
 	@Autowired
 	private TaskWorkingService taskWorkingService;
+
+	@RequestMapping("/tak/a")
+	private String a(){
+		return "index.jsp";
+	}
 	
 	//≤È—Ø±ÌÕ∑
 	@RequestMapping("/takWorking/taskTab")
