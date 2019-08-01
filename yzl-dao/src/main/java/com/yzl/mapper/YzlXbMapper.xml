@@ -2248,13 +2248,13 @@
 			<if test="year != null and year != ''">
 				ZYND = #{year}
 			</if>
-			<if test="stats != null and stats.size > 0">
+			<!-- <if test="stats != null and stats.size > 0">
 				AND stat IN
 				<foreach collection="stats" item="stat" open="(" separator="," close=")">
 					#{stat}
 				</foreach>
 				
-			</if>
+			</if> -->
 			<if test="proceed != null and proceed != '' and proceed != 'null'">
 				and gclb = #{proceed}
 			</if>

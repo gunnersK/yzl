@@ -319,14 +319,14 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 				if (epcTaskProgress.getCitycode().equals(yzlXb.getCity()) && epcTaskProgress.getGclb().equals(yzlXb.getGclb()) 
 				&& epcTaskProgress.getZllb().equals(yzlXb.getZllb()) && epcTaskProgress.getZynd().equals(yzlXb.getZynd())) {//如果市编号相同
 					flag++;
-					hashMap.put(epcTaskProgress.getZllb()+"zl", yzlXb.getXtjsbmj());
+					hashMap.put(epcTaskProgress.getGclb()+"zl", yzlXb.getHgmj());
 					hashMap.put("citycode", epcTaskProgress.getCitycode());
-					hashMap.put("stat", yzlXb.getStat());
+					hashMap.put("stat", epcTaskProgress.getStat());
 					hashMap.put("jh"+epcTaskProgress.getGclb()+"Y"+epcTaskProgress.getZllb(), String.format("%.2f", float1));//计划
 					hashMap.put("city", list.get(0).getCity());//市
-					String xtjsbmj = yzlXb.getXtjsbmj();//完成的数量
-					Float wc = Float.valueOf(xtjsbmj)/float1;//String chardisPos = String.format("%.2f", Double.valueOf(XTJSBMJ));
-					hashMap.put("wc"+epcTaskProgress.getGclb()+"Y"+epcTaskProgress.getZllb(), String.format("%.2f", Float.valueOf(xtjsbmj)));
+					String hgmj = yzlXb.getHgmj();//完成的数量
+					Float wc = Float.valueOf(hgmj)/float1;//String chardisPos = String.format("%.2f", Double.valueOf(XTJSBMJ));
+					hashMap.put("wc"+epcTaskProgress.getGclb()+"Y"+epcTaskProgress.getZllb(), String.format("%.2f", Float.valueOf(hgmj)));
 					hashMap.put("zjh"+epcTaskProgress.getGclb()+"Y"+epcTaskProgress.getZllb(), String.format("%.2f", wc*100));//占计划 等于 完成的除以计划
 					hashMap.put("particulars", "<a class='ptl'  href='#' value='"+"' >详情</a>");
 					hashMap.put(epcTaskProgress.getGclb()+"T"+epcTaskProgress.getZllb(), yzlXb.getXtjsbmj());
@@ -373,7 +373,6 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 				if (key.contains("zl")) {
 					
 					String substring = key.substring(0, key.indexOf("z"));
-					
 					Float float1 = Float.valueOf(entry.getValue());
 					for (Map<String, String> Old_map : disList) {
 						
@@ -431,13 +430,13 @@ public class CompletionTaskServiceImpl implements CompletionTaskService{
 					flag++;
 					
 					hashMap.put("countycode", yzlEpcTaskProgress.getCountycode());
-					hashMap.put("stat", yzlXb.getStat());
+					hashMap.put("stat", yzlEpcTaskProgress.getStat());
 					hashMap.put("jh"+yzlEpcTaskProgress.getGclb()+"Y"+yzlEpcTaskProgress.getZllb(), String.format("%.2f", float1));//计划
 					hashMap.put("city", list.get(0).getCity());//市
 					hashMap.put("county", list.get(0).getCounty());//县
-					String xtjsbmj = yzlXb.getXtjsbmj();//完成的数量
-					Float wc = Float.valueOf(xtjsbmj)/float1;//String chardisPos = String.format("%.2f", Double.valueOf(XTJSBMJ));
-					hashMap.put("wc"+yzlEpcTaskProgress.getGclb()+"Y"+yzlEpcTaskProgress.getZllb(), String.format("%.2f", Float.valueOf(xtjsbmj)));
+					String hgmj = yzlXb.getHgmj();//完成的数量
+					Float wc = Float.valueOf(hgmj)/float1;//String chardisPos = String.format("%.2f", Double.valueOf(XTJSBMJ));
+					hashMap.put("wc"+yzlEpcTaskProgress.getGclb()+"Y"+yzlEpcTaskProgress.getZllb(), String.format("%.2f", Float.valueOf(hgmj)));
 					hashMap.put("zjh"+yzlEpcTaskProgress.getGclb()+"Y"+yzlEpcTaskProgress.getZllb(), String.format("%.2f", wc*100));//占计划 等于 完成的除以计划
 					hashMap.put("particulars", "<a class='ptl'  href='#' value='"+"' >详情</a>");
 					hashMap.put(yzlEpcTaskProgress.getGclb()+"T"+yzlEpcTaskProgress.getZllb(), yzlXb.getXtjsbmj());

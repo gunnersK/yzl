@@ -361,12 +361,12 @@ body {
 					</div>
 				</div>	
 				<div class="addToolBarDiv" style="width: 49%;">
-	 				<div>
-	 					造林类别:&nbsp;&nbsp;<input id="addZllb" class="easyui-combobox" name="dept" style="width: 250px" /> &nbsp;&nbsp; 
-					</div>
-					<div class="bottomDistance"></div>
 					<div>
 						工程类别:&nbsp;&nbsp;<input id="addGclb" class="easyui-combobox" style="width: 250px" name="project" />&nbsp;&nbsp;&nbsp;&nbsp;
+					</div>
+					<div class="bottomDistance"></div>
+	 				<div>
+	 					造林类别:&nbsp;&nbsp;<input id="addZllb" class="easyui-combobox" name="dept" style="width: 250px" /> &nbsp;&nbsp; 
 					</div>
 				</div>
 				<div class="addToolBarDiv" style="width: 25%;">
