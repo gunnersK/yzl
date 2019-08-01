@@ -214,7 +214,7 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 					hashMap.put("wc"+yzlEpcTaskProgress.getGclb()+"Y"+yzlEpcTaskProgress.getZllb(), String.format("%.2f", Float.valueOf(hgmj)));
 					hashMap.put("zjh"+yzlEpcTaskProgress.getGclb()+"Y"+yzlEpcTaskProgress.getZllb(), String.format("%.2f", wc*100));//占计划 等于 完成的除以计划
 					hashMap.put("particulars", "<a class='ptl'  href='#' value='"+"' >详情</a>");
-					hashMap.put(yzlEpcTaskProgress.getGclb()+"T"+yzlEpcTaskProgress.getZllb(), yzlXb.getXtjsbmj());
+					hashMap.put(yzlEpcTaskProgress.getGclb()+"T"+yzlEpcTaskProgress.getZllb(), hgmj);
 					hashMap.put("gclb", yzlEpcTaskProgress.getGclb());
 					hashMap.put("proceeding", "<a id='pro'  href='#' value='"+"' ><div id='pros' onmouseout='outs()' onmouseover='overs()' style='height:25px;width:70px;margin-left:12px;margin-top:5px'><div>事项 </div> </div>  </a>");
 					break;
@@ -362,7 +362,7 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 					hashMap.put("wc"+epcTaskProgress.getGclb()+"Y"+epcTaskProgress.getZllb(), String.format("%.2f", Float.valueOf(hgmj)));
 					hashMap.put("zjh"+epcTaskProgress.getGclb()+"Y"+epcTaskProgress.getZllb(), String.format("%.2f", wc*100));//占计划 等于 完成的除以计划
 					hashMap.put("particulars", "<a class='ptl'  href='#' value='"+"' >详情</a>");
-					hashMap.put(epcTaskProgress.getGclb()+"T"+epcTaskProgress.getZllb(), yzlXb.getXtjsbmj());
+					hashMap.put(epcTaskProgress.getGclb()+"T"+epcTaskProgress.getZllb(), hgmj);
 					hashMap.put("proceeding", "<a id='pro'  href='#' value='"+"' ><div id='pros' onmouseout='outs()' onmouseover='overs()'><div><li>事项   <ul><a href='#'><li>被退回<li><li>待提交</li><li>待审核</li></a></ul> </li></div> </div>  </a>");
 					break;
 				}

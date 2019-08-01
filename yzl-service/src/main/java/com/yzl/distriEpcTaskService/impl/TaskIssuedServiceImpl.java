@@ -1410,7 +1410,7 @@ public class TaskIssuedServiceImpl implements TaskIssuedService {
 				int filesNumber = 0;
 			}
 			
-			List<String> messageCountyCodeList= messageMapper.queryCountyCodeByStatuAndCountyCode(authoritys, keywork);//查询更新记录数
+//			List<String> messageCountyCodeList= messageMapper.queryCountyCodeByStatuAndCountyCode(authoritys, keywork);//查询更新记录数
 			List<Map> AddedMap = new ArrayList<>();//存储 已经合并过的Map  判断是否重复添加
 			for (int m=0;m<countDataList.size();m++){
 				Map mMap = countDataList.get(m);
@@ -1420,12 +1420,12 @@ public class TaskIssuedServiceImpl implements TaskIssuedService {
 					throw new YzlException(ResultEnum.CITY_IS_NULL);
 				}
 				Set<String> mMapFilesSet = (Set<String>) mMap.get("fileName");//获取mMap的文件个数
-				for (String messageCountyCode : messageCountyCodeList) {
-					String messageCityCode = AdministrativeCode.countyCodeConvertCityCode(messageCountyCode);
-					if(cityCode.equals(messageCityCode)){
-						mMap.put("newData", "<font color='red'>*</font>");
-					}
-				}
+//				for (String messageCountyCode : messageCountyCodeList) {
+//					String messageCityCode = AdministrativeCode.countyCodeConvertCityCode(messageCountyCode);
+//					if(cityCode.equals(messageCityCode)){
+//						mMap.put("newData", "<font color='red'>*</font>");
+//					}
+//				}
 				if(!AddedMap.contains(mMap)){
 					for (int n = m+1; n < countDataList.size(); n++) {
 						Map nMap = countDataList.get(n);
@@ -1535,12 +1535,12 @@ public class TaskIssuedServiceImpl implements TaskIssuedService {
 							logger.error("县级行政编号为空");
 							throw new YzlException(ResultEnum.COUNTY_IS_NULL);
 						}
-						List<String> messageCountyCodeList= messageMapper.queryCountyCodeByStatuAndCountyCode(authoritys, keywork);//查询更新记录数
-						for (String messageCountyCode : messageCountyCodeList) {
-							if(countyCode.equals(messageCountyCode)){
-								mMap.put("newData", "<font color='red'>*</font>");
-							}
-						}
+//						List<String> messageCountyCodeList= messageMapper.queryCountyCodeByStatuAndCountyCode(authoritys, keywork);//查询更新记录数
+//						for (String messageCountyCode : messageCountyCodeList) {
+//							if(countyCode.equals(messageCountyCode)){
+//								mMap.put("newData", "<font color='red'>*</font>");
+//							}
+//						}
 						if(countyCode.equals(nMap.get("countyCode"))){
 							mMap.putAll(nMap); //同一个县  则数据进行合并
 							//nMap.put("filesUrl", "<a src='' 点击查看("+(mMapFilesNumber+=nMapFilesNumber)+")</a>");//累加 文件个数
