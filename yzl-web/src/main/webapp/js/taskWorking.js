@@ -731,7 +731,19 @@ var x;
         	    			{field:'stat',title:'状态',width:50,rowspan:'2',align:'center',
         	    				formatter: function(value,row,index){
         	    					//<div id='pros' onmouseout='outs()' onmouseover='overs()' style='height:25px;width:70px;margin-left:12px;margin-top:5px'><div>事项 </div> </div>
-        	    					return "<div id='pros' onmouseout='outs()' onmouseover='overs()' style='width:42px;margin-top:5px'><p ><a style='color:blue;text-decoration:none;cursor:default'>查看</a></p> </div>"
+        	    					var greenLight = "<div class='light'></div>";
+        	    					var blueLight = "<div class='light'></div>";
+        	    					var redLight = "<div class='light'></div>";
+        	    					if(submit != 0){
+        	    						greenLight = "<div class='light greenLight'></div>";
+        	    					}
+        	    					if(audit != 0){
+        	    						blueLight = "<div class='light blueLight'></div>";
+        	    					}
+        	    					if(back != 0){
+        	    						redLight = "<div class='light redLight'></div>";
+        	    					}
+        	    					return "<div class='statusBoard' onmouseout='outs()' onmouseover='overs()'>"+greenLight+blueLight+redLight+"</div>";
 //             	    		         if (value == "1"){console.info(1);
 //              	    		             //return "<p style='color:blue;'>待审核</p>";
 //             	  return "<div id='pros' onmouseout='outs()' onmouseover='overs()' style='width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:blue;text-decoration: none;'>待审核("+audit+")</a></p> </div>"
@@ -772,7 +784,19 @@ var x;
         	    			
         	    			{field:'stat',title:'状态',width:50,rowspan:'2',align:'center',
         	    				formatter: function(value,row,index){
-        	    					return "<div id='pros' onmouseout='outs()' onmouseover='overs()' style='width:42px;margin-top:5px'><p ><a style='color:blue;text-decoration:none;cursor:default'>查看</a></p> </div>"
+        	    					var greenLight = "<div class='light'></div>";
+        	    					var blueLight = "<div class='light'></div>";
+        	    					var redLight = "<div class='light'></div>";
+        	    					if(submit != 0){
+        	    						greenLight = "<div class='light greenLight'></div>";
+        	    					}
+        	    					if(audit != 0){
+        	    						blueLight = "<div class='light blueLight'></div>";
+        	    					}
+        	    					if(back != 0){
+        	    						redLight = "<div class='light redLight'></div>";
+        	    					}
+        	    					return "<div class='statusBoard' onmouseout='outs()' onmouseover='overs()'>"+greenLight+blueLight+redLight+"</div>";
 //             	    		         if (value == "1"){console.info(1+value);
 //              	    		             //return "<p style='color:blue;'>待审核</p>";
 //             	  return "<div id='pros' onmouseout='outs()' onmouseover='overs()' style='width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:blue;text-decoration: none;'>待审核("+audit+")</a></p> </div>"
@@ -1105,9 +1129,9 @@ var x;
 			auditSecond = audit;
 			submitSecond = submit;
 	
-    		$("#tdBack").html('<a href="#" style="text-decoration:none;" onclick="beBack('+anumber+')"><font color="red">被退回('+back+')</font></a>');
-    		$("#tdSubmit").html('<a href="#" style="text-decoration:none;" onclick="beSubmit('+anumber+')"><font color="red">待提交('+submit+')</font></a>');
-    		$("#tdAudit").html('<a href="#" style="text-decoration:none;" onclick="beAudit('+anumber+')"><font color="red">待审核('+audit+')</font></a>');
+    		$("#tdSubmit").html('<a href="#" style="text-decoration:none;" onclick="beSubmit('+anumber+')"><font color="Lime">待提交('+submit+')</font></a>');
+    		$("#tdAudit").html('<a href="#" style="text-decoration:none;" onclick="beAudit('+anumber+')"><font color="Blue">待审核('+audit+')</font></a>');
+    		$("#tdBack").html('<a href="#" style="text-decoration:none;" onclick="beBack('+anumber+')"><font color="Crimson">被退回('+back+')</font></a>');
     		
         	$("#tooltip").css({
         		'position':'absolute',

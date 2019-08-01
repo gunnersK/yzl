@@ -117,7 +117,31 @@ margin-bottom: 2px;
 text-decoration: none;
 color: #4169E1;
 }
-
+.statusBoard{
+width:40px;
+height:10px;
+/* border:1px solid blue; */
+padding: 5px 0px;
+margin-left: 3px;
+}
+.light{
+float:left;
+width:10px;
+height:10px;
+border-radius:5px;
+background-color: Gainsboro;
+padding: 0px;
+margin-right: 3px;
+}
+.greenLight{
+background-color: Lime;
+}
+.blueLight{
+background-color: Blue;
+}
+.redLight{
+background-color: Crimson;
+}
 
 </style>
 </head>
@@ -161,9 +185,9 @@ color: #4169E1;
    
    <div id='tooltip' style="display: none;background-color: #F8F8F8;border-radius: 5px" onmouseout="tooltipOut()" onmouseover="tooltipOver()">
 	 <table  width="100" border="0" style="border-color: gray;margin-left: 20px"><!-- //overflow: hidden; text-overflow: ellipsis; white-space: nowrap; -->
-	     <tr><td id="tdBack" style="margin-left:2px;width: 50px;border-color:#ccc;"><a href="#" style="text-decoration:none;" onclick="beBack()"><font color="red">被退回</font></a></td></tr>
     	 <tr><td id="tdSubmit" style="margin-left:2px;width: 50px;border-color:#ccc;"><a href="#" style="text-decoration:none;" onclick="beSubmit()"><font color="red">待提交</font></a></td></tr>
     	 <tr><td id="tdAudit" style="margin-left:2px;width: 50px;border-color:#ccc;"><a href="#" style="text-decoration:none;" onclick="beAudit()"><font color="red">待审核</font></a></td></tr>
+	     <tr><td id="tdBack" style="margin-left:2px;width: 50px;border-color:#ccc;"><a href="#" style="text-decoration:none;" onclick="beBack()"><font color="red">被退回</font></a></td></tr>
 	 </table>
 	</div>
     
