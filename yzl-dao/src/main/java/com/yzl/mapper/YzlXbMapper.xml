@@ -1169,7 +1169,8 @@
     
     
     <sql id="xbDTOResult">
-    	xb.`COUNTY` AS "县",d.`CITY`,d.`COUNTY`, SUM(XTJSBMJ) as "countyUPArea"
+<!--     	xb.`COUNTY` AS "县",d.`CITY`,d.`COUNTY`, SUM(XTJSBMJ) as "countyUPArea" -->
+    	xb.`COUNTY` AS "县",d.`CITY`,d.`COUNTY`, SUM(HGMJ) as "countyUPArea"
     </sql>
     
    	<!-- 查询县自检上报面积 -->
@@ -1189,7 +1190,8 @@
     </select>
     
     <select id="queryXTJSBMJGroupByCity"  resultType="com.yzl.pojo.dto.TaskDTO">
-    	 SELECT xb.`city` as "aNumber" ,SUM(xb.`XTJSBMJ`) AS "taskNumber"
+<!--     	 SELECT xb.`city` as "aNumber" ,SUM(xb.`XTJSBMJ`) AS "taskNumber" -->
+    	 SELECT xb.`city` as "aNumber" ,SUM(xb.`HGMJ`) AS "taskNumber"
 		   	FROM `yzl_xb` xb
    			   where xb.county in
 				<!-- 根据用户权限查询 -->
@@ -1199,12 +1201,12 @@
 		          <if test="year != null">
 		          	AND ZYND = #{year}
 		          </if>
-		          <if test="stats != null and stats.size>0">
+		          <!-- <if test="stats != null and stats.size>0">
 		           	  AND stat in
 			           <foreach collection="stats" item="stat" open="(" close=")" separator="," >
 			               #{stat}
 			           </foreach>
-		          </if>
+		          </if> -->
    					GROUP By xb.`city` 
     </select>
 
@@ -1222,7 +1224,8 @@
 	    					GROUP BY d.`city` 
     </select> -->
     <select id="queryXTJSBMJGroupCountyAndByCity"  resultType="com.yzl.pojo.dto.TaskDTO">
-   		 SELECT xb.`county` as "aNumber",SUM(xb.XTJSBMJ) AS "taskNumber"  
+   		 <!-- SELECT xb.`county` as "aNumber",SUM(xb.XTJSBMJ) AS "taskNumber"   -->
+   		 SELECT xb.`county` as "aNumber",SUM(xb.HGMJ) AS "taskNumber"  
 	 		FROM yzl_xb xb
 				WHERE xb.city LIKE #{city} 
 				  AND xb.`COUNTY` IN 
@@ -1233,9 +1236,9 @@
 			          <if test="year != null">
 			          	AND ZYND = #{year}
 			          </if>
-			          <if test="stat != null and stat !=''">
+			          <!-- <if test="stat != null and stat !=''">
 			          	AND stat=${stat}
-			          </if>
+			          </if> -->
    						GROUP BY xb.`county`
     </select>
 
@@ -2443,7 +2446,8 @@
 	</select>
 	
 	  <select id="queryXTJSBMJAndCityGroupByCity"  resultType="com.yzl.pojo.dto.TaskDTO">
-    	 SELECT d.city,xb.`city` as "aNumber" ,SUM(xb.`XTJSBMJ`) AS "taskNumber"
+<!--     	 SELECT d.city,xb.`city` as "aNumber" ,SUM(xb.`XTJSBMJ`) AS "taskNumber" -->
+    	 SELECT d.city,xb.`city` as "aNumber" ,SUM(xb.`HGMJ`) AS "taskNumber"
 		   	FROM `yzl_xb` xb left join yzl_district d on xb.COUNTY=d.Anumber
    			   where xb.county in
 				<!-- 根据用户权限查询 -->
@@ -2453,18 +2457,20 @@
 		          <if test="year != null">
 		          	AND xb.ZYND = #{year}
 		          </if>
-		          <if test="statu != null and statu!=''">
+		          <!-- <if test="statu != null and statu!=''">
 		           	  AND xb.stat =#{statu}
-		          </if>
+		          </if> -->
    					GROUP By xb.`city` 
     </select>
     
     <select id="sumCityXTJSBMJ" resultType="double">
-				SELECT SUM(XTJSBMJ) FROM yzl_xb where stat=#{statu};
+<!-- 				SELECT SUM(XTJSBMJ) FROM yzl_xb where stat=#{statu}; -->
+				SELECT SUM(HGMJ) FROM yzl_xb;
 	</select>
     
 	<select id="queryXTJSBMJAndCountyByCityCode"  resultType="com.yzl.pojo.dto.TaskDTO">
-   		 SELECT d.county,xb.`county` as "aNumber",SUM(xb.XTJSBMJ) AS "taskNumber"  
+<!--    		 SELECT d.county,xb.`county` as "aNumber",SUM(xb.XTJSBMJ) AS "taskNumber" -->  
+   		 SELECT d.county,xb.`county` as "aNumber",SUM(xb.HGMJ) AS "taskNumber"  
 	 		FROM yzl_xb xb left join `yzl_district` d
 	 				on xb.COUNTY=d.Anumber
 				WHERE 
@@ -2476,9 +2482,9 @@
 			          <if test="year != null">
 			          	AND ZYND = #{year}
 			          </if>
-			          <if test="statu != null and statu !=''">
+			          <!-- <if test="statu != null and statu !=''">
 			          	AND stat=${statu}
-			          </if>
+			          </if> -->
 			          <if test="cityCode!=null and cityCode!=''">
 			          	 AND xb.`CITY`=#{cityCode}
 			          </if>

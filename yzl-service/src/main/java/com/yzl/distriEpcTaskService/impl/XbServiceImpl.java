@@ -90,6 +90,7 @@ public class XbServiceImpl implements XbService {
 			if(CityXTJSBMJDecimal!=BigDecimal.ZERO){//判断是否为0
 				Double number = CityXTJSBMJtaskNumber.divide(CityXTJSBMJDecimal, 4,RoundingMode.HALF_UP).doubleValue();
 				resultVO.setY(number*100);
+//				resultVO.setY(number);
 			}else{
 				resultVO.setY(0.0);
 			}
@@ -111,6 +112,7 @@ public class XbServiceImpl implements XbService {
     				//计算当前县任务完成百分比 四舍五入 取小数点后4位
     				Double cityNumber = countyfinishTaskNumber.getTaskNumber().divide(CityXTJSBMJtaskNumber, 4,RoundingMode.HALF_UP).doubleValue();
     				data.add(cityNumber*100);
+//    				data.add(cityNumber);
     			}else{
     				data.add(0);
     			}
@@ -183,7 +185,9 @@ public class XbServiceImpl implements XbService {
 						
 						resultVO.setName(city);
 						resultVO.setDrilldown(city);
-						resultVO.setY(number*100);
+//						resultVO.setY(number*100);
+						resultVO.setY(number);
+//						System.out.println("====number===="+number);
 						//创建子节点
 						DrilldownNode drilldownNode = new DrilldownNode();
 					    drilldownNode.setName(city);
@@ -205,7 +209,9 @@ public class XbServiceImpl implements XbService {
 									//封装县级数据
 									List data = new ArrayList();
 									data.add(countyTaskNumber.getCounty());
-									data.add(cityNumber*100);
+//									data.add(cityNumber*100);
+									data.add(cityNumber);
+//									System.out.println("====number1===="+number);
 									voList.add(data);
 									countyFlag++;
 								}
