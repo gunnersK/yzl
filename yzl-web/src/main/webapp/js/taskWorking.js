@@ -744,18 +744,6 @@ var x;
         	    						redLight = "<div class='light redLight'></div>";
         	    					}
         	    					return "<div class='statusBoard' onmouseout='outs()' onmouseover='overs()'>"+greenLight+blueLight+redLight+"</div>";
-//             	    		         if (value == "1"){console.info(1);
-//              	    		             //return "<p style='color:blue;'>待审核</p>";
-//             	  return "<div id='pros' onmouseout='outs()' onmouseover='overs()' style='width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:blue;text-decoration: none;'>待审核("+audit+")</a></p> </div>"
-//              	    		          } else if (value == "0"){console.info(0);
-//              	    		             //return "<p style='color:green;'>待提交</p>";
-//              	  return "<div id='pros' onmouseout='outs()' onmouseover='overs()' style='width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:green;text-decoration: none;'>待提交("+submit+")</a></p> </div>"
-//              	    		          }else if (value == "3"){console.info(3);
-//              	    		             //return "<p style='color:red;'>被退回</p>";
-//              	  return "<div id='pros' onmouseout='outs()' onmouseover='overs()' style='width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:red;text-decoration: none;'>被退回("+back+")</a></p> </div>"
-//              	    		          }else{
-//              	    		             return "<p style='color:gray;'>无状态</p>";
-//              	    		          }  			
               	    		      }},
               	    		    {field:'proceeding',title:'事项',hidden:true,width:100,rowspan:'2',align:'center'},
               	    		    {field:'particulars',title:'操作详情',width:60,rowspan:'2',align:'center'},
@@ -797,18 +785,6 @@ var x;
         	    						redLight = "<div class='light redLight'></div>";
         	    					}
         	    					return "<div class='statusBoard' onmouseout='outs()' onmouseover='overs()'>"+greenLight+blueLight+redLight+"</div>";
-//             	    		         if (value == "1"){console.info(1+value);
-//              	    		             //return "<p style='color:blue;'>待审核</p>";
-//             	  return "<div id='pros' onmouseout='outs()' onmouseover='overs()' style='width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:blue;text-decoration: none;'>待审核("+audit+")</a></p> </div>"
-//              	    		          } else if (value == "0"){console.info(0+value);
-//              	    		             //return "<p style='color:green;'>待提交</p>";
-//              	  return "<div id='pros' onmouseout='outs()' onmouseover='overs()' style='width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:green;text-decoration: none;'>待提交("+submit+")</a></p> </div>"
-//              	    		          }else if (value == "3"){console.info(3+value);
-//              	    		             //return "<p style='color:red;'>被退回</p>";
-//              	  return "<div id='pros' onmouseout='outs()' onmouseover='overs()' style='width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:red;text-decoration: none;'>被退回("+back+")</a></p> </div>"
-//              	    		          }else{
-//              	    		             return "<p style='color:gray;'>无状态</p>";
-//              	    		          }  			
               	    		      }},
            	    		   {field:'proceeding',title:'事项',hidden:true,width:100,rowspan:'2',align:'center'},
            	    		   {field:'particulars',title:'操作详情',width:60,rowspan:'2',align:'center'},

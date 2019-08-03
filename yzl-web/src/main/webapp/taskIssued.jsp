@@ -430,9 +430,9 @@ body {
     	 <!-- id="dataDr" --><a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo',plain:true" onclick="ddd(this)" >往年数据导入</a>
     	</shiro:hasPermission>
     	
-		<shiro:hasPermission name="sys:rwxf:dr">
+		<%-- <shiro:hasPermission name="sys:rwxf:dr">
 			<a  href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo',plain:true" onclick="toLead()">导入</a><!-- //onclick="toLead()"id="btn" -->
-		</shiro:hasPermission>
+		</shiro:hasPermission> --%>
 		
    </div>
   <input type="file" name="excelName" id="file" onchange="dataDrs()" style="display:none"><!-- onchange="fileUpload()" -->

@@ -1739,13 +1739,13 @@ public class TaskIssuedServiceImpl implements TaskIssuedService {
 				String taskDataKeyAndValue = param.split("jh")[1];//截取掉jh前缀
 				String[] KeyAndValue = taskDataKeyAndValue.split("Y");//把key=(ZLLB+GCLB)  value任务下发的基础 截取分开
 				if(KeyAndValue.length==2){
-					String ZLLB = KeyAndValue[0];//获取ZLLB
-					String taskDataGCLBAndValue = KeyAndValue[1];
-					if(taskDataGCLBAndValue.contains(":")){
-						String[] GCLBAndValue = taskDataGCLBAndValue.split(":");
-						if(GCLBAndValue.length==2){
-							String GCLB = GCLBAndValue[0];//获取工程类别
-							String taskBase = GCLBAndValue[1];//获取下发任务的基数
+					String GCLB = KeyAndValue[0];//获取ZLLB
+					String taskDataZLLBAndValue = KeyAndValue[1];
+					if(taskDataZLLBAndValue.contains(":")){
+						String[] ZLLBAndValue = taskDataZLLBAndValue.split(":");
+						if(ZLLBAndValue.length==2){
+							String ZLLB = ZLLBAndValue[0];//获取工程类别
+							String taskBase = ZLLBAndValue[1];//获取下发任务的基数
 							//数据封装
 							epcTaskProgress.setGclb(GCLB);//工程类别
 							epcTaskProgress.setZllb(ZLLB);//造林类别

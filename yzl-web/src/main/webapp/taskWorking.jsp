@@ -119,19 +119,19 @@ color: #4169E1;
 }
 .statusBoard{
 width:40px;
-height:10px;
+height:8px;
 /* border:1px solid blue; */
-padding: 5px 0px;
+padding: 6px 0px;
 margin-left: 3px;
 }
 .light{
 float:left;
-width:10px;
-height:10px;
+width:8px;
+height:8px;
 border-radius:5px;
 background-color: Gainsboro;
 padding: 0px;
-margin-right: 3px;
+margin-right: 5px;
 }
 .greenLight{
 background-color: Lime;

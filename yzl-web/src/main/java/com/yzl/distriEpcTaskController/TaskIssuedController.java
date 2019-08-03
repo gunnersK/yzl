@@ -216,6 +216,7 @@ public class TaskIssuedController {
 	@RequestMapping("/taskIssued/update")
 	@ResponseBody
 	public YzlResult updateData(@RequestParam("taskNumbers")List<String> taskNumbers,String year,String countyCode,String uploadFiles,HttpServletRequest request){
+//		System.out.println("taskNumner========="+taskNumbers);
 		YzlResult result = taskIssuedService.updateData(taskNumbers,year,countyCode,uploadFiles);
 		messageService.getRecordsByUserId(request);
 		return result;
