@@ -966,7 +966,7 @@ var x;
 				var js = data.join();
         		$("#opt").window("open");
         		var datefilename;//用来存储文件的时间+名称
-        		var logurl = encodeURI('/takWorking/findLog?row='+data.join()+'&time='+time+'&county='+coy+'&zllb='+epcMark);
+        		var logurl = encodeURI('/takWorking/findLog?row='+data.join()+'&time='+time+'&county='+coy+'&gclb='+epcMark);
         		/* 操作详情的表格 */
         	    $("#optab").datagrid({
         	    	fit:true,

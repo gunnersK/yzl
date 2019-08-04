@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yzl.LogService.LogAnno;
 import com.yzl.distriEpcTaskService.TaskIssuedService;
 import com.yzl.planManagementService.CompletionTaskService;
 import com.yzl.pojo.YzlDistrict;
@@ -72,7 +73,7 @@ public class CompletionTaskController {
 	
 //	@CacheEvict(value = {"completionWorkEpcTaskData","completionWorktb","taskWork"},allEntries=true)
 //	@RedisCache(type="taksWorkdel")
-//	@LogAnno(opreateType="自治区退回")
+	@LogAnno(opreateType="自治区退回")
 	@RequestMapping("/completionTask/backData")
 	@ResponseBody
 	public YzlResult back(String[] backData,String disCode,String usr,String backDatas,String time,String lea,String [] fileNames,String gclb,String [] countys) {

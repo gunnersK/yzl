@@ -1,0 +1,92 @@
+1. 限制用户只能输入数字和小数点
+onkeyup="value=value.replace(/[^\d.]/g,'')"
+
+2. 验证允许输入小数的情况下，用户的输入是否合法
+var addJh = $("#addJh").val().split(".");
+	if(addJh.length >= 2){
+//		验证输入的小数是否合法，根据以下三点来判断
+//		1.只要有小数点，addJh的长度最少有2
+//		2.如果小数点在第一位，addJh[0]是空串，如果小数点在最后一位，addJh[1]是空串
+//		3.整个字符串有超过一个如果小数点，则长度大于2
+		if(addJh[0] == "" || addJh[1] == "" || addJh.length > 2){     
+			$.messager.show({title:'提示',msg:"请输入格式正确的计划",timeout:3000});
+		} else{
+			return true;
+		}
+	} else {
+		return true;
+	}
+
+3. windows启动redis
+
+运行cmd
+
+然后到redis路径
+
+运行命令: redis-server redis.windows.conf
+
+4. FormData
+   将form表单元素的name与value进行组合，实现表单数据的序列化，从而减少表单元素的拼接，
+   提高工作效率
+   上传excel文件两次用到FormData
+   用法：
+    new的时候直接设值var formData = new FormData($("#TSFoutinBox")[0]);
+    也可以new完往里面追加值
+    formData.append('excelName', $('#file')[0].files[0]);
+    formData.append('year', $("#year").val());
+
+5.setTimeout和setInterval的区别
+
+6.实时时间显示
+function currentTime() {
+			var d = new Date(), str = '';
+			var year = d.getFullYear();
+			var month = d.getMonth() + 1;
+			var day = d.getDate();
+			var hours = d.getHours();
+			var minutes = checkNum(d.getMinutes());
+			var seconds = checkNum(d.getSeconds());
+			str = year+'年'+month+'月'+day+'日'+hours+'时'+minutes+'分'+seconds+'秒';
+			return str;
+		}
+		function checkNum(num){
+			if(num < 10){
+				num = "0"+num;
+			}
+			return num;
+		}
+		setInterval(function() {
+			$('#time').html(currentTime)
+		}, 1000);
+
+7.导入文件时候的编码问题，输入输出流问题
+
+8.分页和坭兴陶的区别
+
+9.datagrid得到选中的列的index：
+  var index = $("#addTaskTable").datagrid('getRowIndex',$("#addTaskTable").datagrid('getSelected'));
+
+10.清除自增：truncate table 表名
+
+11.JSON.stringify()是把js对象转成json字符串---JSON.parse()是把json字符串转成js对象
+
+12.为什么会乱码
+    12.1.前端中文传到后台乱码--new String(county.getBytes("ISO8859-1"), "utf-8");
+
+13.定位
+
+14.视图解析器有什么用
+
+15.存放在/WEB-INF/下面的内容是不能直接通过request请求的方式请求到
+
+16.拉取代码之后出现target\tomcat\conf\tomcat-users.xml cannot be read错误解决办法
+   删掉${baseDir}/target/tomcat目录，重新执行命令tomcat:run
+
+17.web.xml字符编码过滤器
+
+18.虚拟路径还能把相同的一部分写在controller上面
+@RequestMapping("/backlogTaskIssued")
+@Controller
+public class BacklogTaskIssuedController {
+
+19.学习aop在log的应用

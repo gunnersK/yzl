@@ -337,25 +337,26 @@ $(function(){
 
 	
  	$("#DataTemplateTable").datagrid({
-		url:'${pageContext.request.contextPath}/backlogTaskIssued/pageQuery',
+		url:'${pageContext.request.contextPath}/backlogTaskIssued/queryItems',
 		fit:true,
 		//url:'${pageContext.request.contextPath}/taskIssued/queryTaskData?year='+year+'&areaCode='+areaCode+"&ZLLB="+ZLLB+"&usr="+usr,
 		rownumbers:true,
+		singleSelect:true,
 		pagination:true,
 		checkOnSelect:false,
 		fitColumns:false,
 		border : false,
-		striped : true,
+		striped : true,	
 		rownumbers:true,
 		frozenColumns:[
 						[
-							{align:'center',width:100,title:'序号',  rowspan:'2',field:'id',checkbox:true},//frozen:true,
-							{align:'center',rowspan:2,width:100,title:'待办事项',	field:'name'},
-							{align:'center',rowspan:2,width:100,title:'数量',field:'number'},
-							{align:'center',rowspan:2,width:100,title:'时间',field:'updateTime'},
-							{align:'center',rowspan:2,width:100,title:'市',field:'city'},
-							{align:'center',rowspan:2,width:100,title:'县/区',field:'county'},
-							{align:'center',rowspan:2,width:100,title:'查看',field:'check'}
+					//		{align:'center',width:100,title:'序号',  rowspan:'2',field:'id',checkbox:true},//frozen:true,
+							{align:'center',rowspan:2,width:160,title:'待办事项',	field:'name'},
+							{align:'center',rowspan:2,width:160,title:'数量',field:'number'},
+					//		{align:'center',rowspan:2,width:100,title:'时间',field:'updateTime'},
+							{align:'center',rowspan:2,width:160,title:'市',field:'city'},
+							{align:'center',rowspan:2,width:160,title:'县/区',field:'county'},
+					//		{align:'center',rowspan:2,width:100,title:'查看',field:'check'}
 						]
 					],
     	onClickCell: function(index,field,value){

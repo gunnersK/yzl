@@ -242,6 +242,7 @@ public class TaskController {
 	@RequestMapping("/backData")
 	@ResponseBody
 	public YzlResult back( String[] backData,String disCode,String usr,String backDatas,String time,String lea,String [] fileNames,String [] countys,String gclb,HttpServletRequest request) {
+		System.out.println("======tuihui========");
 		if (backDatas!=null) {
 			backData = null;
 			backData =new String [1];

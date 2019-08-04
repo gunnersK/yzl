@@ -1164,4 +1164,18 @@
 		 </foreach>
 		 GROUP BY stat
 	</select>
+
+	<select id="queryBacklogList" resultType="com.yzl.utils.vo.BacklogVO">
+		select city, county, stat, updateTime, count(1) number from
+			(select d.city, d.county, d.Anumber, epc.GCLB, epc.stat, epc.updateTime, count(1) from yzl_epc_task_progress epc 
+			inner join yzl_district d on epc.countyCode = d.Anumber
+			group by epc.countyCode, epc.GCLB
+			having d.Anumber in
+			<foreach collection="authoritys" item="authority" open="(" close=")" separator="," >
+                    #{authority}
+            </foreach> 
+			 and stat in (1, 3)) as a
+			group by county, stat
+		order by updateTime desc
+	</select>
 </mapper>

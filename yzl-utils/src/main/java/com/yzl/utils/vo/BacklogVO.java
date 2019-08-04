@@ -25,6 +25,12 @@ public class BacklogVO {
 	private String stat;
 	
 	
+	@Override
+	public String toString() {
+		return "BacklogVO [name=" + name + ", time=" + time + ", number=" + number + ", check=" + check + ", city="
+				+ city + ", county=" + county + ", stat=" + stat + "]";
+	}
+
 	public String getStat() {
 		return stat;
 	}
