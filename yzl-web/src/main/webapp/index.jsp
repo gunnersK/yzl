@@ -151,10 +151,63 @@ body {
     border-left: 0 solid #feb654;
     border-right: 0 solid #feb654;
 }
+.subUserBox{
+	height:20px;
+	float: right;
+	margin-top: 5px;
+}
+.userBar{
+	height:18px;
+	padding-right: 15px;
+	/* margin-left:5px;
+	float: right; */
+	cursor: default;
+}
+.userBar span{
+	float: right;
+}
+.userBox{
+	width:70px;
+	height:65px;
+	float: right;
+	border:1px solid #f5f5dc;
+	border-radius:8px;
+	background-color: #f5f5dc;
+	padding: 10px 0 10px 10px;
+	margin:4px 10px 0 0;
+	display: none;
+}
+.userBox a{
+	text-decoration: none;
+	cursor: default;
+}
+.userBox a:hover{
+	color: orange;
+}
+.upTran{
+	width: 0;
+	height: 0;
+	border-right: 5px solid transparent;
+	border-left: 5px solid transparent;
+	position:relative;
+	top:7px;
+	left:5px;
+	border-bottom: 5px solid #515151;
+}
+.downTran{
+	width: 0;
+	height: 0;
+	border-right: 5px solid transparent;
+	border-left: 5px solid transparent;
+	position:relative;
+	top:7px;
+	left:5px;
+	border-top: 5px solid #515151;
+}
 </style>
 
 <script type="text/javascript">
-    $(function () {
+    $(function() {
      	$.post("${pageContext.request.contextPath}/message/queryByRoleId",function(data){});
          var timerc = setTimeout(function () {
             $("#hint").load(location.href + " #hint");//注意后面DIV的ID前面的空格，很重要！没有空格的话，会出双眼皮！（也可以使用类名）
@@ -169,6 +222,23 @@ body {
 		    	$("#toptips").hide();//隐藏消息提示的div
 		    });  
    	 	}); 
+   	 	
+   	 	 $("#userBox").attr("display","none");
+   	 	
+	   	 $("#subUserBox").mouseenter(function(){
+    		if($("#userBox").attr("display") == "none"){
+    			$("#subUserBox").css("height","100");
+    			$("#tran").toggleClass("downTran upTran");
+    			$("#userBox").slideDown(300);
+    			$("#userBox").attr("display","block");
+    		} 
+   		});
+	   	$("#subUserBox").mouseleave(function(){
+	   		$("#tran").toggleClass("downTran upTran");
+			$("#userBox").slideUp(300);
+			$("#userBox").attr("display","none");
+			$("#subUserBox").css("height","20");
+	   	});
     });
     
     function topRead(){
@@ -186,6 +256,8 @@ body {
     $("#taskissued").click(function(){
     	console.log("dasdax");
     });
+    
+    
 </script>
 
 	</head>
@@ -231,12 +303,19 @@ body {
 					</a><!-- /.brand -->
 				</div><!-- /.navbar-header -->
 				<div class="navbar-header pull-right" role="navigation">
-                   <div class="get_time" ><span id="time"></span>&nbsp;&nbsp;&nbsp;&nbsp;<span>欢迎光临 ${sessionScope.user.username } 管理员</span></div>
-					<ul class="nav ace-nav">	
-						<li><a href="javascript:ovid(0)" class="change_Password">修改密码</a></li>
-                        <li><a href="javascript:ovid(0)" id="Exit_system">退出系统</a></li>
-                       
-					</ul><!-- /.ace-nav -->
+                   <div class="get_time" ><span id="time"></span></span></div>
+                   <div id="subUserBox"	class="subUserBox">
+	                   <div id="userBar" class="userBar">
+		                   <span id="tran" class="downTran"></span>
+		                   <span>欢迎&nbsp;&nbsp;${sessionScope.user.username }</span>
+	                   </div>
+	                   <div id="userBox" class="userBox">
+						   <ul>	
+								<li style="margin-bottom: 7px;"><a href="javascript:ovid(0)" class="change_Password">修改密码</a></li>
+		                       	<li><a href="javascript:ovid(0)" id="Exit_system">退出系统</a></li>
+						   </ul><!-- /.ace-nav -->
+	                   </div>
+                   </div>
 				</div><!-- /.navbar-header -->
 			</div><!-- /.container -->
 		</div>
@@ -323,7 +402,7 @@ body {
                  <iframe id="iframe" value="0" style="border:0; width:100%; background-color:#FFF;"  frameborder="0" src="home.jsp">  </iframe>
 				</div>
                 
-                <div class="ace-settings-container" id="ace-settings-container">
+                <!-- <div class="ace-settings-container" id="ace-settings-container">
 					<div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">
 						<i class="icon-cog bigger-150"></i>
 					</div>
@@ -359,7 +438,7 @@ body {
 							</label>
 						</div>
 					</div>
-				</div><!-- /#ace-settings-container -->		
+				</div> --><!-- /#ace-settings-container -->		
 			</div><!-- /.main-container-inner -->
 			
 		</div>

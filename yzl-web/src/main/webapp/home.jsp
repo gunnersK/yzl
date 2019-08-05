@@ -348,14 +348,14 @@ $(function(){
 		border : false,
 		striped : true,	
 		rownumbers:true,
-		frozenColumns:[
+		columns:[
 						[
 					//		{align:'center',width:100,title:'序号',  rowspan:'2',field:'id',checkbox:true},//frozen:true,
 							{align:'center',rowspan:2,width:160,title:'待办事项',	field:'name'},
-							{align:'center',rowspan:2,width:160,title:'数量',field:'number'},
+							{align:'center',rowspan:2,width:100,title:'数量',field:'number'},
 					//		{align:'center',rowspan:2,width:100,title:'时间',field:'updateTime'},
 							{align:'center',rowspan:2,width:160,title:'市',field:'city'},
-							{align:'center',rowspan:2,width:160,title:'县/区',field:'county'},
+							{align:'center',rowspan:2,width:190,title:'县/区',field:'county'},
 					//		{align:'center',rowspan:2,width:100,title:'查看',field:'check'}
 						]
 					],
