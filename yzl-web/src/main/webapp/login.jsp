@@ -197,9 +197,9 @@ $(function(){
 
 				var password = $("#password").val();
 				//对表单输入的值进行Md5加密
-				var md5Password = md5(password);
+				//var md5Password = md5(password);
 				//把加密后的值  设置回表单
-				$("#password").val(md5Password);
+				//$("#password").val(md5Password);
 				var der = $.ajax({
 						url:'${pageContext.request.contextPath}/user/login', 
 						data:$("#formlogin").serialize(),

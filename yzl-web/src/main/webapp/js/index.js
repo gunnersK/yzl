@@ -142,7 +142,7 @@ $(function(){
 
 												$
 														.post(
-																"${pageContext.request.contextPath}/change/password",
+																"/change/password",
 																{
 																	oldps : $(
 																			"#password")
@@ -180,7 +180,7 @@ $(function(){
 																		layer
 																				.alert(
 																						data.msg
-																								+ "，请重新输入！",
+																								+ "，请重新输入a！",
 																						{
 																							title : '提示框',
 																							icon : 0,
