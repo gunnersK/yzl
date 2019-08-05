@@ -207,7 +207,7 @@ var usr = "${sessionScope.user.username}";
     	    })
     	    //自治区导出
     	    $('#btn').linkbutton({
-    	    	iconCls: 'icon-undo',
+    	    	iconCls: 'icon-redo',
     	    	plain:true,
     	    }); 
 

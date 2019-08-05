@@ -122,10 +122,11 @@ float: left;
 					 <span style="color:red" id="sfbestPwdErr"></span>
 				</p>
 					 <br/>
-				 <div class="rem_sub_l">
+				<!--  <div class="rem_sub_l">
 						<input type="checkbox" name="checkbox" id="save_me"/>
 						<label for="checkbox">记住密码</label>
-					</div>
+					</div> -->
+				<div style="height:18px"></div>
 				 
 				<div class="rem_sub" style="margin-top: 0px;padding-left: -100px">
 					
