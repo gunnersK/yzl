@@ -152,7 +152,7 @@ body {
     border-right: 0 solid #feb654;
 }
 .subUserBox{
-	height:20px;
+	height:18px;
 	float: right;
 	margin-top: 5px;
 }
@@ -227,7 +227,7 @@ body {
    	 	
 	   	 $("#subUserBox").mouseenter(function(){
     		if($("#userBox").attr("display") == "none"){
-    			$("#subUserBox").css("height","100");
+    			$("#subUserBox").css("height","86");
     			$("#tran").toggleClass("downTran upTran");
     			$("#userBox").slideDown(300);
     			$("#userBox").attr("display","block");
@@ -237,7 +237,7 @@ body {
 	   		$("#tran").toggleClass("downTran upTran");
 			$("#userBox").slideUp(300);
 			$("#userBox").attr("display","none");
-			$("#subUserBox").css("height","20");
+			$("#subUserBox").css("height","18");
 	   	});
     });
     

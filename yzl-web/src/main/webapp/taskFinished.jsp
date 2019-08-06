@@ -87,6 +87,10 @@ color: gree;
 .qxbtn{
 border-radius:4px;
 }
+.ptl{
+text-decoration: none;
+color: #4169E1;
+}
 /* #labelName{
 position: absolute;
 margin-left:415px;

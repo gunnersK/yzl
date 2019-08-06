@@ -607,7 +607,8 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 		
 		//根据县名称查询
 		YzlDistrict district = new YzlDistrict();
-		if (county.length() >= 6) {
+		String regex = "[0-9]+";
+		if (county.matches(regex)) {
 			YzlDistrictExample example = new YzlDistrictExample();
 			com.yzl.pojo.YzlDistrictExample.Criteria criteria = example.createCriteria();
 			criteria.andAnumberEqualTo(county);
