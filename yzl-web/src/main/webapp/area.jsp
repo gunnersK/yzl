@@ -288,10 +288,12 @@
 						<td>市</td>
 						<td><input type="text" id="city" name="city"/></td>
 					</tr>
+					
 					<tr>
 						<td>区（县）</td>
 						<td><input type="text" id="county" name="county"/></td>
 					</tr>
+				
 					<tr>
 						<td colspan="2"><a id="btn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a> </td>
 					</tr>
@@ -301,9 +303,9 @@
 	</div>
      
      	<!-- 添加窗口 -->
-		<div id="modifyDiv"  class="easyui-window" region="center" data-options="region:'center',closable:false,draggable:false,closed:true,iconCls:'icon-edit',resizable:true,minimizable:false,maximizable:false,modal:true,shadow:true" style="overflow:auto;padding:5px;" border="false">
+		<div id="modifyDiv"  class="easyui-window" region="center" data-options="region:'center',closable:false,draggable:false,closed:true,iconCls:'icon-edit',resizable:true,minimizable:false,maximizable:false,modal:true,shadow:true" style="overflow:auto;padding:5px;width:400px;" border="false">
 			<form id="modifyForm" action="${pageContext.request.contextPath }/district/addDistrict" method="post">
-				<table id="modifyTab" class="table-edit"  width="80%" align="center">
+				<!-- <table id="modifyTab" class="table-edit"  width="80%" align="center">
 					<tr class="title">
 						<td colspan="2">添加地区</td>
 					</tr>
@@ -318,6 +320,34 @@
 							<input id="county" type="text" name="county" data-options="required:true"/><span id="info"></span>
 						</td>
 					</tr>
+				</table> -->
+				<table class="table-edit" width="80%" align="center">
+					<tr class="title">
+						<td colspan="2">添加地区</td>
+					</tr>
+					<tr>
+						<td>市</td>
+						<td><input type="text" id="city" name="city"/></td>
+					</tr>
+					<tr>
+						<td>市的标志</td>
+						<td><input type="text" id="flag" name="flag"/></td>
+					</tr>
+					<tr>
+						<td>市级行政编号</td>
+						<td><input type="text" id="citycode" name="citycode"/></td>
+					</tr>
+					<tr>
+						<td>区（县）</td>
+						<td><input type="text" id="county" name="county"/></td>
+					</tr>
+					<tr>
+						<td>县(区)级行政编号</td>
+						<td><input type="text" id="Anumber" name="Anumber"/></td>
+					</tr>
+					<!-- <tr>
+						<td colspan="2"><a id="btn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a> </td>
+					</tr> -->
 				</table>
 				<br><br><br>
 		     <button style="margin-left: 100px" class="btn btn-primary" type="button" id="addBtn">保存</button>
