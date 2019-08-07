@@ -122,10 +122,11 @@ float: left;
 					 <span style="color:red" id="sfbestPwdErr"></span>
 				</p>
 					 <br/>
-				 <div class="rem_sub_l">
+				<!--  <div class="rem_sub_l">
 						<input type="checkbox" name="checkbox" id="save_me"/>
 						<label for="checkbox">记住密码</label>
-					</div>
+					</div> -->
+				<div style="height:18px"></div>
 				 
 				<div class="rem_sub" style="margin-top: 0px;padding-left: -100px">
 					
@@ -197,33 +198,28 @@ $(function(){
 
 				var password = $("#password").val();
 				//对表单输入的值进行Md5加密
-				var md5Password = md5(password);
+				//var md5Password = md5(password);
 				//把加密后的值  设置回表单
-				$("#password").val(md5Password);
+				//$("#password").val(md5Password);
 				var der = $.ajax({
 						url:'${pageContext.request.contextPath}/user/login', 
 						data:$("#formlogin").serialize(),
 						success:function(data){
 					if (data.status == 200) { 
-					//	$.messager.alert('提示','登录成功!','info',function(){
-						$.messager.alert('提示','登录成功!','info',function(){
-								$.messager.show({title:'提示',msg:"登录成功,页面加载中请稍等...",timeout:2000,showType:'slide'});
-								//跳转到首页
 
-								//加载首页导航栏
-							$.ajax({
-									async:false,
-									url:'${pageContext.request.contextPath }/menu_user',
-									dataType:'json',
-									success:function(data){
+						//加载首页导航栏
+						$.ajax({
+								async:false,
+								url:'/menu_user',
+								dataType:'json',
+								success:function(data){
 										//console.info(data);
-									}
-								}); 
-								//alert();
-								//$.post("${pageContext.request.contextPath }/index",function(){});//跳首页controller
-							//location.href = "http://192.168.1.42:8088/${pageContext.request.contextPath}";
-							location.href = "http://localhost:8088/${pageContext.request.contextPath}";
-						});
+										//$.post("${pageContext.request.contextPath }/index",function(){});//跳首页controller
+									//location.href = "http://192.168.1.42:8088/${pageContext.request.contextPath}";
+									//$.messager.show({title:'提示',msg:'登录成功!',timeout:2000,showType:'slide'});
+									location.href = "http://localhost:8088/";
+								}
+							}); 
 					 	
 					} else {
 						$.messager.show({title:'提示',msg:"登录失败，原因是：" + data.msg,timeout:3000,showType:'slide'});

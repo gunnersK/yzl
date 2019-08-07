@@ -78,7 +78,7 @@ $(function(){
 			var hours = d.getHours();
 			var minutes = checkNum(d.getMinutes());
 			var seconds = checkNum(d.getSeconds());
-			str = year+'年'+month+'月'+day+'日'+hours+'时'+minutes+'分'+seconds+'秒';
+			str = year+'年'+month+'月'+day+'日'+'&nbsp;&nbsp;'+hours+':'+minutes+':'+seconds;
 			return str;
 		}
 		function checkNum(num){
@@ -142,7 +142,7 @@ $(function(){
 
 												$
 														.post(
-																"${pageContext.request.contextPath}/change/password",
+																"/change/password",
 																{
 																	oldps : $(
 																			"#password")
@@ -180,7 +180,7 @@ $(function(){
 																		layer
 																				.alert(
 																						data.msg
-																								+ "，请重新输入！",
+																								+ "，请重新输入a！",
 																						{
 																							title : '提示框',
 																							icon : 0,

@@ -2,25 +2,19 @@ package com.yzl.planManagementService.Impl;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.yzl.planManagementService.*;
-import com.fasterxml.jackson.databind.util.BeanUtil;
+
 import com.yzl.mapper.YzlDistrictMapper;
 import com.yzl.mapper.YzlEpcMapper;
 import com.yzl.mapper.YzlEpcTaskProgressMapper;
@@ -28,6 +22,7 @@ import com.yzl.mapper.YzlMenuMapper;
 import com.yzl.mapper.YzlMessageMapper;
 import com.yzl.mapper.YzlTaskMapper;
 import com.yzl.mapper.YzlXbMapper;
+import com.yzl.planManagementService.BacklogTaskIssuedService;
 import com.yzl.pojo.YzlDistrict;
 import com.yzl.pojo.YzlEpc;
 import com.yzl.pojo.YzlEpcTaskProgress;
@@ -36,12 +31,9 @@ import com.yzl.pojo.YzlTask;
 import com.yzl.pojo.YzlTaskExample;
 import com.yzl.pojo.YzlTaskExample.Criteria;
 import com.yzl.pojo.YzlUser;
-import com.yzl.pojo.YzlXb;
-import com.yzl.utils.AdministrativeCode;
 import com.yzl.utils.EasyUIResult;
 import com.yzl.utils.LoginUserUtils;
 import com.yzl.utils.LoginUtils;
-import com.yzl.utils.PageBean;
 import com.yzl.utils.YzlEpcAndTaskStaticti;
 import com.yzl.utils.enums.AuthorityEnum;
 import com.yzl.utils.enums.DistrictEnum;
@@ -70,7 +62,48 @@ public class BacklogTaskIssuedServiceImpl implements BacklogTaskIssuedService{
 	private YzlEpcMapper epcMapper;	
 	@Autowired
 	private YzlDistrictMapper districtMapper;
+
+
+	@Override
+	public EasyUIResult queryItems(int page, int rows) {
+		
+		YzlUser loginUser = LoginUserUtils.getLoginUser();
+		
+		List<String> PermsList = menuMapper.queryPermsByUserId(Integer.valueOf(String.valueOf(loginUser.getId())));
+		
+		List<BacklogVO> backlogVOList = new ArrayList<>();
 	
+		backlogVOList = epcTaskProgressMapper.queryBacklogList(PermsList);
+		
+		for(BacklogVO backlog : backlogVOList){
+			if(backlog.getStat().equals("1")){
+				backlog.setName("<p style='color:blue'>待审核的任务</p>");
+			}
+			if(backlog.getStat().equals("3")){
+				backlog.setName("<p style='color:red'>被退回的任务</p>");
+			}
+			System.out.println("======backlog====="+backlog.toString());
+		}
+		EasyUIResult easyUIResult = new EasyUIResult();
+		//计算分页起始位置
+		int beginIndex = (page-1)*rows;
+		//计算分页结束位置
+		int lastIndex = beginIndex+rows;
+		//如果大于总记录数 则 分页最大索引为 总记录数
+		if(lastIndex>backlogVOList.size()) {
+			lastIndex=backlogVOList.size();
+		}
+		if(rows>backlogVOList.size()){
+			easyUIResult.setRows(backlogVOList);
+		}else{
+			//截取页面要显示的数据
+			List<BacklogVO> subList = backlogVOList.subList(beginIndex, lastIndex);
+			easyUIResult.setRows(subList);
+		}
+		easyUIResult.setTotal(backlogVOList.size());
+		//统计待审核数
+		return easyUIResult;
+	}
 	
 	@Override
 	public EasyUIResult pageQuery(int page, int rows) {
@@ -450,6 +483,7 @@ public class BacklogTaskIssuedServiceImpl implements BacklogTaskIssuedService{
 		}
 		return resultList;
 	}
+
 	
 	
 }

@@ -9,6 +9,7 @@ import com.yzl.pojo.YzlMonitoringstatistics;
 import com.yzl.pojo.YzlTask;
 import com.yzl.pojo.dto.TaskDTO;
 import com.yzl.utils.dto.TaskIssuedDTO;
+import com.yzl.utils.vo.BacklogVO;
 
 import java.util.Date;
 import java.util.List;
@@ -157,4 +158,7 @@ public interface YzlEpcTaskProgressMapper {
 //	List<YzlEpcTaskProgress>  selectByJhndAndCountyCode(YzlEpcTaskProgress epcTaskProgress);
 
 	List<YzlEpcTaskProgress> selectByProceed(@Param("gclb")String gclb,@Param("anumber")String anumber, @Param("year")String year,@Param("stats")List<String> stats);
+	
+	//查询首页待办事项的列表
+	List<BacklogVO> queryBacklogList(@Param("authoritys")List<String> authoritys);
 }

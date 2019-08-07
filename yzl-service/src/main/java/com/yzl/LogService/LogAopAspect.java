@@ -70,6 +70,7 @@ public class LogAopAspect {
 		List<HashSet<String>> list = new ArrayList<>();//装hashSet集合的
 		
 		if ("提交".equals(opreateType)) {
+			System.out.println("=======提交==========");
 			Object[] args = pjp.getArgs();//获取前端传过来的值
 			
 			//第一个参数转成数组
@@ -138,6 +139,7 @@ public class LogAopAspect {
 			log.setStat("0");
 		}
 		if ("审核".equals(opreateType)) {
+			System.out.println("=======审核==========");
 			//获取前端传过来的值
 			Object[] args = pjp.getArgs();
 			
@@ -209,6 +211,7 @@ public class LogAopAspect {
 		}
 		
 		if ("退回".equals(opreateType) || "自治区退回".equals(opreateType)) {
+			System.out.println("=======退回==========");
 			//获取前端传过来的值
 			Object[] args = pjp.getArgs();
 			//时间

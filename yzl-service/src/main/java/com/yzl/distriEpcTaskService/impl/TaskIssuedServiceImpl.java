@@ -401,8 +401,8 @@ public class TaskIssuedServiceImpl implements TaskIssuedService {
 						String substring = key.substring(2, key.length());//把jh两字母去掉
 						int indexOf = substring.indexOf("Y");
 						
-						String zllb = substring.substring(0,indexOf);//造林类别
-						String gclb = substring.substring(indexOf+1, substring.length());//工程类别
+						String gclb = substring.substring(0,indexOf);//造林类别
+						String zllb = substring.substring(indexOf+1, substring.length());//工程类别
 						gclbSet.add(gclb);//封装所有工程类别
 						zllbSet.add(zllb);//封装所有造林类别
 					}
@@ -1410,7 +1410,7 @@ public class TaskIssuedServiceImpl implements TaskIssuedService {
 				int filesNumber = 0;
 			}
 			
-			List<String> messageCountyCodeList= messageMapper.queryCountyCodeByStatuAndCountyCode(authoritys, keywork);//查询更新记录数
+//			List<String> messageCountyCodeList= messageMapper.queryCountyCodeByStatuAndCountyCode(authoritys, keywork);//查询更新记录数
 			List<Map> AddedMap = new ArrayList<>();//存储 已经合并过的Map  判断是否重复添加
 			for (int m=0;m<countDataList.size();m++){
 				Map mMap = countDataList.get(m);
@@ -1420,12 +1420,12 @@ public class TaskIssuedServiceImpl implements TaskIssuedService {
 					throw new YzlException(ResultEnum.CITY_IS_NULL);
 				}
 				Set<String> mMapFilesSet = (Set<String>) mMap.get("fileName");//获取mMap的文件个数
-				for (String messageCountyCode : messageCountyCodeList) {
-					String messageCityCode = AdministrativeCode.countyCodeConvertCityCode(messageCountyCode);
-					if(cityCode.equals(messageCityCode)){
-						mMap.put("newData", "<font color='red'>*</font>");
-					}
-				}
+//				for (String messageCountyCode : messageCountyCodeList) {
+//					String messageCityCode = AdministrativeCode.countyCodeConvertCityCode(messageCountyCode);
+//					if(cityCode.equals(messageCityCode)){
+//						mMap.put("newData", "<font color='red'>*</font>");
+//					}
+//				}
 				if(!AddedMap.contains(mMap)){
 					for (int n = m+1; n < countDataList.size(); n++) {
 						Map nMap = countDataList.get(n);
@@ -1535,12 +1535,12 @@ public class TaskIssuedServiceImpl implements TaskIssuedService {
 							logger.error("县级行政编号为空");
 							throw new YzlException(ResultEnum.COUNTY_IS_NULL);
 						}
-						List<String> messageCountyCodeList= messageMapper.queryCountyCodeByStatuAndCountyCode(authoritys, keywork);//查询更新记录数
-						for (String messageCountyCode : messageCountyCodeList) {
-							if(countyCode.equals(messageCountyCode)){
-								mMap.put("newData", "<font color='red'>*</font>");
-							}
-						}
+//						List<String> messageCountyCodeList= messageMapper.queryCountyCodeByStatuAndCountyCode(authoritys, keywork);//查询更新记录数
+//						for (String messageCountyCode : messageCountyCodeList) {
+//							if(countyCode.equals(messageCountyCode)){
+//								mMap.put("newData", "<font color='red'>*</font>");
+//							}
+//						}
 						if(countyCode.equals(nMap.get("countyCode"))){
 							mMap.putAll(nMap); //同一个县  则数据进行合并
 							//nMap.put("filesUrl", "<a src='' 点击查看("+(mMapFilesNumber+=nMapFilesNumber)+")</a>");//累加 文件个数
@@ -1739,13 +1739,13 @@ public class TaskIssuedServiceImpl implements TaskIssuedService {
 				String taskDataKeyAndValue = param.split("jh")[1];//截取掉jh前缀
 				String[] KeyAndValue = taskDataKeyAndValue.split("Y");//把key=(ZLLB+GCLB)  value任务下发的基础 截取分开
 				if(KeyAndValue.length==2){
-					String ZLLB = KeyAndValue[0];//获取ZLLB
-					String taskDataGCLBAndValue = KeyAndValue[1];
-					if(taskDataGCLBAndValue.contains(":")){
-						String[] GCLBAndValue = taskDataGCLBAndValue.split(":");
-						if(GCLBAndValue.length==2){
-							String GCLB = GCLBAndValue[0];//获取工程类别
-							String taskBase = GCLBAndValue[1];//获取下发任务的基数
+					String GCLB = KeyAndValue[0];//获取ZLLB
+					String taskDataZLLBAndValue = KeyAndValue[1];
+					if(taskDataZLLBAndValue.contains(":")){
+						String[] ZLLBAndValue = taskDataZLLBAndValue.split(":");
+						if(ZLLBAndValue.length==2){
+							String ZLLB = ZLLBAndValue[0];//获取工程类别
+							String taskBase = ZLLBAndValue[1];//获取下发任务的基数
 							//数据封装
 							epcTaskProgress.setGclb(GCLB);//工程类别
 							epcTaskProgress.setZllb(ZLLB);//造林类别

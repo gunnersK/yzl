@@ -361,12 +361,12 @@ body {
 					</div>
 				</div>	
 				<div class="addToolBarDiv" style="width: 49%;">
-	 				<div>
-	 					造林类别:&nbsp;&nbsp;<input id="addZllb" class="easyui-combobox" name="dept" style="width: 250px" /> &nbsp;&nbsp; 
-					</div>
-					<div class="bottomDistance"></div>
 					<div>
 						工程类别:&nbsp;&nbsp;<input id="addGclb" class="easyui-combobox" style="width: 250px" name="project" />&nbsp;&nbsp;&nbsp;&nbsp;
+					</div>
+					<div class="bottomDistance"></div>
+	 				<div>
+	 					造林类别:&nbsp;&nbsp;<input id="addZllb" class="easyui-combobox" name="dept" style="width: 250px" /> &nbsp;&nbsp; 
 					</div>
 				</div>
 				<div class="addToolBarDiv" style="width: 25%;">
@@ -427,12 +427,12 @@ body {
     	</shiro:hasPermission>
     	
     	<shiro:hasPermission name="sys:rwxf:wndr">
-    	 <!-- id="dataDr" --><a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo',plain:true" onclick="ddd(this)" >往年数据导入</a>
+    	 <!-- id="dataDr" --><a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-undo',plain:true" onclick="ddd(this)" >导入下发任务</a>
     	</shiro:hasPermission>
     	
-		<shiro:hasPermission name="sys:rwxf:dr">
+		<%-- <shiro:hasPermission name="sys:rwxf:dr">
 			<a  href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-redo',plain:true" onclick="toLead()">导入</a><!-- //onclick="toLead()"id="btn" -->
-		</shiro:hasPermission>
+		</shiro:hasPermission> --%>
 		
    </div>
   <input type="file" name="excelName" id="file" onchange="dataDrs()" style="display:none"><!-- onchange="fileUpload()" -->

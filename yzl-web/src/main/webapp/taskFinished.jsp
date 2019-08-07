@@ -87,6 +87,10 @@ color: gree;
 .qxbtn{
 border-radius:4px;
 }
+.ptl{
+text-decoration: none;
+color: #4169E1;
+}
 /* #labelName{
 position: absolute;
 margin-left:415px;
@@ -222,7 +226,7 @@ z-index: 1000
 		   				dataType:'json',
 		   	    		success:function(data){
 		   					if(data.data==200){
-		   						$.messager.alert('提示框','成功','info');
+		   						$.messager.show({title:'提示',msg:"退回成功",timeout:3000,showType:'slide'});
 		   						//$("#tab").datagrid('load');
 		   						init();
 		   				    	inTable();

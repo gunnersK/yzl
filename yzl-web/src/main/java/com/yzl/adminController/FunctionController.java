@@ -80,15 +80,15 @@ public class FunctionController {
 	
 	//获取权限
 	@RequestMapping("/menu_user")
-	/*@ResponseBody*/
- 	public /*List<YzlMenu>*/String getMenu(){
+	@ResponseBody
+ 	public List<YzlMenu> getMenu(){
 		List<YzlMenu> list = functionService.getMenus();
 		/*for (YzlMenu yzlMenu : list) {
 			System.out.println(yzlMenu);
 		}*/
 		Session session = SecurityUtils.getSubject().getSession();
 		session.setAttribute("list", list);
-		return "redirect:/index";
-		//return list;
+//		return "redirect:/index";
+		return list;
 	}
 }

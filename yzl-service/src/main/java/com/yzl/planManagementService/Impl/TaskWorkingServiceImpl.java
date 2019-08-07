@@ -205,7 +205,7 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 					flag++;
 					
 					hashMap.put("countycode", yzlEpcTaskProgress.getCountycode());
-					hashMap.put("stat", yzlXb.getStat());
+					hashMap.put("stat", yzlEpcTaskProgress.getStat());
 					hashMap.put("jh"+yzlEpcTaskProgress.getGclb()+"Y"+yzlEpcTaskProgress.getZllb(), String.format("%.2f", float1));//计划
 					hashMap.put("city", list.get(0).getCity());//市
 					hashMap.put("county", list.get(0).getCounty());//县
@@ -214,7 +214,7 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 					hashMap.put("wc"+yzlEpcTaskProgress.getGclb()+"Y"+yzlEpcTaskProgress.getZllb(), String.format("%.2f", Float.valueOf(hgmj)));
 					hashMap.put("zjh"+yzlEpcTaskProgress.getGclb()+"Y"+yzlEpcTaskProgress.getZllb(), String.format("%.2f", wc*100));//占计划 等于 完成的除以计划
 					hashMap.put("particulars", "<a class='ptl'  href='#' value='"+"' >详情</a>");
-					hashMap.put(yzlEpcTaskProgress.getGclb()+"T"+yzlEpcTaskProgress.getZllb(), yzlXb.getXtjsbmj());
+					hashMap.put(yzlEpcTaskProgress.getGclb()+"T"+yzlEpcTaskProgress.getZllb(), hgmj);
 					hashMap.put("gclb", yzlEpcTaskProgress.getGclb());
 					hashMap.put("proceeding", "<a id='pro'  href='#' value='"+"' ><div id='pros' onmouseout='outs()' onmouseover='overs()' style='height:25px;width:70px;margin-left:12px;margin-top:5px'><div>事项 </div> </div>  </a>");
 					break;
@@ -354,7 +354,7 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 					flag++;
 					
 					hashMap.put("citycode", epcTaskProgress.getCitycode());
-					hashMap.put("stat", yzlXb.getStat());
+					hashMap.put("stat", epcTaskProgress.getStat());
 					hashMap.put("jh"+epcTaskProgress.getGclb()+"Y"+epcTaskProgress.getZllb(), String.format("%.2f", float1));//计划
 					hashMap.put("city", list.get(0).getCity());//市
 					String hgmj = yzlXb.getHgmj();//完成的数量
@@ -362,7 +362,7 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 					hashMap.put("wc"+epcTaskProgress.getGclb()+"Y"+epcTaskProgress.getZllb(), String.format("%.2f", Float.valueOf(hgmj)));
 					hashMap.put("zjh"+epcTaskProgress.getGclb()+"Y"+epcTaskProgress.getZllb(), String.format("%.2f", wc*100));//占计划 等于 完成的除以计划
 					hashMap.put("particulars", "<a class='ptl'  href='#' value='"+"' >详情</a>");
-					hashMap.put(epcTaskProgress.getGclb()+"T"+epcTaskProgress.getZllb(), yzlXb.getXtjsbmj());
+					hashMap.put(epcTaskProgress.getGclb()+"T"+epcTaskProgress.getZllb(), hgmj);
 					hashMap.put("proceeding", "<a id='pro'  href='#' value='"+"' ><div id='pros' onmouseout='outs()' onmouseover='overs()'><div><li>事项   <ul><a href='#'><li>被退回<li><li>待提交</li><li>待审核</li></a></ul> </li></div> </div>  </a>");
 					break;
 				}
@@ -607,7 +607,8 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 		
 		//根据县名称查询
 		YzlDistrict district = new YzlDistrict();
-		if (county.length() >= 6) {
+		String regex = "[0-9]+";
+		if (county.matches(regex)) {
 			YzlDistrictExample example = new YzlDistrictExample();
 			com.yzl.pojo.YzlDistrictExample.Criteria criteria = example.createCriteria();
 			criteria.andAnumberEqualTo(county);

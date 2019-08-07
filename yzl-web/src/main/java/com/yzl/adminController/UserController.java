@@ -1,6 +1,7 @@
 package com.yzl.adminController;
 
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.UUID;
 
@@ -49,11 +50,18 @@ public class UserController {
 	@RequestMapping(value="/user/login",method=RequestMethod.GET)
 	@ResponseBody
 	public YzlResult login(HttpServletRequest httpServletRequest, String username,String password){
+		try {
+			username = new String(username.getBytes("ISO8859-1"),"UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		//使用shiro框架提供的方式进行认证
 		Subject subject = SecurityUtils.getSubject();//获取当前登录用户对象，现在状态为：未验证
 		//用户名密码令牌
 		System.out.println("username="+username);
-		AuthenticationToken token = new UsernamePasswordToken(username, password);
+		String md5Pass = MD5Utils.md5(password);
+		AuthenticationToken token = new UsernamePasswordToken(username, md5Pass);
 		try {
 			subject.login(token);//验证
 		} catch (UnknownAccountException e) {
@@ -79,9 +87,11 @@ public class UserController {
 		//判断用户是否登录
 		if(user != null){
 			//判断密码是否正确
-			if(user.getPassword().equals(oldps)){
+			String md5Oldps = MD5Utils.md5(oldps);
+			if(user.getPassword().equals(md5Oldps)){
 				//设置新密码
-				user.setPassword(newps);
+				String md5Newps = MD5Utils.md5(newps);
+				user.setPassword(md5Newps);
 				//执行更新
 				int flag = userService.updatePassword(user);
 				if(flag == 1){	

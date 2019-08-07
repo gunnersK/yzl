@@ -26,10 +26,10 @@ public class BacklogTaskIssuedController {
 	private BacklogTaskIssuedService backlogService;
 	
 	
-	@RequestMapping("/pageQuery")
+	@RequestMapping("/queryItems")
 	@ResponseBody
 	public EasyUIResult pageQuery(int page,int rows){
-		return backlogService.pageQuery(page,rows);
+		return backlogService.queryItems(page,rows);
 		
 	}
 	
