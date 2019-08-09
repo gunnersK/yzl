@@ -978,7 +978,7 @@ var ZLLB;
 							//拼接二级表头数据  
 							var createTree = $("#zllb").combobox('getValue');
 							//if(createTree!=30&&createTree!=31&&createTree!=28&&createTree!=29)
-							if(createTree<28)
+//							if(createTree<28)
 								//拼接二级表头数据
 								columnsTowTab.push({title:''+tname+'',width:100*3,align:'center',colspan:3});//field:''+field+'',
 							//拼接三级表头数据
