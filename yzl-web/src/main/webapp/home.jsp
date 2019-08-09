@@ -130,7 +130,7 @@ $(function(){
 				type: 'column'
 			},
 			title: {
-				text:  '<span style="font-size:21px">'+$("#containerYear").val() +'</span>年造林完成比例', 
+				text:  '<span style="font-size:21px">'+$("#containerYear").val() +'</span>年造林完成量所占下发任务量比例', 
 	
 			},
 			subtitle: {

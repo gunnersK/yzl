@@ -185,8 +185,7 @@ public class XbServiceImpl implements XbService {
 						
 						resultVO.setName(city);
 						resultVO.setDrilldown(city);
-//						resultVO.setY(number*100);
-						resultVO.setY(number);
+						resultVO.setY(number*100);
 //						System.out.println("====number===="+number);
 						//创建子节点
 						DrilldownNode drilldownNode = new DrilldownNode();
@@ -209,8 +208,7 @@ public class XbServiceImpl implements XbService {
 									//封装县级数据
 									List data = new ArrayList();
 									data.add(countyTaskNumber.getCounty());
-//									data.add(cityNumber*100);
-									data.add(cityNumber);
+									data.add(cityNumber*100);
 //									System.out.println("====number1===="+number);
 									voList.add(data);
 									countyFlag++;
