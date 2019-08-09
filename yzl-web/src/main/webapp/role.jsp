@@ -41,7 +41,7 @@
   </div>
   <!---->
   	<br><br>
-    <div class="Role_list">
+    <div class="Role_list" >
         		<!-- 	添加窗口 -->
     			  <div id="addyRole" class="easyui-window" style="height: 340px;width: 800px" data-options="title:'添加数据',closable:false,draggable:false,closed:true,iconCls:'icon-add',resizable:true,minimizable:false,maximizable:false,modal:true,shadow:true">
      	<form id="addyForm" action="${pageContext.request.contextPath }/role/addRole" method="post">
@@ -107,7 +107,7 @@
     	<input id="sear" value="" class="easyui-searchbox" style="width:110px;height:19px;">
     </div>
     
-    <div style="height: 500px;width: 1278px">
+    <div style="height: 500px;width: 1278px;border:0;" >
      	<table id="tabs"></table>
      </div>
     <script type="text/javascript">

@@ -397,7 +397,7 @@ body {
 							<li class="active"><span class="Current_page"></span></li>
                             <li class="active" id="parentIframe"><span class="parentIframe"></span></li>
 						</ul>
-					</div>
+					</div>	
 			<br/>
                  <iframe id="iframe" value="0" style="border:0; width:100%; background-color:#FFF;"  frameborder="0" src="home.jsp">  </iframe>
 				</div>

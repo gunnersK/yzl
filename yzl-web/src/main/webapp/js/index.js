@@ -50,6 +50,7 @@ $(function(){
 							"click",
 							function() {
 								var cid = $(this).attr("name");
+								console.info(cid);
 								var cname = $(this).attr("title");
 								$("#iframe").attr("src", cid).ready();
 								$("#Bcrumbs").attr("href", cid).ready();

@@ -76,8 +76,8 @@
 	});
 </script>	
 </head>
-<body class="easyui-layout">
-<div data-options="region:'center'">
+<body class="easyui-layout" style="border:0;">
+<div data-options="region:'center'" style="border:0;">
 	<table id="grid"></table>
 </div>
 
