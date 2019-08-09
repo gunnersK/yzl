@@ -71,4 +71,8 @@ public interface YzlMenuMapper {
 	List<YzlMenu> selectByUserIdSon(Integer id);
 
 	List<String> selectByUserIdPerms(String id);
+	
+	//根据用户perms查询menuId 
+	Long selectByPerms(String perms);
+	
 }

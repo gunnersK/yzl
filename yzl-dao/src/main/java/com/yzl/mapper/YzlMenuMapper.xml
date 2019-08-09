@@ -99,6 +99,9 @@
         from yzl_menu
         where menu_id = #{menuId,jdbcType=BIGINT}
     </select>
+	
+
+	
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
         delete from yzl_menu
@@ -358,6 +361,14 @@
     
     <select id="findAllMenue" resultType="com.yzl.pojo.YzlMenu">
     	
+    </select>
+    
+     <!--   根据用户perms查询menuId -->
+    <select id="selectByPerms" resultType="java.lang.Long" parameterType="String" >
+        select 
+       		  menu_id	
+        from yzl_menu
+        WHERE perms = #{perms,jdbcType=VARCHAR}
     </select>
     
     <!-- 根据用户Id查询所有权限标识 -->
