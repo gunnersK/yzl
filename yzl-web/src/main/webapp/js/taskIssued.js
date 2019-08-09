@@ -478,29 +478,30 @@ function initWidgets(){
 	});
 	
 //检验特殊工程类别
-	$("#addZllb").combobox({
-		onSelect: function(){
-			if($("#addZllb").combobox('getValue')>=28){
-				$("#addGclb").combobox({disabled:true});
-				$("#addGclb").mouseover(function(){
-					alert();
-				});
-			} else{
-				$("#addGclb").combobox({disabled:false});
-			}
-		}
-		
-	}); 
+//	$("#addZllb").combobox({
+//		onSelect: function(){
+//			if($("#addZllb").combobox('getValue')>=28){
+//				$("#addGclb").combobox({disabled:true});
+//				$("#addGclb").mouseover(function(){
+//					alert();
+//				});
+//			} else{
+//				$("#addGclb").combobox({disabled:false});
+//			}
+//		}
+//		
+//	}); 
 	
 }
 
 //添加任务之前的表单检验
 function checkAddInput(){
 	var addJh = $("#addJh").val().split(".");
-	if($("#addZllb").combobox('getValue') == ""){
-		$.messager.show({title:'提示',msg:"请选择造林类别",timeout:3000});
-	} else if($("#addGclb").combobox('getText') == "" && $("#addZllb").combobox('getValue')<28){
+/*	if($("#addGclb").combobox('getText') == "" && $("#addZllb").combobox('getValue')<28){*/
+	if($("#addGclb").combobox('getText') == ""){
 		$.messager.show({title:'提示',msg:"请选择工程类别",timeout:3000});
+	} else if($("#addZllb").combobox('getValue') == ""){
+		$.messager.show({title:'提示',msg:"请选择造林类别",timeout:3000});
 	} else if($("#addJh").val() == ""){
 		$.messager.show({title:'提示',msg:"请输入计划（整数或小数）",timeout:3000});
 	} else if(addJh.length >= 2){
