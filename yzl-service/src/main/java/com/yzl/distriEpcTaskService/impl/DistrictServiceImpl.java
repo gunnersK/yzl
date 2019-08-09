@@ -20,6 +20,7 @@ import com.yzl.pojo.YzlDistrict;
 import com.yzl.pojo.YzlDistrictExample;
 import com.yzl.pojo.YzlDistrictExample.Criteria;
 import com.yzl.pojo.YzlDistrictVo;
+import com.yzl.pojo.YzlMenu;
 import com.yzl.pojo.YzlUser;
 import com.yzl.utils.EasyUIResult;
 import com.yzl.utils.LoginUserUtils;
@@ -83,6 +84,15 @@ public class DistrictServiceImpl implements DistrictService {
 		//将首字母拼接起来
 		//String headPy = StringUtils.join(headPYs,"");
 	//	district.setMark(headPy);
+		YzlMenu yzlMenu = new YzlMenu();
+		//根据perms（市行政号码）查询menuId,然后把menuId赋值给Pid
+		Long menuId = menuMapper.selectByPerms(district.getCitycode());
+		//System.out.println("menuId==============================================="+menuId);
+		yzlMenu.setPid(menuId.toString());
+		yzlMenu.setName(district.getCounty());
+		yzlMenu.setPerms(district.getAnumber());
+		yzlMenu.setGeneratemenu("0");
+		menuMapper.insert(yzlMenu);
 		districtMapper.insert(district);
 	}
 

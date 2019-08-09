@@ -1,8 +1,8 @@
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=9f301a95ce7a4a328e540a276dd1a2985fca7384
 eclipse.preferences.version=1
-<<<<<<< HEAD
-=======
 encoding//src/main/webapp/admin/engineeringManage.jsp=UTF-8
 encoding//src/main/webapp/css/style.css=UTF-8
 encoding//src/main/webapp/gcManage.jsp=UTF-8
->>>>>>> 9f301a95ce7a4a328e540a276dd1a2985fca7384
 encoding//src/test/java=gbk
