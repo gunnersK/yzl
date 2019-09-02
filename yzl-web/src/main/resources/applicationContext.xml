@@ -103,6 +103,7 @@
    		<property name="filterChainDefinitions">
    			<value>
    				<!-- anon指定为不拦截的 -->
+   				/index.jsp = anon
    				/css/** = anon
    				/js/** = anon
    				/images/** = anon
@@ -112,6 +113,7 @@
    				/user/login = anon
    				/addDataPush = anon
    				<!-- 拦截上面不匹配的所有URL -->
+   				<!-- /* = authc -->
    				/* = authc
    			</value>
    		</property>

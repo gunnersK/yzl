@@ -160,7 +160,7 @@ function keyLogin(){
 }
 $(function(){
 	
-
+alert();
 
 	$.ajaxSettings.async = false;//取消同步
 /* 	window.event.returnValue = false;//（IE7只加入这个）
@@ -217,7 +217,7 @@ $(function(){
 										//$.post("${pageContext.request.contextPath }/index",function(){});//跳首页controller
 									//location.href = "http://192.168.1.42:8088/${pageContext.request.contextPath}";
 									//$.messager.show({title:'提示',msg:'登录成功!',timeout:2000,showType:'slide'});
-									location.href = "http://localhost:8088/";
+									location.href = "http://localhost:8088//";
 								}
 							}); 
 					 	
