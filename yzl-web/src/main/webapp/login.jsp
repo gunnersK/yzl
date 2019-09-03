@@ -159,8 +159,6 @@ function keyLogin(){
     }  
 }
 $(function(){
-	
-alert();
 
 	$.ajaxSettings.async = false;//取消同步
 /* 	window.event.returnValue = false;//（IE7只加入这个）

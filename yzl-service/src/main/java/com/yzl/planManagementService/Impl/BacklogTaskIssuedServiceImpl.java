@@ -77,10 +77,10 @@ public class BacklogTaskIssuedServiceImpl implements BacklogTaskIssuedService{
 		
 		for(BacklogVO backlog : backlogVOList){
 			if(backlog.getStat().equals("1")){
-				backlog.setName("<p style='color:blue'>待审核的任务</p>");
+				backlog.setName("<a href='taskWorking.jsp' style='color:blue'>待审核的任务</a>");
 			}
 			if(backlog.getStat().equals("3")){
-				backlog.setName("<p style='color:red'>被退回的任务</p>");
+				backlog.setName("<a href='taskWorking.jsp' style='color:red'>被退回的任务</a>");
 			}
 			System.out.println("======backlog====="+backlog.toString());
 		}

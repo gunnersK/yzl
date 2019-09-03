@@ -25,7 +25,7 @@ public class BacklogTaskIssuedController {
 	@Autowired
 	private BacklogTaskIssuedService backlogService;
 	
-	
+	//查询首页待办事项表格
 	@RequestMapping("/queryItems")
 	@ResponseBody
 	public EasyUIResult pageQuery(int page,int rows){

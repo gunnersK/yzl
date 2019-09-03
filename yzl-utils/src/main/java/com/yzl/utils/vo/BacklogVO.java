@@ -10,6 +10,8 @@ import org.aspectj.weaver.ast.And;
 
 public class BacklogVO {
 	
+	private Integer dcode;
+	
 	private String name;
 
 	private Date time;
@@ -22,13 +24,42 @@ public class BacklogVO {
 
 	private String county;
 	
+	private String anumber;
+	
 	private String stat;
 	
+	private String jhnd;
 	
+
 	@Override
 	public String toString() {
-		return "BacklogVO [name=" + name + ", time=" + time + ", number=" + number + ", check=" + check + ", city="
-				+ city + ", county=" + county + ", stat=" + stat + "]";
+		return "BacklogVO [dcode=" + dcode + ", name=" + name + ", time=" + time + ", number=" + number + ", check="
+				+ check + ", city=" + city + ", county=" + county + ", anumber=" + anumber + ", stat=" + stat
+				+ ", jhnd=" + jhnd + "]";
+	}
+
+	public Integer getDcode() {
+		return dcode;
+	}
+
+	public void setDcode(Integer dcode) {
+		this.dcode = dcode;
+	}
+
+	public String getAnumber() {
+		return anumber;
+	}
+
+	public void setAnumber(String anumber) {
+		this.anumber = anumber;
+	}
+
+	public String getJhnd() {
+		return jhnd;
+	}
+
+	public void setJhnd(String jhnd) {
+		this.jhnd = jhnd;
 	}
 
 	public String getStat() {

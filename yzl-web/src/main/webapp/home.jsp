@@ -351,46 +351,31 @@ $(function(){
 		columns:[
 						[
 					//		{align:'center',width:100,title:'序号',  rowspan:'2',field:'id',checkbox:true},//frozen:true,
-							{align:'center',rowspan:2,width:160,title:'待办事项',	field:'name'},
-							{align:'center',rowspan:2,width:100,title:'数量',field:'number'},
+							{align:'center',rowspan:2,width:120,title:'待办事项',	field:'name' ,
+								 formatter: function(value,row,index){
+									 if(row.stat == 1){
+										return "<a style='color:blue'>待审核的任务</a>"; 
+									 } else{
+										return "<a style='color:red'>被退回的任务</a>";
+									 }
+							}	  },
+							{align:'center',rowspan:2,width:120,title:'市',field:'city'},
+							{align:'center',rowspan:2,width:120,title:'县/区',field:'county'},
+							{align:'center',rowspan:2,width:120,title:'年份',field:'jhnd'},
+							{align:'center',rowspan:2,width:120,title:'数量',field:'number'},
 					//		{align:'center',rowspan:2,width:100,title:'时间',field:'updateTime'},
-							{align:'center',rowspan:2,width:160,title:'市',field:'city'},
-							{align:'center',rowspan:2,width:190,title:'县/区',field:'county'},
 					//		{align:'center',rowspan:2,width:100,title:'查看',field:'check'}
 						]
 					],
     	onClickCell: function(index,field,value){
-    		//截取jsp文件名
-			var begin = value.indexOf("value='&");//获取前索引
-			var end = value.indexOf("&'");//获后前索引
-			var valJsp = value.substring(begin,end);//截取
-			var val = valJsp.split("value='&")[1];
-   			var jsp = val;
-   			//截取状态
-   			idValueBegin = value.indexOf("id='");
-   			idValueEnd = value.indexOf(">'");
-   			console.log("value="+value);
-   			var idValue = value.substring(idValueBegin,idValueEnd);//截取
-   			var statu = idValue.split("id='")[1];//去掉前缀
-   			var cname="待办任务"
-   			if(statu==1){
-    			cname = "待审核的任务";
-   			}else if(statu==3){
-   				cname = "被退回的任务";
-   			}
-    		var _iframe = window.parent;
-    		_iframe.$('#nav_list').find('li.home').removeClass('active');
-    		//_iframe.$("[name='taskIssued.jsp']").parent().addClass('active');;
-    		_iframe.$("#iframe").attr("src", jsp).ready();
-    		_iframe.$("#iframe").attr("value", statu).ready();//设置需要查询的状态
-    		_iframe.$("#Bcrumbs").attr("href", jsp).ready();
-    		_iframe.$(".Current_page a").attr('href', jsp).ready();
-    		_iframe.$(".Current_page").html(cname).ready();
-    		_iframe.$("#parentIframe").html("").css("display",
-    				"none").ready();
-    			
+    		if(field == "name"){
+    			var rows = $("#DataTemplateTable").datagrid('getRows');
+    			var row = rows[index];
+    			sessionStorage.setItem('homeItem', JSON.stringify(row));
+    			window.location.href = "taskWorking.jsp";
+    		}
     	}
-	}); 
+	});
  	
 
   $(function(){

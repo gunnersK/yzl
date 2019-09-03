@@ -52,20 +52,21 @@ $(function(){
         }
     });
 
-	/* $("#dataDr").on('click',function(){
-		$("#file").trigger("click");
-	}); */
 	$.ajaxSettings.async=false;//同步
+	
     //初始化树
     $("#tree").tree({
    		url:'/district/queryTreeNode',
    		animate:true,
    		onClick:TreeNodeEvent
    	});
-		$("#uploadFileAlabel").hide();//隐藏上传文件按钮
+    
+	$("#uploadFileAlabel").hide();//隐藏上传文件按钮
 	initHeader();//取表头数据
 	initTables();//加载数据表格数据
+	
 	var record;
+	
  	$("#DataTemplateTable").datagrid({ 
  		onClickRow: function(){
 			if(record==1){

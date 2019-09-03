@@ -1,52 +1,151 @@
+//当前登录的用户
+var usr = "${sessionScope.user.username}";
+var msg;
+var shmsg ;
+var msgth ;
+var msgtj ;
+var lea;//留言
+var sh1 = false;//sh1
+var sh2 = true;//sh2
+var th1 = false;//sh1
+var th2 = true;//sh2
+var tj1 = false;//sh1
+var tj2 = true;//sh2
+var stat;//记录状态  为1的时候执行退回   为2的时候执行提交    为3的时候执行审核
+var muniLength = null;//多少个市
+var coutyLength = null;//多少个县
+var countNode = null;//县的节点
+var cityNode = null;//市的节点
+var disCode;
+var bdgwj = new Array;//保存多个文件
+var epcMark = null;//工程编号
+//退回
+var backRows = null;
+var backNode = null;
+var backTime = null;
+var backCountys = new Array;//所有的县
+//提交
+var submitRows = null;
+var subCountys = new Array;
+//审核
+var auditRows = null;
+var auditCounty = new Array;
+var zllbCode;
+var back = 0;//计数
+var submit = 0;
+var audit = 0;
 var x;
-    var y;
-    $(function(){
-    	$(document).mousemove(function (e) {
-       	 $("#pagex").value = e.pageX;//pageX() 属性是鼠标指针的位置，相对于文档的左边缘。
-       	 $("#pagey").value = e.pageY;//pageY() 属性是鼠标指针的位置，相对于文档的上边缘。
-       	 x = e.pageX;
-       	 y = e.pageY;
-       	//console.info('x'+e.pageX);
-       	//console.info('y'+e.pageY);
-       	});
-    })
+var y;
+$(function(){
+	$(document).mousemove(function (e) {
+   	 $("#pagex").value = e.pageX;//pageX() 属性是鼠标指针的位置，相对于文档的左边缘。
+   	 $("#pagey").value = e.pageY;//pageY() 属性是鼠标指针的位置，相对于文档的上边缘。
+   	 x = e.pageX;
+   	 y = e.pageY;
+   	//console.info('x'+e.pageX);
+   	//console.info('y'+e.pageY);
+   	});
+	
+	$.ajaxSettings.async = false;
+	init();//获取数据表格表头数据
+	inTable();//初始化数据表格
+	
+  //选择 查看工程触发
+    $("#epc").combobox({
+    	onSelect:changed
+    });
+	
+
+    $("#year").numberspinner({
+    	"onChange":function(){
+    		var node =$("#tt").tree('getSelected');
+    		
+    		if(node==null){
+    			init();//获取数据表格表头数据
+    			inTable();//初始化数据表格
+    		}else{
+    			init();//获取数据表格表头数据
+   				inTable();//初始化数据表格
+    		}
+    	}
+    });
+	
+	//初始化树
+    $("#tt").tree({
+   		url:'/show_dis',
+   		animate:true,
+   		onClick:click,
+   		onLoadSuccess:success
+   	});
+});
     
-    //当前登录的用户
-    var usr = "${sessionScope.user.username}";
-    var msg;
-    var shmsg ;
-    var msgth ;
-    var msgtj ;
-    var lea;//留言
-    var sh1 = false;//sh1
-    var sh2 = true;//sh2
-    var th1 = false;//sh1
-    var th2 = true;//sh2
-    var tj1 = false;//sh1
-    var tj2 = true;//sh2
-    var stat;//记录状态  为1的时候执行退回   为2的时候执行提交    为3的时候执行审核
-    var muniLength = null;//多少个市
-    var coutyLength = null;//多少个县
-    var countNode = null;//县的节点
-    var cityNode = null;//市的节点
-    var disCode;
-    var bdgwj = new Array;//保存多个文件
-    var epcMark = null;//工程编号
-  //退回
-    var backRows = null;
-    var backNode = null;
-    var backTime = null;
-    var backCountys = new Array;//所有的县
-  //提交
-    var submitRows = null;
-    var subCountys = new Array;
- 	 //审核
- 	 var auditRows = null;
- 	 var auditCounty = new Array;
- 	var zllbCode;
- 	var back = 0;//计数
-	var submit = 0;
-	var audit = 0;
+function success(node,data){
+	var item = sessionStorage.getItem('homeItem');
+	if(item != "null"){
+		var data = JSON.parse(item);
+		var node = $("#tt").tree('find',data.dcode);
+		$("#tt").tree('expandTo',node.target);
+		$("#tt").tree('select',node.target);
+		$("#tt").tree('check',node.target);
+		$("#year").val(data.jhnd);
+		zllbCode = node.id;
+		changed(data.stat,undefined,undefined,undefined);
+		sessionStorage.setItem('homeItem',null);
+	}
+	//获取所有的市
+	var children = data[0].children;
+	//console.info(children);
+	
+	//多少个市
+	 muniLength = children.length;
+	//console.info(muniLength);
+	
+	//获取第一个市下的县
+	var second = children[0].children;
+	//console.info(second);
+	
+	//多少个县
+	 coutyLength = second.length;
+	//console.info(coutyLength);
+	var a = second.target;
+	//条件满足说明为县
+	if(muniLength == 1 && coutyLength == 1){
+		//disCode = second[0].id;
+		
+		var tar = $("#tt").tree("find",second[0].id);
+		countNode = tar;
+		$.ajax({
+			async:false,
+			url:'/takWorking/Ddis',
+			dataType:'json',
+			data:{"dcode":tar.id},
+			success:function(dataCounty){
+				disCode = dataCounty.anumber;
+				console.info(disCode+"==========");
+			},
+			
+		});
+		//var bo = $("#tt").tree("select",tar);
+		//$("#tt").tree("setValue",disCode);
+		//click(second);
+	}
+	if(muniLength == 1 && coutyLength > 1){
+		var tar = $("#tt").tree("find",children[0].id);
+		cityNode = tar;
+		$.ajax({
+			async:false,
+			url:'/takWorking/CityFlag',
+			dataType:'json',
+			data:{"flag":tar.id},
+			success:function(dataCity){
+				disCode = dataCity.citycode;
+			},
+			
+		});
+	}
+}
+    
+    
     function backFunction(){
     	backNode =$("#tt").tree('getSelected');//获取选择的节点
     	if(backNode!=null){
@@ -524,7 +623,7 @@ var x;
 	        	    				formatter: function(value,row,index){
 	        	    					//<div id='pros' onmouseout='outs()' onmouseover='overs()' style='height:25px;width:70px;margin-left:12px;margin-top:5px'><div>事项 </div> </div>
 //	        	    					return "<div id='pros' onmouseout='outs()' onmouseover='overs()' style='width:42px;margin-top:5px'><p ><a style='color:blue;text-decoration:none;cursor:default'>查看</a></p> </div>"
-	             	    		         if (value == "1"){console.info(1);
+	             	    		         if (value == "1"){
 	              	    		             //return "<p style='color:blue;'>待审核</p>";
 	             	  return "<div id='pros' onmouseout='outs()' onmouseover='overs("+audit+","+submit+","+back+")' style='width:70px;margin-left:12px;margin-top:5px'><p ><a href='#' style='color:blue;text-decoration: none;'>待审核("+audit+")</a></p> </div>"
 	              	    		          } else if (value == "0"){
@@ -626,40 +725,6 @@ var x;
     	window.location.href="/completionTask/derive?nid="+id+'&year='+year;
     }
 	
-    //页面加载
-    $(function(){
-    	$.ajaxSettings.async = false;
-    	//初始化树
-        $("#tt").tree({
-       		url:'/show_dis',
-       		animate:true,
-       		onClick:click,
-       		onLoadSuccess:success
-       	});
-    	init();//获取数据表格表头数据
-    	inTable();//初始化数据表格
-    	
-	  //选择 查看工程触发
-        $("#epc").combobox({
-        	onSelect:changed
-        });
-		
-
-        $("#year").numberspinner({
-        	"onChange":function(){
-        		var node =$("#tt").tree('getSelected');
-        		
-        		if(node==null){
-        			init();//获取数据表格表头数据
-        			inTable();//初始化数据表格
-        		}else{
-        			init();//获取数据表格表头数据
-       				inTable();//初始化数据表格
-        		}
-        	}
-        });
-    	
-    })
     //页面加载时初始化
     function init(){
     	var year = $("#year").val();
@@ -757,6 +822,8 @@ var x;
         			frozenColumnsTab.push(
         					[
        						{align:'center',width:100,title:'序号',  rowspan:'2',	field:'ck',checkbox:true},
+       						{field:'city',title:'市',width:100,rowspan:'2',align:'center'}, 
+        	    			{field:'county',title:'县',width:100,rowspan:'2',align:'center'},
        						{field:'back',title:'退回',width:100,rowspan:'2',hidden:true,align:'center',
         	    				formatter: function(value,row,index){
         	    					back = value;
@@ -1171,59 +1238,6 @@ var x;
 //    	}
 //    });
     
-  	function success(node,data){
-  		//获取所有的市
-  		var children = data[0].children;
-  		//console.info(children);
-  		
-  		//多少个市
-  		 muniLength = children.length;
-  		//console.info(muniLength);
-  		
-  		//获取第一个市下的县
-  		var second = children[0].children;
-  		//console.info(second);
-  		
-  		//多少个县
-  		 coutyLength = second.length;
-  		//console.info(coutyLength);
-  		var a = second.target;
-  		//条件满足说明为县
-  		if(muniLength == 1 && coutyLength == 1){
-  			//disCode = second[0].id;
-  			
-  			var tar = $("#tt").tree("find",second[0].id);
-  			countNode = tar;
-  			$.ajax({
-				async:false,
-				url:'/takWorking/Ddis',
-				dataType:'json',
-				data:{"dcode":tar.id},
-				success:function(dataCounty){
-					disCode = dataCounty.anumber;
-					console.info(disCode+"==========");
-				},
-				
-			});
-  			//var bo = $("#tt").tree("select",tar);
-  			//$("#tt").tree("setValue",disCode);
-  			//click(second);
-  		}
-  		if(muniLength == 1 && coutyLength > 1){
-  			var tar = $("#tt").tree("find",children[0].id);
-  			cityNode = tar;
-  			$.ajax({
-				async:false,
-				url:'/takWorking/CityFlag',
-				dataType:'json',
-				data:{"flag":tar.id},
-				success:function(dataCity){
-					disCode = dataCity.citycode;
-				},
-				
-			});
-  		}
-  	}
     
    	function click(node){
    		$("#epc").combobox('setValue','');//工程编号
