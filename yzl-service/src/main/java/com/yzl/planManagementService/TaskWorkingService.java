@@ -40,5 +40,7 @@ public interface TaskWorkingService {
 	public YzlDistrict findByFlag(String flag);
 
 	public List<YzlProceed> proceed(String[] gclbs,String county,String year);
+	
+	public String selectStatByGCLB(String GCLB, String countyCode, String JHND);
 
 }

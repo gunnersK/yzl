@@ -161,4 +161,7 @@ public interface YzlEpcTaskProgressMapper {
 	
 	//查询首页待办事项的列表
 	List<BacklogVO> queryBacklogList(@Param("authoritys")List<String> authoritys);
+	
+	//查询某个工程的状态
+	String selectStatByGCLB(@Param("GCLB")String GCLB, @Param("countyCode")String countyCode, @Param("JHND")String JHND);
 }

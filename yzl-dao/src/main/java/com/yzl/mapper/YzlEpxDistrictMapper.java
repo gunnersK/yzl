@@ -27,4 +27,5 @@ public interface YzlEpxDistrictMapper {
     int updateByPrimaryKeySelective(YzlEpxDistrict record);
 
     int updateByPrimaryKey(YzlEpxDistrict record);
+    
 }

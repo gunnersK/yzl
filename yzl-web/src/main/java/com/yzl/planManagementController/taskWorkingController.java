@@ -28,6 +28,7 @@ public class taskWorkingController {
 
 	@Autowired
 	private TaskWorkingService taskWorkingService;
+	
 
 	@RequestMapping("/tak/a")
 	private String a(){
@@ -140,4 +141,9 @@ public class taskWorkingController {
 		return taskWorkingService.proceed(gclbs,county,year);
 	}
 	
+	@RequestMapping("/takWorking/stat")
+	@ResponseBody
+	public String getStatByGCLB(String addGclbMark, String addAnumber, String addYear){
+		return taskWorkingService.selectStatByGCLB(addGclbMark, addAnumber, addYear);
+	}
 }

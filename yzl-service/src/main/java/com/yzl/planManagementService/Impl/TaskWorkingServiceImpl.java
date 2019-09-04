@@ -934,4 +934,9 @@ public class TaskWorkingServiceImpl implements TaskWorkingService{
 		return proceeds;
 	}
 
+	@Override
+	public String selectStatByGCLB(String GCLB, String countyCode, String JHND) {
+		return epcTaskProgressMapper.selectStatByGCLB(GCLB, countyCode, JHND);
+	}
+
 }

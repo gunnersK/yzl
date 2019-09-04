@@ -380,8 +380,8 @@ function initWidgets(){
 		columns:[[
 		          {field:'addArea',title:'地区',align:'center',width:160},
 		          {field:'addYear',title:'年份',align:'center',width:100},
-		          {field:'addZllb',title:'造林类别',align:'center',width:200},
 		          {field:'addGclb',title:'工程类别',align:'center',width:200},
+		          {field:'addZllb',title:'造林类别',align:'center',width:200},
 		          {field:'addJh',title:'计划',align:'center',width:100,
 		        	  styler:function(value,row,index){
 		        		  return "border-right:0";
@@ -447,20 +447,26 @@ function initWidgets(){
 	});
 //添加任务按钮	
 	$("#addTaskBtn").click(function(){
+		var node = $("#tree").tree('getSelected');
+		var parent = $('#tree').tree('getParent',node.target);
+		var addAnumber = node.id;
+		var addYear = $("#addYear").val();
+		var addGclbMark = $("#addGclb").combobox('getValue');
+		var isSubmit = checkIsSubmit(addAnumber,addYear,addGclbMark);
 		if(checkAddInput()){
-			node = $("#tree").tree('getSelected');
-			var parent = $('#tree').tree('getParent',node.target);
-			var params = {"addArea":parent.text+"-"+node.text, 
-					"addYear":$("#addYear").val(), 
-					"addZllb":$("#addZllb").combobox('getText'), 
-					"addGclb":$("#addGclb").combobox('getText'), 
-					"addJh":$("#addJh").val(), 
-					"addZllbMark":$("#addZllb").combobox('getValue'),
-					"addGclbMark":$("#addGclb").combobox('getValue')};
+			if(isSubmit){
+				var params = {"addArea":parent.text+"-"+node.text, 
+						"addYear":addYear, 
+						"addZllb":$("#addZllb").combobox('getText'), 
+						"addGclb":$("#addGclb").combobox('getText'), 
+						"addJh":$("#addJh").val(), 
+						"addZllbMark":$("#addZllb").combobox('getValue'),
+						"addGclbMark":addGclbMark};
 //				"addUpFile":$("#addFileInput").val().substring(12)};
-			$('#addTaskTable').datagrid('appendRow',params);
-//		var row = $('#addTaskTable').datagrid('getRows');
-//		alert(row[0].addZllbv);
+				$('#addTaskTable').datagrid('appendRow',params);
+		//		var row = $('#addTaskTable').datagrid('getRows');
+		//		alert(row[0].addZllbv);
+			}
 		}
 	});
 	
@@ -516,6 +522,26 @@ function checkAddInput(){
 			return true;
 		}
 	} else {
+		return true;
+	}
+}
+
+//检查这个工程是否已经被提交
+function checkIsSubmit(addAnumber,addYear,addGclbMark){
+	var submit;
+	$.ajax({
+		async:false,
+		url:'/takWorking/stat',
+		dataType:'json',
+		data:{"addAnumber":addAnumber,"addYear":addYear,"addGclbMark":addGclbMark},
+		success:function(data){
+			submit = data;
+		}
+	});
+	if(submit == 1 || submit == 2){
+		$.messager.show({title:'提示',msg:"该工程已提交或通过审核，请退回后重新下发",timeout:4000});
+		return false;
+	} else{
 		return true;
 	}
 }

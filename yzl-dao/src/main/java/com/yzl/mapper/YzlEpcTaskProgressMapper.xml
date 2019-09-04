@@ -1178,4 +1178,13 @@
 			group by county, stat, JHND
 		order by updateTime desc
 	</select>
+	
+	<select id="selectStatByGCLB" resultType="String">
+		select stat
+		from yzl_epc_task_progress
+		group by JHND, countyCode, GCLB
+		having countyCode = #{countyCode} and GCLB = #{GCLB} and JHND = #{JHND}
+	</select>
+	
+	
 </mapper>
