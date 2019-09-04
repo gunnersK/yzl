@@ -354,9 +354,9 @@ $(function(){
 							{align:'center',rowspan:2,width:120,title:'待办事项',	field:'name' ,
 								 formatter: function(value,row,index){
 									 if(row.stat == 1){
-										return "<a style='color:blue'>待审核的任务</a>"; 
+										return "<a style='color:blue;text-decoration:none;cursor:pointer'>待审核的任务</a>"; 
 									 } else{
-										return "<a style='color:red'>被退回的任务</a>";
+										return "<a style='color:red;text-decoration:none;cursor:pointer'>被退回的任务</a>";
 									 }
 							}	  },
 							{align:'center',rowspan:2,width:120,title:'市',field:'city'},

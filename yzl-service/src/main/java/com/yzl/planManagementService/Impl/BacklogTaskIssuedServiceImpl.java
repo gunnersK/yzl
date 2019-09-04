@@ -75,15 +75,6 @@ public class BacklogTaskIssuedServiceImpl implements BacklogTaskIssuedService{
 	
 		backlogVOList = epcTaskProgressMapper.queryBacklogList(PermsList);
 		
-		for(BacklogVO backlog : backlogVOList){
-			if(backlog.getStat().equals("1")){
-				backlog.setName("<a href='taskWorking.jsp' style='color:blue'>待审核的任务</a>");
-			}
-			if(backlog.getStat().equals("3")){
-				backlog.setName("<a href='taskWorking.jsp' style='color:red'>被退回的任务</a>");
-			}
-			System.out.println("======backlog====="+backlog.toString());
-		}
 		EasyUIResult easyUIResult = new EasyUIResult();
 		//计算分页起始位置
 		int beginIndex = (page-1)*rows;
