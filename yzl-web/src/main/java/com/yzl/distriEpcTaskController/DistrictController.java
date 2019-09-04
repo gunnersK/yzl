@@ -181,4 +181,11 @@ public class DistrictController {
 	public List<DistrictTreeVO> queryTreeNode(HttpServletRequest request){
 		return districtService.queryTreeNode(request);
 	}
+	
+	//根据地区行政编号查地区id(主键)
+	@RequestMapping("/district/queryDCode")
+	@ResponseBody
+	public Integer queryDcodeByAnumber(String anumber){
+		return districtService.queryDcodeByAnumber(anumber);
+	}
 }

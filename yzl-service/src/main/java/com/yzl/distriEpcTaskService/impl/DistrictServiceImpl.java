@@ -247,4 +247,10 @@ public class DistrictServiceImpl implements DistrictService {
 		easyUIResult.setTotal((int)pageInfo.getTotal());
 		return easyUIResult;
 	}
+
+	//根据地区行政编号查地区id(主键)
+	@Override
+	public Integer queryDcodeByAnumber(String anumber) {
+		return districtMapper.findDCodeByAnumber(anumber);
+	}
 }

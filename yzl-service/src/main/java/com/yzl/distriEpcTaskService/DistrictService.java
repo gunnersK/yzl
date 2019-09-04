@@ -35,6 +35,9 @@ public interface DistrictService {
 	List<DistrictTreeVO> queryTreeNode(HttpServletRequest request);
 	//条件查询
 	EasyUIResult selectByConditions(YzlDistrictVo yzlDistrictVo, String city, String county, int page, int rows);
+	
+	//根据地区行政编号查地区id(主键)
+	Integer queryDcodeByAnumber(String anumber);
 
 //	List<YzlDistrict> selectByConditions(YzlDistrict yzlDistrict, int page, int rows);
 }

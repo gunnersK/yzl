@@ -40,6 +40,9 @@ public interface YzlDistrictMapper {
     
   //根据地区id查询地区标识
     String findMarkByDcode(@RequestParam("dcode")Integer dcode);
+    
+    //根据地区行政编号查地区id(主键)
+    Integer findDCodeByAnumber(String anumber);
 
     List<YzlDistrict> findByCityOrCounty(@Param("searchKey") String searchKey);
     //查询所有市级 并去重复

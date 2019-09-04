@@ -378,6 +378,16 @@
 				d.dcode = #{dcode,jdbcType=INTEGER}
     </select>
     
+    <!-- 根据地区行政编号查地区id(主键) -->
+	 <select id="findDCodeByAnumber" parameterType="String" resultType="Integer">
+			SELECT 
+			  d.dcode
+				FROM
+				  yzl_district d
+				where 
+					d.Anumber = #{anumber}
+	    </select>
+    
     <select id="selectValue" resultType="com.yzl.pojo.YzlDistrict">
     	
 		SELECT * FROM yzl_district 

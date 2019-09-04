@@ -84,9 +84,7 @@ function success(node,data){
 	if(item != "null"){
 		var data = JSON.parse(item);
 		var node = $("#tt").tree('find',data.dcode);
-		$("#tt").tree('expandTo',node.target);
-		$("#tt").tree('select',node.target);
-		$("#tt").tree('check',node.target);
+		locateNode(node);
 		$("#year").val(data.jhnd);
 		zllbCode = node.id;
 		changed(data.stat,undefined,undefined,undefined);
@@ -143,6 +141,13 @@ function success(node,data){
 			
 		});
 	}
+}
+
+//定位树节点
+function locateNode(node){
+	$("#tt").tree('expandTo',node.target);
+	$("#tt").tree('select',node.target);
+	$("#tt").tree('check',node.target);
 }
     
     
@@ -1130,7 +1135,6 @@ function success(node,data){
 			var JsonObj = eval('('+r+')');//将json串转成json对象
 			var county = JsonObj.county;
 			var anumber = JsonObj.countycode;
-//			alert(r);
 			      
 			var array = new Array();
 			
@@ -1200,6 +1204,9 @@ function success(node,data){
 		//audit = 0;
 		$("#epc").combobox('setValue','');//工程编号
 		zllbCode = anumber;
+		var dcode = getDcode(anumber);
+		var node = $("#tt").tree('find',dcode);
+		locateNode(node);
 		changed('3',back,submit,audit);
 		$("#tooltip").css({"display": "none"});
 	}
@@ -1210,6 +1217,9 @@ function success(node,data){
 		//audit = 0;
 		$("#epc").combobox('setValue','');//工程编号
 		zllbCode = anumber;
+		var dcode = getDcode(anumber);
+		var node = $("#tt").tree('find',dcode);
+		locateNode(node);
 		changed('0',back,submit,audit);
 		$("#tooltip").css({"display": "none"});
 	}
@@ -1220,6 +1230,9 @@ function success(node,data){
 		//audit = 0;
 		$("#epc").combobox('setValue','');//工程编号
 		zllbCode = anumber;
+		var dcode = getDcode(anumber);
+		var node = $("#tt").tree('find',dcode);
+		locateNode(node);
 		changed('1',back,submit,audit);
 		$("#tooltip").css({"display": "none"});
 	}
@@ -1245,6 +1258,23 @@ function success(node,data){
    		init();//加载表头
 		inTable();//初始化表格
    	}
+   	
+   //根据地区行政编号查地区id(主键)
+   function getDcode(anumber){
+	   var dcode = null;
+	   $.ajax({
+			async:false,
+			url:'/district/queryDCode',
+			dataType:'json',
+			data:{"anumber":anumber},
+			success:function(data){
+				if(data!= null){
+					dcode = data;
+				}
+			}
+		});
+	   return dcode;
+   }
     	
     $(function(){
     	
