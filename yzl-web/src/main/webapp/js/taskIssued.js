@@ -538,8 +538,8 @@ function checkIsSubmit(addAnumber,addYear,addGclbMark){
 			submit = data;
 		}
 	});
-	if(submit == 1 || submit == 2){
-		$.messager.show({title:'提示',msg:"该工程已提交或通过审核，请退回后重新下发",timeout:4000});
+	if(submit == 1 || submit == 2 || submit == 3){
+		$.messager.show({title:'提示',msg:"该工程已提交，请删除后重新下发",timeout:4000});
 		return false;
 	} else{
 		return true;
@@ -894,7 +894,7 @@ var ZLLB;
   	        		//获取地区数据
   	        		district=data.data;
   	        	}else{
-  	        		$.messager.show({title:'警告',msg:'地区数据加载失败！',timeout:8000,});
+  	        		$.messager.show({title:'警告',msg:'地区数据加载失败！',timeout:8000});
   	        	}
 		}); 
 	   	var root =$("#tree").tree('getRoot');//获取顶级父节点
