@@ -80,31 +80,21 @@ $(function(){
 });
     
 function success(node,data){
-	var item = sessionStorage.getItem('homeItem');
-	if(item != "null"){
-		var data = JSON.parse(item);
-		var node = $("#tt").tree('find',data.dcode);
-		locateNode(node);
-		$("#year").val(data.jhnd);
-		zllbCode = node.id;
-		changed(data.stat,undefined,undefined,undefined);
-		sessionStorage.setItem('homeItem',null);
-	}
 	//获取所有的市
 	var children = data[0].children;
-	//console.info(children);
+//	console.info('获取所有的市'+children);
 	
 	//多少个市
 	 muniLength = children.length;
-	//console.info(muniLength);
+//	console.info('多少个市'+muniLength);
 	
 	//获取第一个市下的县
 	var second = children[0].children;
-	//console.info(second);
+//	console.info('获取第一个市下的县'+second);
 	
 	//多少个县
 	 coutyLength = second.length;
-	//console.info(coutyLength);
+//	console.info('多少个县'+coutyLength);
 	var a = second.target;
 	//条件满足说明为县
 	if(muniLength == 1 && coutyLength == 1){
@@ -141,10 +131,27 @@ function success(node,data){
 			
 		});
 	}
+	
+	var node1 = $("#tt").tree('find',"GX450");
+	click(node1);
+	$("#tt").tree('select',node1.target);
+
+	//在session中获取所点击的首页待办事项记录
+	var item = sessionStorage.getItem('homeItem');
+	if(item != "null"){
+		var row = JSON.parse(item);
+		var node = $("#tt").tree('find',row.dcode);
+		locateNode(node);
+		$("#year").val(row.jhnd);
+		zllbCode = node.id;
+		changed(row.stat,undefined,undefined,undefined);
+		sessionStorage.setItem('homeItem',null);
+	}
 }
 
 //定位树节点
 function locateNode(node){
+	click(node);
 	$("#tt").tree('expandTo',node.target);
 	$("#tt").tree('select',node.target);
 	$("#tt").tree('check',node.target);
@@ -870,7 +877,6 @@ function locateNode(node){
         					if(data!=null){
         						disCode = data.anumber;
         					}
-        					
         				},
         				
         			});
